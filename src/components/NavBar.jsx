@@ -17,7 +17,7 @@ export default function Navbar() {
     <nav className="bg-white shadow-md fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <a href="/" className="flex items-center text-2xl font-bold text-primary">
-          <img src={logo} className="h-26 w-auto" alt="B² Solutions Logo" />
+          <img src={logo} className="h-18 md:h-26 w-auto" alt="B² Solutions Logo" />
         </a>
         {/* Desktop links */}
         <div className="hidden md:flex space-x-6">
