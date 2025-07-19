@@ -1,17 +1,21 @@
 // src/components/Hero.jsx
 import React from 'react';
 import HeroImg from '../assets/hero.png';
+import { Parallax } from 'react-parallax';
 
 export default function Hero({ id = "hero" }) {
   return (
-    <section
+    <Parallax
+      tag="section"
       id={id}
+      bgImage={HeroImg}
+      strength={300}
+      bgImageStyle={{ minHeight: '100vh', objectFit: 'cover' }}
       className="relative bg-cover bg-center bg-fixed h-screen flex flex-col items-center justify-center"
-      style={{ backgroundImage: `url(${HeroImg})` }}
+      renderLayer={() => (
+        <div className="absolute inset-0 bg-black opacity-60" />
+      )}
     >
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black opacity-60"></div>
-
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center text-white px-4 max-w-5xl">
         <h1 className="text-4xl md:text-5xl pt-30 text-shadow-lg/50">
@@ -31,6 +35,6 @@ export default function Hero({ id = "hero" }) {
           </a>
         </div>
       </div>
-    </section>
+    </Parallax>
   );
 }

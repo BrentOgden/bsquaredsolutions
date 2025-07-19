@@ -116,7 +116,6 @@ function FlipCard({ tier }) {
               transform: "rotateY(180deg)",
             }}
           >
-            {/* Back header matches front styling */}
             <div className="bg-[#3B82F6]/90 text-white py-4 text-center">
               <h3 className="text-xl font-extrabold">{tier.name}</h3>
             </div>
@@ -139,11 +138,12 @@ export default function Pricing() {
       <Parallax
         bgImage={pricingHero}
         strength={600}
-        bgImageStyle={{ minHeight: "100vh" }}
-        className="bg-cover bg-top-right h-auto py-20 flex items-center justify-center"
-        renderLayer={() => <div className="absolute inset-0 bg-black opacity-60" />}
+        bgImageStyle={{ minHeight: "100vh", objectFit: "cover" }}
+        bgClassName="bg-cover bg-center"
+        className="bg-cover bg-center md:bg-top-right h-auto py-20 flex items-center justify-center"
+        renderLayer={() => <div className="md:absolute inset-0 bg-black opacity-60" />}
       >
-        <div className="relative z-10 container mx-auto px-6">
+        <div className="md:relative z-10 md:container mx-auto px-6">
           <h2 className="text-4xl font-bold text-center mb-12 text-white">
             Find Your Ideal Web Solution
           </h2>
@@ -155,7 +155,11 @@ export default function Pricing() {
             ))}
           </div>
           <p className="mt-6 text-center text-sm text-white">
-            * Click a card to see more details. <a href="#contact" className="font-semibold hover:text-[#3B82F6]">Contact us</a> for a custom quote to fit your needs.
+            * Click a card to see more details.{" "}
+            <a href="#contact" className="font-semibold hover:text-[#3B82F6]">
+              Contact us
+            </a>{" "}
+            for a custom quote to fit your needs.
           </p>
         </div>
       </Parallax>
