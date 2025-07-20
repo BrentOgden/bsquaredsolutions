@@ -18,6 +18,7 @@ import Footer    from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import Checkout  from "./components/Checkout";
 import HashScroll from "./components/HashScroll";
+import CheckoutVenmo from "./components/CheckoutVenmo";
 
 export default function App() {
   return (
@@ -48,11 +49,11 @@ export default function App() {
 
             {/* Checkout route: full page navigation */}
             <Route
-              path="/checkout"
+              path="/checkoutvenmo"
               element={
                 <>
                   {/* you can still show the same Navbar & Footer for consistency */}
-                  <Checkout />
+                  <CheckoutVenmo />
                 </>
               }
             />

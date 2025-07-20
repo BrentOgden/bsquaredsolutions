@@ -19,6 +19,7 @@ const tiers = [
     ],
     details:
       "Get online fast with a powerful, easy-to-manage CMS site—complete with custom templates, built‑in SEO optimization, and two free rounds of revisions. Enjoy full control without any monthly fees.",
+    action: "contact",       // <–– will go to the checkout page
   },
   {
     name: "Custom Site Build",
@@ -33,6 +34,7 @@ const tiers = [
     ],
     details:
       "Experience a fully bespoke React application styled with TailwindCSS. Includes two complimentary revision rounds, on‑page SEO setup, and zero recurring fees—your brand, your way.",
+    action: "contact",       // <–– also checkout
   },
   {
     name: "Website Maintenance",
@@ -46,6 +48,7 @@ const tiers = [
     ],
     details:
       "Keep your site running smoothly and up‑to‑date. From content tweaks to bug fixes and new feature roll‑outs, our $50/hr maintenance service ensures your web presence evolves with your needs.",
+    action: "checkout",        // <–– will scroll to contact form
   },
   {
     name: "Logo Design",
@@ -59,13 +62,12 @@ const tiers = [
     ],
     details:
       "Stand out with a custom logo crafted to your brand vision. Enjoy unlimited revisions, expert design guidance, and receive all final files—web and print ready—yours to own forever.",
+    action: "checkout",        // <–– contact form
   },
 ];
 
 function FlipCard({ tier }) {
   const [flipped, setFlipped] = useState(false);
-
-  // extract numeric amount (e.g. "2000" or "50")
   const numericAmount = tier.price.replace(/[^0-9.]/g, "");
 
   return (
@@ -84,10 +86,7 @@ function FlipCard({ tier }) {
           }}
         >
           {/* FRONT */}
-          <div
-            className="flex flex-col h-full"
-            style={{ backfaceVisibility: "hidden" }}
-          >
+          <div className="flex flex-col h-full" style={{ backfaceVisibility: "hidden" }}>
             <div className="bg-primary text-white py-4 text-center">
               <h3 className="text-xl font-extrabold">{tier.name}</h3>
             </div>
@@ -106,16 +105,26 @@ function FlipCard({ tier }) {
               <p className="text-sm text-center mb-2 italic text-gray-700">
                 {tier.disclaimer}
               </p>
-              <button className="mt-auto w-full py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition">
-                <Link
-                  to={`/checkout?plan=${encodeURIComponent(
-                    tier.name
-                  )}&amount=${numericAmount}`}
-                  className="block w-full h-full"
-                >
-                  Choose Plan
-                </Link>
-              </button>
+
+              {/* ACTION BUTTON */}
+              {tier.action === "checkout" ? (
+                <button className="mt-auto w-full py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition">
+                  <Link
+                    to={`/checkoutvenmo?plan=${encodeURIComponent(
+                      tier.name
+                    )}&amount=${numericAmount}`}
+                    className="block w-full h-full"
+                  >
+                    Choose Plan
+                  </Link>
+                </button>
+              ) : (
+                <button className="mt-auto w-full py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition">
+                  <a href="#contact" className="block w-full h-full">
+                    Customize Plan
+                  </a>
+                </button>
+              )}
             </div>
           </div>
 

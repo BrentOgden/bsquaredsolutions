@@ -2,6 +2,8 @@
 import React from 'react'
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa'
 import logo from '../assets/bsquaredlogowhite.png'
+import { SiVenmo } from "react-icons/si";
+
 
 
 export default function Footer() {
@@ -41,9 +43,14 @@ export default function Footer() {
                             <a href="#" aria-label="YouTube" className="hover:text-gray-700" target='_blank'><FaYoutube size={30} /></a>
                             <a href="#" aria-label="Instagram" className="hover:text-gray-700" target='_blank'><FaInstagram size={30} /></a>
                         </div>
+                        <div className="text-white mt-6 text-left space-y-1">
+                            Payments accepted via <SiVenmo className="text-8xl text-left -my-8 leading-none" />
+                        </div>
                     </div>
                 </div>
+                <div>
 
+                </div>
 
             </div>
 
