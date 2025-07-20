@@ -37,12 +37,12 @@ export default function Services() {
         {items.map(({ title, desc, icon: Icon }) => (
           <div
             key={title}
-            className="p-6 bg-white rounded-xl shadow-lg shadow-[#3B82F6]/50 border border-[#0187e3]/40 hover:shadow-lg transition flex flex-col items-center text-center"
+            className="p-6 bg-white rounded-xl shadow-lg shadow-[#0185e4]/50 border border-[#0185e4]/40 hover:shadow-lg transition flex flex-col items-center text-center"
           >
             {/* render the icon component */}
-            <Icon className="mb-4 text-3xl text-[#3B82F6]" />
+            <Icon className="mb-4 text-3xl text-accent" />
 
-            <h3 className="text-xl text-[#0187e3] font-semibold mb-2">{title}</h3>
+            <h3 className="text-xl text-primary font-semibold mb-2">{title}</h3>
             <p className="text-gray-600">{desc}</p>
           </div>
         ))}

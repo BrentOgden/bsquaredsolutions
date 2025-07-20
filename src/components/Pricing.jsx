@@ -1,6 +1,7 @@
 // src/components/Pricing.jsx
 import React, { useState } from "react";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import pricingHero from "../assets/pricingHero.png";
 import { Parallax } from "react-parallax";
 
@@ -8,7 +9,7 @@ const tiers = [
   {
     name: "CMS Site Build",
     price: "From $2000",
-    disclaimer: "(no recurring fees)",
+    disclaimer: "(price based on complexity - no recurring fees)",
     features: [
       "1 website",
       "Basic support",
@@ -22,7 +23,7 @@ const tiers = [
   {
     name: "Custom Site Build",
     price: "From $3000",
-    disclaimer: "(no recurring fees)",
+    disclaimer: "(price based on complexity - no recurring fees)",
     features: [
       "Complete build from scratch",
       "React w/TailwindCSS",
@@ -36,7 +37,7 @@ const tiers = [
   {
     name: "Website Maintenance",
     price: "$50/hr",
-    disclaimer: "(included with custom site)",
+    disclaimer: "(ad hoc maintenance - separate from included site support)",
     features: [
       "Content revisions/additions",
       "Troubleshooting & site fixes",
@@ -49,9 +50,9 @@ const tiers = [
   {
     name: "Logo Design",
     price: "$80",
-    disclaimer: "(one‑time charge)",
+    disclaimer: "(one‑time charge - covers all formats)",
     features: [
-      "Unlimited revisions",
+      "3 revisions",
       "Dedicated design support",
       "Follows your brand guidelines",
       "Files are yours to use however you wish",
@@ -64,6 +65,9 @@ const tiers = [
 function FlipCard({ tier }) {
   const [flipped, setFlipped] = useState(false);
 
+  // extract numeric amount (e.g. "2000" or "50")
+  const numericAmount = tier.price.replace(/[^0-9.]/g, "");
+
   return (
     <div
       className="cursor-pointer h-full"
@@ -71,7 +75,7 @@ function FlipCard({ tier }) {
       onMouseLeave={() => setFlipped(false)}
       style={{ perspective: 1000 }}
     >
-      <div className="overflow-hidden rounded-xl bg-white hover:shadow-xl hover:shadow-[#0187e3] h-full">
+      <div className="overflow-hidden rounded-xl bg-white hover:shadow-xl hover:shadow-[#0185e4] h-full">
         <div
           className="relative w-full h-full transition-transform duration-700"
           style={{
@@ -84,14 +88,14 @@ function FlipCard({ tier }) {
             className="flex flex-col h-full"
             style={{ backfaceVisibility: "hidden" }}
           >
-            <div className="bg-[#0187e3] text-white py-4 text-center">
+            <div className="bg-primary text-white py-4 text-center">
               <h3 className="text-xl font-extrabold">{tier.name}</h3>
             </div>
             <div className="p-6 flex-1 flex flex-col">
               <ul className="flex-1 mb-6 space-y-2 text-gray-600">
                 {tier.features.map((f) => (
                   <li key={f} className="flex items-center">
-                    <IoShieldCheckmarkOutline className="mr-2 text-lg text-[#3B82F6] flex-shrink-0" />
+                    <IoShieldCheckmarkOutline className="mr-2 text-2xl text-primary flex-shrink-0" />
                     {f}
                   </li>
                 ))}
@@ -99,11 +103,18 @@ function FlipCard({ tier }) {
               <p className="text-2xl text-center font-bold mb-2 text-primary">
                 {tier.price}
               </p>
-              <p className="text-sm text-center mb-2 italic text-primary">
+              <p className="text-sm text-center mb-2 italic text-gray-700">
                 {tier.disclaimer}
               </p>
               <button className="mt-auto w-full py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition">
-                Choose Plan
+                <Link
+                  to={`/checkout?plan=${encodeURIComponent(
+                    tier.name
+                  )}&amount=${numericAmount}`}
+                  className="block w-full h-full"
+                >
+                  Choose Plan
+                </Link>
               </button>
             </div>
           </div>
@@ -116,7 +127,7 @@ function FlipCard({ tier }) {
               transform: "rotateY(180deg)",
             }}
           >
-            <div className="bg-[#3B82F6]/90 text-white py-4 text-center">
+            <div className="bg-accent text-white py-4 text-center">
               <h3 className="text-xl font-extrabold">{tier.name}</h3>
             </div>
             <div className="p-6 flex-1 flex flex-col">
@@ -156,7 +167,7 @@ export default function Pricing() {
           </div>
           <p className="mt-6 text-center text-sm text-white">
             * Click a card to see more details.{" "}
-            <a href="#contact" className="font-semibold hover:text-[#3B82F6]">
+            <a href="#contact" className="font-semibold hover:text-primary">
               Contact us
             </a>{" "}
             for a custom quote to fit your needs.

@@ -29,7 +29,7 @@ export default function Hero({ id = "hero" }) {
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <a
             href="#contact"
-            className="px-6 py-3 bg-[#0187e3] hover:bg-[#3B82F6] text-white font-semibold rounded animate-bounce-slow hover:bg-opacity-90"
+            className="px-6 py-3 bg-[#3d86ca] hover:bg-accent text-white font-semibold rounded animate-bounce-slow"
           >
             Learn How We Can Help
           </a>

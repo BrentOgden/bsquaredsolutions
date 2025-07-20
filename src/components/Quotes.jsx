@@ -87,7 +87,7 @@ export default function QuoteScroller({ interval = 5000, typeSpeed = 50 }) {
                         <blockquote className="italic text-xl md:text-2xl">
                             “{quotes[currentIndex].quote}”
                         </blockquote>
-                        <p className="mt-4 text-[#3B82F6] text-2xl font-semibold inline-flex items-center">
+                        <p className="mt-4 text-primary text-2xl font-semibold inline-flex items-center">
                             <BsDashLg className="mr-2 text-2xl" />
                             {quotes[currentIndex].user}
                         </p>

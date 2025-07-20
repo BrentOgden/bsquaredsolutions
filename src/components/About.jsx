@@ -63,7 +63,7 @@ export default function About() {
                   key={title}
                   className="bg-opacity-10 rounded-lg p-6 flex flex-col items-center text-center text-shadow-lg/50"
                 >
-                  <Icon className="text-6xl mb-4 text-[#3B82F6] text-shadow-lg/50" />
+                  <Icon className="text-6xl mb-4 text-primary text-shadow-lg/50" />
                   <h3 className="text-xl font-extrabold text-white mb-2 text-shadow-lg/50">
                     {title}
                   </h3>

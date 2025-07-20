@@ -6,7 +6,7 @@ import logo from '../assets/bsquaredlogowhite.png'
 
 export default function Footer() {
     return (
-        <footer className="relative w-screen bg-[#0187e3] left-1/2 -translate-x-1/2">
+        <footer className="relative w-screen bg-primary left-1/2 -translate-x-1/2">
             {/* Main content */}
             <div className="max-w-screen container mx-10 md:mx-40 md:px-6 md:mt-6 py-6 grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Branding */}

@@ -26,7 +26,7 @@ export default function Contact() {
     <section id="contact" className="container relative scroll-mt-20 mx-auto px-6 py-20">
       <h2 className="text-3xl font-bold text-center mb-8"> Get Your Free Web Development Quote Today!</h2>
       {submitted ? (
-        <p className="text-blue-600 text-center text-4xl">
+        <p className="text-primary text-center text-4xl">
           Thanks for contacting us! We’ll be in touch shortly.
         </p>
       ) : (
@@ -51,10 +51,11 @@ export default function Contact() {
           />
           <button
             type="submit"
-            className="w-full bg-[#0187e3] text-white font-semibold px-4 py-3 rounded-lg hover:bg-[#3B82F6]/80 transition"
+            className="w-full bg-[#3d86ca] text-white font-semibold px-4 py-3 rounded-lg hover:bg-accent transition-colors duration-200"
           >
             Send Message
           </button>
+
         </form>
       )}
     </section>
