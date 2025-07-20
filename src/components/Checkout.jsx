@@ -24,7 +24,7 @@ export default function Checkout() {
 
   // Fetch the Braintree client token
   useEffect(() => {
-    fetch("http://localhost:3001/client_token")
+    fetch("/api/client_token")
       .then((res) => {
         if (!res.ok) throw new Error(`Token fetch failed: ${res.status}`);
         return res.json();
@@ -78,7 +78,7 @@ export default function Checkout() {
     if (!dropinInstance.current) return;
     try {
       const { nonce } = await dropinInstance.current.requestPaymentMethod();
-      const res = await fetch("http://localhost:3001/checkout", {
+      const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
