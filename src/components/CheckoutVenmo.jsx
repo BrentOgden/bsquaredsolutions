@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SiVenmo } from "react-icons/si";
 
-
 export default function CheckoutVenmo() {
   const [searchParams] = useSearchParams();
   const planParam = searchParams.get("plan") || "Your Plan";
@@ -13,7 +12,7 @@ export default function CheckoutVenmo() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  const venmoUsername = "BrentOgden";
+  const venmoUsername = "bsquaredsolutions";
   const note = encodeURIComponent(`Payment for ${planParam} - $${amountParam}`);
   const venmoLink = `venmo://paycharge?txn=pay&recipients=${venmoUsername}&amount=${amountParam}&note=${note}`;
   const fallbackLink = `https://venmo.com/${venmoUsername}?txn=pay&amount=${amountParam}&note=${note}`;
@@ -27,17 +26,20 @@ export default function CheckoutVenmo() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Instructions */}
         <div className="px-8">
-          To help us receive the full amount of your payment without Venmo’s transaction fees,
-          please send your payment as a GIFT in the Venmo app. When you open the Venmo payment
-          screen, choose Pay, enter the exact amount shown above, select the Friends option
-          (or Business if you’re using a business profile), and in the What’s it for? field
-          begin your note with GIFT – (for example: GIFT – Payment for Custom Site Build).
-          This ensures that Venmo treats the transaction as a gift, sparing B Squared Solutions
-          from any additional fees that we would have to pass on to you. Once you’ve confirmed
-          the details, tap Pay to complete your gift payment.
-          
+          <p className="mb-6">
+            To help us receive the full amount of your payment without Venmo’s transaction fees,
+            we request you send your payment as a <strong>GIFT</strong> in the Venmo app.
+          </p>
+          <p>
+            When you open the Venmo payment screen, choose Pay, enter the exact amount shown above,
+            select the Friends option (or Business if you’re using a business profile), and in the
+            What’s it for? field begin your note with <strong>GIFT</strong> – (for example:
+            GIFT – Payment for Custom Site Build). This ensures that Venmo treats the transaction as
+            a gift, sparing B Squared Solutions from any additional fees that we would have to pass
+            on to you. Once you’ve confirmed the details, tap <strong>Pay</strong> to complete your
+            gift payment.
+          </p>
         </div>
-
 
         {/* Order Summary */}
         <div>
@@ -59,12 +61,12 @@ export default function CheckoutVenmo() {
               <a
                 href={venmoLink}
                 onClick={(e) => {
-                  const win = window.open(venmoLink);
+                  // Attempt deep link
+                  window.location.href = venmoLink;
+                  // Fallback to web after short delay
                   setTimeout(() => {
-                    if (!win || win.closed) {
-                      window.location.href = fallbackLink;
-                    }
-                  }, 500);
+                    window.location.href = fallbackLink;
+                  }, 100);
                   e.preventDefault();
                 }}
                 className="inline-flex items-center justify-center bg-[#3D86CA] text-white font-semibold px-6 py-1 rounded-lg hover:bg-[#0185e4] transition-colors"
