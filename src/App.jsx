@@ -3,27 +3,26 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  HashRouter
+  Route
 } from "react-router-dom";
 
-import Navbar from "./components/NavBar";
-import Hero      from "./components/Hero";
-import Services  from "./components/Services";
-import Pricing   from "./components/Pricing";
-import QuoteScroller from "./components/Quotes";
-import About     from "./components/About";
-import Contact   from "./components/Contact";
-import Footer    from "./components/Footer";
-import ScrollToTop from "./components/ScrollToTop";
-import Checkout  from "./components/Checkout";
-import HashScroll from "./components/HashScroll";
-import CheckoutVenmo from "./components/CheckoutVenmo";
+import Navbar         from "./components/Navbar";
+import Hero           from "./components/Hero";
+import Services       from "./components/Services";
+import Pricing        from "./components/Pricing";
+import QuoteScroller  from "./components/Quotes";
+import About          from "./components/About";
+import Contact        from "./components/Contact";
+import Footer         from "./components/Footer";
+import ScrollToTop    from "./components/ScrollToTop";
+import HashScroll     from "./components/HashScroll";
+import Checkout       from "./components/Checkout";
+import CheckoutVenmo  from "./components/CheckoutVenmo";
+import Terms          from "./components/Terms";
+import Privacy        from "./components/Privacy";
 
 export default function App() {
   return (
-    // Use HashRouter if you’re hosting statically and want anchor‐only routing,
-    // otherwise BrowserRouter is fine if your host rewrites 404→index.html.
     <Router>
       <div className="flex flex-col overflow-x-hidden min-h-screen">
         <Navbar />
@@ -32,7 +31,7 @@ export default function App() {
 
         <main className="flex-grow">
           <Routes>
-            {/* “Home” route: all your anchor‐scroll sections */}
+            {/* Home (all sections on one page) */}
             <Route
               path="/"
               element={
@@ -47,16 +46,11 @@ export default function App() {
               }
             />
 
-            {/* Checkout route: full page navigation */}
-            <Route
-              path="/checkoutvenmo"
-              element={
-                <>
-                  {/* you can still show the same Navbar & Footer for consistency */}
-                  <CheckoutVenmo />
-                </>
-              }
-            />
+            {/* Full‐page routes */}
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkoutvenmo" element={<CheckoutVenmo />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
           </Routes>
         </main>
 

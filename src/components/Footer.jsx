@@ -78,6 +78,9 @@ export default function Footer() {
             <div className="w-full">
                 <div className="max-w-screen-xl mx-auto px-6 py-2 text-center text-white text-sm">
                     © {new Date().getFullYear()} B Squared Solutions. All rights reserved.
+                    <a href="/terms" className="hover:text-gray-700 text-white ml-4">Terms |</a>
+                    <a href="/privacy" className="hover:text-gray-700 text-white"> Privacy</a>
+
                 </div>
             </div>
         </footer>
