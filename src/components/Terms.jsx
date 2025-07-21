@@ -5,7 +5,7 @@ export default function Terms() {
   return (
     <section
       id="terms"
-      className="container mx-auto w-7xl px-40 text-justified mt-20 py-20 scroll-mt-20"
+      className="container mx-auto md:w-7xl px-8 md:px-40 text-justified mt-30 mb-30 md:mt-20 md:py-20 scroll-mt-20"
     >
       <h1 className="text-3xl md:text-4xl font-bold text-primary text-center mb-8">
         Terms &amp; Conditions

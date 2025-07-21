@@ -19,10 +19,10 @@ export default function Footer() {
                     <img
                         src={logo}
                         alt="B Squared Solutions"
-                        className="h-26 w-auto items-center px-25 md:h-25 mb-4 md:px-0 md:w-auto"
+                        className="h-26 w-auto items-center px-25 md:h-25 mb-6 md:px-0 md:w-auto"
                     />
-                    <div className="space-y-2 text-white text-center md:text-left">
-                        <div className="flex items-center justify-center md:justify-start">
+                    <div className="space-y-2 text-white text-left md:text-left">
+                        <div className="flex md:items-center  justify-left ml-10 md:ml-0">
                             <MdOutlineMailOutline className="mr-2 text-xl" />
                             <a
                                 href="mailto:support@bsquaredsolutions.io"
@@ -31,7 +31,7 @@ export default function Footer() {
                                 support@bsquaredsolutions.io
                             </a>
                         </div>
-                        <div className="flex items-center justify-center md:justify-start">
+                        <div className="flex md:items-center justify-left ml-10 md:ml-0">
                             <IoIosPhonePortrait className="mr-2 text-xl" />
                             <a
                                 href="tel:7202545354"
@@ -78,7 +78,7 @@ export default function Footer() {
             <div className="w-full">
                 <div className="max-w-screen-xl mx-auto px-6 py-2 text-center text-white text-sm">
                     © {new Date().getFullYear()} B Squared Solutions. All rights reserved.
-                    <a href="/terms" className="hover:text-gray-700 text-white ml-4">Terms |</a>
+                    <a href="/terms" className="hover:text-gray-700 text-white ml-1 md:ml-4">Terms |</a>
                     <a href="/privacy" className="hover:text-gray-700 text-white"> Privacy</a>
 
                 </div>
