@@ -61,7 +61,7 @@ const tiers = [
       "Files are yours to use however you wish",
     ],
     details:
-      "Stand out with a custom logo crafted to your brand vision. Enjoy unlimited revisions, expert design guidance, and receive all final files—web and print ready—yours to own forever.",
+      "Stand out with a custom logo crafted to your brand vision. Enjoy included revisions, expert design guidance, and receive all final files—web and print ready—yours to own forever.",
     action: "checkout",        // <–– contact form
   },
 ];

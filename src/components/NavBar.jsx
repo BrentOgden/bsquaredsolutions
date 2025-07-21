@@ -5,31 +5,40 @@ import logo from '../assets/bsquaredlogo2.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const links = ["Home","Services","Pricing","About","Contact"];
+
+  
+  // Added "FAQ" at the end
+  const links = ["Home", "Services", "Pricing", "About", "FAQ", "Contact", ];
+
   const slugMap = {
-    Home:     "hero",
+    Home: "hero",
     Services: "services",
-    Pricing:  "pricing",
-    About:    "about",
-    Contact:  "contact",
+    Pricing: "pricing",
+    About: "about",
+    Contact: "contact",
+    // no slugMap entry for FAQ
   };
 
-  const handleClick = (e, slug) => {
+  const handleClick = (e, link) => {
     e.preventDefault();
     setIsOpen(false);
 
-    // If we're already on the home route, just scroll
+    // FAQ is a standalone page
+    if (link === "FAQ") {
+      window.location.href = "/faq";
+      return;
+    }
+
+    // For the others, scroll or navigate back home  hash
+    const slug = slugMap[link];
     if (window.location.pathname === "/") {
       if (slug === "hero") {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         const el = document.getElementById(slug);
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     } else {
-      // If on any other route, navigate back to home + hash
       window.location.href = `/#${slug}`;
     }
   };
@@ -37,17 +46,13 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo always scrolls to top */}
+        {/* Logo always to home top */}
         <a
           href="/#hero"
-          onClick={(e) => handleClick(e, slugMap.Home)}
+          onClick={(e) => handleClick(e, "Home")}
           className="flex items-center text-2xl font-bold text-primary"
         >
-          <img
-            src={logo}
-            className="h-18 md:h-26 w-auto"
-            alt="B² Solutions Logo"
-          />
+          <img src={logo} className="h-18 md:h-26 w-auto" alt="B² Solutions Logo" />
         </a>
 
         {/* Desktop links */}
@@ -55,8 +60,12 @@ export default function Navbar() {
           {links.map((link) => (
             <a
               key={link}
-              href={`/#${slugMap[link]}`}
-              onClick={(e) => handleClick(e, slugMap[link])}
+              href={
+                link === "FAQ"
+                  ? "/faq"
+                  : `/#${slugMap[link]}`
+              }
+              onClick={(e) => handleClick(e, link)}
               className="text-gray-700 text-xl hover:text-accent hover:border-b transition"
             >
               {link}
@@ -74,15 +83,19 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile tray below navbar */}
+      {/* Mobile tray */}
       {isOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-md z-40">
           <div className="px-6 py-4 flex flex-col space-y-4">
             {links.map((link) => (
               <a
                 key={link}
-                href={`/#${slugMap[link]}`}
-                onClick={(e) => handleClick(e, slugMap[link])}
+                href={
+                  link === "FAQ"
+                    ? "/faq"
+                    : `/#${slugMap[link]}`
+                }
+                onClick={(e) => handleClick(e, link)}
                 className="text-gray-700 text-2xl hover:text-accent transition"
               >
                 {link}

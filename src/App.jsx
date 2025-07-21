@@ -6,7 +6,7 @@ import {
   Route
 } from "react-router-dom";
 
-import Navbar         from "./components/Navbar";
+import Navbar from "./components/NavBar";
 import Hero           from "./components/Hero";
 import Services       from "./components/Services";
 import Pricing        from "./components/Pricing";
@@ -20,6 +20,7 @@ import Checkout       from "./components/Checkout";
 import CheckoutVenmo  from "./components/CheckoutVenmo";
 import Terms          from "./components/Terms";
 import Privacy        from "./components/Privacy";
+import FAQ from "./components/FAQ";
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
                   <Pricing />
                   <QuoteScroller />
                   <About />
+                  
                   <Contact />
                 </>
               }
@@ -48,6 +50,7 @@ export default function App() {
 
             {/* Full‐page routes */}
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/faq" element={<FAQ />} />
             <Route path="/checkoutvenmo" element={<CheckoutVenmo />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />

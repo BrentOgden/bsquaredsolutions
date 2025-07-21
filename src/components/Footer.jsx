@@ -52,6 +52,7 @@ export default function Footer() {
                             <li><a href="#services" className="hover:text-gray-700">Services</a></li>
                             <li><a href="#pricing" className="hover:text-gray-700">Pricing</a></li>
                             <li><a href="#about" className="hover:text-gray-700">Why Choose Us</a></li>
+                            <li><a href="/faq" className="hover:text-gray-700">FAQs</a></li>
                             <li><a href="#contact" className="hover:text-gray-700">Get a Free Quote</a></li>
                         </ul>
                     </div>
