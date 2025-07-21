@@ -3,6 +3,9 @@ import React from 'react'
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa'
 import logo from '../assets/bsquaredlogowhite.png'
 import { SiVenmo } from "react-icons/si";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { IoIosPhonePortrait } from "react-icons/io";
+
 
 
 
@@ -16,11 +19,28 @@ export default function Footer() {
                     <img
                         src={logo}
                         alt="B Squared Solutions"
-                        className="h-26 w-auto items-center px-25 md:h-30 mb-4 md:px-0 md:w-auto"
+                        className="h-26 w-auto items-center px-25 md:h-25 mb-4 md:px-0 md:w-auto"
                     />
-                    {/* <p className="text-md text-white pr-20 text-center md:text-left">
-                        Your go‑to digital growth partner—offering bespoke React & Tailwind websites, strategic technical consulting, data‑driven SEO & marketing, and dedicated ongoing support to power your online success.
-                    </p> */}
+                    <div className="space-y-2 text-white text-center md:text-left">
+                        <div className="flex items-center justify-center md:justify-start">
+                            <MdOutlineMailOutline className="mr-2 text-xl" />
+                            <a
+                                href="mailto:support@bsquaredsolutions.io"
+                                className="hover:text-gray-700"
+                            >
+                                support@bsquaredsolutions.io
+                            </a>
+                        </div>
+                        <div className="flex items-center justify-center md:justify-start">
+                            <IoIosPhonePortrait className="mr-2 text-xl" />
+                            <a
+                                href="tel:7202545354"
+                                className="hover:text-gray-700"
+                            >
+                                720.254.5354
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Explore links */}
@@ -44,7 +64,7 @@ export default function Footer() {
                             <a href="#" aria-label="Instagram" className="hover:text-gray-700" target='_blank'><FaInstagram size={30} /></a>
                         </div>
                         <div className="text-white mt-6 text-left space-y-1">
-                            Payments accepted via <SiVenmo className="text-8xl text-left -my-8 leading-none" />
+                            Payments accepted via <SiVenmo className="text-6xl text-left -my-4 leading-none" />
                         </div>
                     </div>
                 </div>
