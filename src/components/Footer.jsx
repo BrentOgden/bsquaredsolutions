@@ -96,8 +96,8 @@ export default function Footer() {
               <a href="#" aria-label="YouTube" className="hover:text-gray-700" target="_blank"><FaYoutube size={30} /></a>
               <a href="#" aria-label="Instagram" className="hover:text-gray-700" target="_blank"><FaInstagram size={30} /></a>
             </div>
-            <div className="text-white mt-6 text-left space-y-1">
-              Payments accepted via <SiVenmo className="text-6xl text-left leading-none" />
+            <div className="text-white mt-6 text-left">
+              Payments accepted via <SiVenmo className="text-6xl text-left -mt-3 leading-none" />
             </div>
           </div>
         </div>
@@ -111,10 +111,10 @@ export default function Footer() {
         <div className="max-w-screen-xl mx-auto px-6 py-2 text-center text-white text-sm">
           © {new Date().getFullYear()} B Squared Solutions. All rights reserved.
           <a href="/terms" className="hover:text-gray-700 text-white ml-1 md:ml-4">
-            Terms |
+            Terms | 
           </a>
           <a href="/privacy" className="hover:text-gray-700 text-white">
-            Privacy
+            &nbsp;Privacy
           </a>
         </div>
       </div>

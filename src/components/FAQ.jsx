@@ -49,9 +49,9 @@ const faqs = [
       "Absolutely! Our website build packages include intitial custom SEO integration and Google Analytics. We also offer on‑page SEO audits, keyword research, Google Analytics/Tag Manager setup, and basic content strategy for existing sites to help your site rank and convert (for existing sites, you would select the maintenance plan option).",
   },
   {
-    question: "Do you charge a monthly fee once the site is complete for maintainance and monitoring?",
+    question: "Once the site is complete, do you charge a monthy fee for maintenance or monitoring?",
     answer:
-      "All site builds include maintenance (content updates, asset updates, requested enhancements, etc.) for the specified period (3 months for CMS and 6 months for custom). Once that period has expired, you can choose the ad-hoc mainenance option when needed and we will make the updates. NOTE: For CMS hosted sites, you will receive a login to the dashboard so that you may make updates yourself. ",
+      "All site builds include maintenance (content updates, asset updates, requested enhancements, etc.) for the specified period (3 months for CMS and 6 months for custom). Once that period has expired, you can choose the ad-hoc maintenance option when needed and we will make the updates. NOTE: For CMS hosted sites, you will receive a login to the dashboard so that you may make updates yourself. ",
   },
   {
     question: "What if I need a service that is not listed on your site?",
@@ -69,7 +69,7 @@ const faqs = [
       "We are more than happy to work with you to design a site that meets your needs whether you want us to build the site or not. However, we feel like we are best qualified to bring that design to fruition and would love to do the entire project for you. If you want standalone design services only, send us an email or fill out the contact form and we will provide an initial consultation. ",
   },
   {
-    question: "Is your website build pricing based on expected hours for the project or is it a flat rate?  ",
+    question: "How do you determine the custom price to build my website?  ",
     answer:
       "The quote that we provide will be based on several factors including complexity of the site (how many pages, backend functionality, etc.), estimated time to complete the project, amount of assets/volume of copy and whether or not integrations are needed (i.e. Shopify). There is no specific hourly rate for these sites, but an estimate of the # of hours needed is factored into the quote. If the project takes significantly less time than quoted, we can work with you to adjust the final payment. ",
   },
