@@ -33,6 +33,12 @@ export default function Hero({ id = "hero" }) {
           >
             Learn How We Can Help
           </a>
+          <a
+              href="/portfolio"
+              className="px-6 py-3 border-2 border-white text-white font-semibold rounded animate-bounce-slow hover:bg-white hover:text-gray-900" target="_blank"
+            >
+              Our Recent Projects
+            </a>
         </div>
       </div>
     </Parallax>

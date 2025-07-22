@@ -21,6 +21,7 @@ import CheckoutVenmo  from "./components/CheckoutVenmo";
 import Terms          from "./components/Terms";
 import Privacy        from "./components/Privacy";
 import FAQ from "./components/FAQ";
+import Portfolio from "./components/Portfolio";
 
 export default function App() {
   return (
@@ -50,6 +51,7 @@ export default function App() {
 
             {/* Full‐page routes */}
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/checkoutvenmo" element={<CheckoutVenmo />} />
             <Route path="/terms" element={<Terms />} />

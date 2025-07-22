@@ -1,0 +1,102 @@
+// src/components/Portfolio.jsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import socials from '../assets/screenshots/denversocials_com_hero.png'
+import geo from '../assets/screenshots/sustainablegeospatial_com.png'
+import adenver from '../assets/screenshots/www_a_denverroofing_com_residential_roofing_lp_.png'
+import ranger from '../assets/screenshots/rangergoldenstud_com.png'
+import psp from '../assets/screenshots/www_pspcompass_com.png'
+
+const projects = [
+  {
+    id: 1,
+    title: 'Denver Socials',
+    description:
+      'A community‑first networking hub that curates and promotes local social gatherings to support Denver nonprofits and impact organizations. The homepage showcases upcoming mixers, volunteer events, and fundraisers—each with RSVP links and event highlights—making it easy for professionals and changemakers to connect, give back, and stay plugged into the city’s social good scene.',
+    imageUrl: socials,
+    url: 'https://denversocials.com',
+  },
+  {
+    id: 2,
+    title: 'Sustainable Geospatial',
+    description:
+      'A Denver‑based GIS consulting firm delivering end‑to‑end geospatial solutions for environmental and planning projects. The site highlights services like remote sensing & spectral analysis, LiDAR & photogrammetric 3D modeling, custom web mapping, and cartographic design—all underpinned by a commitment to sustainability, people, planet, and profit. Clients can explore case‑study galleries, download spec sheets, and schedule consultations directly through the streamlined contact form.',
+    imageUrl: geo,
+    url: 'https://sustainablegeospatial.com',
+  },
+  {
+    id: 3,
+    title: 'A‑Denver Roofing',
+    description:
+      'A lead‑focused landing page for a full‑service roofing contractor in Denver, optimized for conversions with sticky CTAs, testimonial sliders, and clear breakdowns of residential & commercial roofing, gutter, siding, and exterior painting services. Built on WordPress with SEO‑friendly schema markup, fast load speeds, and mobile‑first design, it drives free estimates via an above‑the‑fold contact form and highlights their Weather Stopper Guarantee and A+ BBB rating.',
+    imageUrl: adenver,
+    url: 'https://www.a-denverroofing.com/residential-roofing-lp/',
+  },
+  {
+    id: 4,
+    title: 'Ranger Golden Stud',
+    description:
+      'An AKC‑registered Golden Retriever stud service site, showcasing “Ranger of the Rocky Mountains”—a health‑tested, OFA‑certified male with champion bloodlines. The simple brochure layout features a photo gallery, pedigree and health information, service details (including pricing and booking), and contact info for breeders seeking top‑quality litters.',
+    imageUrl: ranger,
+    url: 'https://rangergoldenstud.com',
+  },
+  {
+    id: 5,
+    title: 'PSP Compass Solutions',
+    description:
+      'A Denver digital marketing agency that guides businesses through every step of the online landscape. The homepage (“Find True North”) presents their People+Service=Profit philosophy, and outlines core offerings—Google Ads, email campaigns, social media management, website design, and local SEO—alongside a free online presence scan tool. Each service section includes quick consultation CTAs, client success stories, and a clear process flow from research to support.',
+    imageUrl: psp,
+    url: 'https://www.pspcompass.com',
+  },
+//   {
+//     id: 6,
+//     title: 'Mile High Mashup',
+//     description:
+//       'A sports news and highlights platform dedicated to Denver’s pro and college teams. Features live score tickers, game recaps, and multimedia highlights, all wrapped in a responsive, media‑rich layout to keep fans engaged on desktop and mobile.',
+//     imageUrl: '/screenshots/milehighmashup_com.png',
+//     url: 'https://milehighmashup.com',
+//   },
+];
+
+export default function Portfolio() {
+  return (
+    <section className="py-16 mt-30 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center text-primary mb-8">
+          Our Recent Projects
+        </h2>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => (
+            <motion.a
+              key={project.id}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block rounded-2xl overflow-hidden shadow-lg bg-white"
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            >
+              {/* IMAGE CONTAINER */}
+              <div className="overflow-hidden h-48">
+                <motion.img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="w-full h-auto object-cover object-top transition-transform duration-1000 ease-in-out"
+                  whileHover={{ y: '-30%' }}
+                />
+              </div>
+              {/* TEXT CONTENT */}
+              <div className="p-6">
+                <h3 className="text-xl text-primary font-semibold mb-2">{project.title}</h3>
+                <p className="text-gray-700 mb-4">{project.description}</p>
+                <span className="inline-block text-white border border-primary bg-primary px-4 py-2 font-medium rounded">
+                  View Live →
+                </span>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
