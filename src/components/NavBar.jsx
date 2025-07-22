@@ -52,7 +52,7 @@ export default function Navbar() {
           onClick={(e) => handleClick(e, "Home")}
           className="flex items-center text-2xl font-bold text-primary"
         >
-          <img src={logo} className="h-18 md:h-26 w-auto" alt="B² Solutions Logo" />
+          <img src={logo} className="h-18 md:h-22 w-auto" alt="B² Solutions Logo" />
         </a>
 
         {/* Desktop links */}
