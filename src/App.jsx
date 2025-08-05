@@ -22,6 +22,8 @@ import Terms          from "./components/Terms";
 import Privacy        from "./components/Privacy";
 import FAQ from "./components/FAQ";
 import Portfolio from "./components/Portfolio";
+import Packages from "./components/Packages";
+import Templates from "./components/Templates";
 
 export default function App() {
   return (
@@ -52,6 +54,8 @@ export default function App() {
             {/* Full‐page routes */}
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/packages" element={<Packages />} />
+            <Route path="/templates" element={<Templates />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/checkoutvenmo" element={<CheckoutVenmo />} />
             <Route path="/terms" element={<Terms />} />

@@ -6,11 +6,14 @@ import puppeteer from 'puppeteer';
 
 // List of sites you want to capture
 const sites = [
-  'https://sustainablegeospatial.com',
-  'https://denversocials.com/#hero',
-  'https://www.a-denverroofing.com/residential-roofing-lp/',
-  'https://rangergoldenstud.com',
-  'https://www.pspcompass.com',
+  // 'https://sustainablegeospatial.com',
+  // 'https://denversocials.com/#hero',
+  // 'https://www.a-denverroofing.com/residential-roofing-lp/',
+  // 'https://rangergoldenstud.com',
+  // 'https://www.pspcompass.com',
+  'https://fantasycentral.co/#/home',
+  // 'https://www.milehighmashup.com',
+  // 'https://www.jbsimplyclean.com',
 ];
 
 (async () => {

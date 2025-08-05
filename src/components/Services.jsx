@@ -22,7 +22,7 @@ const items = [
   },
   {
     title: "Ongoing Support",
-    desc: "Keep your site running smoothly with proactive maintenance, 24/7 monitoring, and rapid feature roll‑outs as your needs evolve.",
+    desc: "Keep your site running smoothly with proactive maintenance, monitoring, and rapid feature roll‑outs as your needs evolve.",
     icon: IoHeadsetOutline,
   },
 ];
