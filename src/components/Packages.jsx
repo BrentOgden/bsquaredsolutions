@@ -2,13 +2,15 @@
 import React from 'react';
 import { FiCheck } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import hero from '../assets/packageHero.jpg';
 
 const packagesData = [
   {
     id: 'starter',
     title: 'Starter',
     price: '$1,500',
-    blurb: 'Ideal for solo entrepreneurs or small businesses needing a clean, conversion-focused site.',
+    blurb:
+      'Ideal for solo entrepreneurs or small businesses needing a clean, conversion-focused site.',
     subtitle: '',
     features: [
       'Up to 5 custom-designed pages',
@@ -96,7 +98,8 @@ const packagesData = [
     id: 'allinclusive',
     title: 'The Works',
     price: 'Custom Pricing',
-    blurb: 'Our full-service, end-to-end solution: strategy, design, build & beyond.',
+    blurb:
+      'Our full-service, end-to-end solution: strategy, design, build & beyond.',
     subtitle: '',
     features: [
       'Unlimited pages, features & custom code',
@@ -112,74 +115,97 @@ const packagesData = [
   },
 ];
 
-export default function Packages({
-  packages = packagesData,
-  onCtaClick, // optional callback instead of href
-}) {
+export default function Packages({ packages = packagesData, onCtaClick }) {
   return (
-    <section id="packages" className="py-16 px-4 mt-30 bg-gray-50">
-      <div className="max-w-6xl mx-auto text-center mb-12">
-        <h2 className="text-4xl font-bold text-primary mb-3">Web Packages</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Transparent pricing and deliverables so you know exactly what you’re getting.
-        </p>
-      </div>
+    <>
+      {/* Hero Banner */}
+      <section
+        id="packages-hero"
+        className="relative bg-cover bg-bottom-center h-[500px] flex items-center justify-center"
+        style={{ backgroundImage: `url(${hero})` }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 text-center mt-26 px-4">
+          <h2 className="text-4xl lg:text-5xl text-shadow-lg/50 font-bold text-white mb-4">
+            Web Packages
+          </h2>
+          <p className="text-lg text-gray-200 max-w-2xl text-shadow-lg/50 mx-auto">
+            Transparent pricing and deliverables so you know exactly what
+            you’re getting.
+          </p>
+        </div>
+      </section>
 
-      <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-3">
-        {packages.map((pkg) => (
-          <div
-            key={pkg.id}
-            className={[
-              'relative flex flex-col rounded-2xl shadow-xl overflow-hidden bg-white',
-              'transition-transform duration-300 hover:-translate-y-1',
-              pkg.popular ? 'ring-2 ring-primary' : '',
-            ].join(' ')}
-          >
-            {pkg.popular && (
-              <span className="absolute top-0 right-0 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-bl-2xl">
-                Most Popular
-              </span>
-            )}
-
-            {/* Header */}
-            <div className="p-8 pb-6">
-              <h3 className="text-2xl font-semibold mb-2">{pkg.title}</h3>
-              <div className="text-3xl font-bold text-primary mb-2">{pkg.price}</div>
-              <p className="text-gray-600">{pkg.blurb}</p>
-              <p className="text-gray-600 font-bold pt-6">{pkg.subtitle}</p>
-            </div>
-
-            {/* Feature list */}
-            <ul className="px-8 flex-1 space-y-3 mb-8">
-              {pkg.features.map((f, i) => (
-                <li key={i} className="flex items-start gap-2 text-gray-700">
-                  <FiCheck className="mt-1 flex-shrink-0 text-primary" />
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-
-            {/* CTA */}
-            <div className="px-8 pb-8">
-              {onCtaClick ? (
-                <button
-                  onClick={() => onCtaClick(pkg.path)}
-                  className="w-full bg-primary hover:bg-[#8D3202] text-white font-semibold py-3 rounded-lg cursor-pointer transition-colors"
-                >
-                  {pkg.cta}
-                </button>
-              ) : (
-                <Link
-                  to={pkg.path}
-                  className="block w-full text-center bg-primary hover:bg-[#8D3202] text-white font-semibold py-3 rounded-lg transition-colors"
-                >
-                  {pkg.cta}
-                </Link>
+      {/* Packages Grid */}
+      <section
+        id="packages"
+        className="py-16 px-4 bg-gray-50"
+      >
+        <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-3">
+          {packages.map((pkg) => (
+            <div
+              key={pkg.id}
+              className={`relative flex flex-col rounded-2xl shadow-xl overflow-hidden hover:shadow-lg hover:shadow-[#0185e4]/30 bg-white
+                          transition-transform duration-300 hover:-translate-y-1
+                          ${pkg.popular ? 'ring-2 ring-[#3d86ca]' : ''}`}
+            >
+              {pkg.popular && (
+                <span className="absolute top-0 right-0 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-bl-2xl">
+                  Most Popular
+                </span>
               )}
+
+              {/* Header */}
+              <div className="p-8 pb-6">
+                <h3 className="text-2xl font-semibold mb-2">
+                  {pkg.title}
+                </h3>
+                <div className="text-3xl font-bold text-primary mb-2">
+                  {pkg.price}
+                </div>
+                <p className="text-gray-700">{pkg.blurb}</p>
+                {pkg.subtitle && (
+                  <p className="text-gray-700 font-bold pt-4">
+                    {pkg.subtitle}
+                  </p>
+                )}
+              </div>
+
+              {/* Feature list */}
+              <ul className="px-8 flex-1 space-y-3 mb-8">
+                {pkg.features.map((f, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-gray-700"
+                  >
+                    <FiCheck className="mt-1 flex-shrink-0 text-primary" />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA */}
+              <div className="px-8 pb-8">
+                {onCtaClick ? (
+                  <button
+                    onClick={() => onCtaClick(pkg.path)}
+                    className="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-lg transition"
+                  >
+                    {pkg.cta}
+                  </button>
+                ) : (
+                  <Link
+                    to={pkg.path}
+                    className="block w-full text-center bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-lg transition"
+                  >
+                    {pkg.cta}
+                  </Link>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }

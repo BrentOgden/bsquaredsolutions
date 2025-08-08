@@ -6,6 +6,9 @@ import geo from '../assets/screenshots/sustainablegeospatial_com.png'
 import adenver from '../assets/screenshots/www_a_denverroofing_com_residential_roofing_lp_.png'
 import ranger from '../assets/screenshots/rangergoldenstud_com.png'
 import psp from '../assets/screenshots/www_pspcompass_com.png'
+import milehigh from '../assets/screenshots/www_milehighmashup_com.png'
+import fantasy from '../assets/screenshots/fantasycentral_co_home.png'
+import jb from '../assets/screenshots/www_jbsimplyclean_com.png'
 
 const projects = [
   {
@@ -53,7 +56,7 @@ const projects = [
     title: 'Mile High Mashup',
     description:
       'A custom-built, mobile-first sports hub for Denver fans, Mile High Mashup delivers non-stop coverage of the Broncos, Nuggets, Avalanche and Mammoth. The site opens with a bold hero and calls-to-action, then breaks content into clear, tabbed sections—News, Videos, Classic Moments and “Did You Know?” team-fact cards—each powered by high-res logos and imagery. An interactive scoreboard preview surfaces recent game results, while deep-dive team stat panels showcase division titles, playoff runs and championship histories. All wrapped in a vibrant, responsive layout that keeps Mile High City supporters connected to every headline, highlight and historic moments.',
-    imageUrl: '/screenshots/www_milehighmashup_com.png',
+    imageUrl: milehigh,
     url: 'https://milehighmashup.com',
   },
   {
@@ -61,7 +64,7 @@ const projects = [
     title: 'Fantasy Central',
     description:
       'A custom-built React/Tailwind web app that serves as the central hub for two fantasy-football leagues, featuring real-time standings, league awards and statistics, and a live countdown to draft day. Integrated with MyFantasyLeague and CBS Sports for up-to-the-minute stats, it offers managers an intuitive dashboard of team records, weekly awards, and dynasty-league insights—all wrapped in a modern, responsive design optimized for both desktop and mobile.',
-    imageUrl: '/screenshots/fantasycentral_co_home.png',
+    imageUrl: fantasy,
     url: 'https://fantasycentral.co',
   },
   {
@@ -69,7 +72,7 @@ const projects = [
     title: 'J & B Simplyclean',
     description:
       'J & B Simply Clean’s site is a polished, mobile-first build for a family-owned cleaning business in Berthoud, CO, showcasing their core offerings—carpet cleaning, air-duct cleaning, water extraction and more—in a clear, service-focused layout. A prominent “Request a Quote” form and click-to-call button drive lead capture, while dedicated pages dive into each service with SEO-optimized copy, pricing transparency (“soft quotes” followed by firm bids), and trust signals like competitive pricing, timely arrival windows, and honest estimates. The site also includes a secure client login portal, an about section that reinforces their family-run ethos, and a footer with full contact details and site navigation—all wrapped in a responsive, user-friendly design that performs seamlessly on desktop and mobile.',
-    imageUrl: '/screenshots/www_jbsimplyclean_com.png',
+    imageUrl: jb,
     url: 'https://jbsimplyclean.com',
   },
 ];
