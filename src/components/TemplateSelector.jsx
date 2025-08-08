@@ -83,13 +83,16 @@ export default function TemplateSelector({ templates, thumbHeight = 250 }) {
 
                 {/* Download button */}
                 <a
-                  href={tpl.downloadUrl}
-                  download
+                  href={`/checkoutvenmo?plan=${encodeURIComponent(tpl.name)}&amount=${tpl.price.replace(/[^0-9.]/g, '')}`}
                   className="mt-6 inline-flex items-center text-lg justify-center bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-5 rounded-lg transition-colors"
                 >
                   <GiShoppingCart className="mr-2 text-2xl" />
                   Buy Now
                 </a>
+
+
+
+
               </div>
             </div>
           );

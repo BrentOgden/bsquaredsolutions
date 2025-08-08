@@ -1,85 +1,100 @@
-// src/components/CheckoutVenmo.jsx
-import React, { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import { SiVenmo } from "react-icons/si";
+// src/pages/CheckoutVenmo.jsx
+import React, { useEffect } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
+import { FaCopy } from 'react-icons/fa';
+import { IoLogoVenmo } from 'react-icons/io5';
+
+// Static QR codes for each plan
+import logoDesignQR from '../assets/qr-logo-design.png';
+import maintenanceQR from '../assets/qr-website-maintenance.png';
+import customSiteQR from '../assets/qr-small-business-template.png';
+import basicSiteQR from '../assets/qr-basic-template.png';
+import simpleSiteQR from '../assets/qr-simple-template.png';
+import fallbackQR from '../assets/venmoqr.png'; // fallback image
 
 export default function CheckoutVenmo() {
-  const [searchParams] = useSearchParams();
-  const planParam = searchParams.get("plan") || "Your Plan";
-  const amountParam = searchParams.get("amount") || "0.00";
+  const [params] = useSearchParams();
+  const { pathname } = useLocation();
+
+  const plan = params.get('plan') || 'Template';
+  const amount = params.get('amount') || '';
+  const note = `Template: ${plan}`;
+
+  const venmoLink = `https://venmo.com/u/bsquaredsolutions?txn=pay&amount=${amount}&note=${encodeURIComponent(note)}`;
+
+  // Match QR image to plan name
+  const qrMap = {
+    'Logo Design': logoDesignQR,
+    'Basic Single-Page': basicSiteQR,
+    'Small Business Site': customSiteQR,
+    'Website Maintenance': maintenanceQR,
+    'Simple Multi-Page': simpleSiteQR,
+  };
+
+  const qrImage = qrMap[plan] || fallbackQR;
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(note);
+      alert('Note copied to clipboard!');
+    } catch {
+      alert('Failed to copy. Please copy manually.');
+    }
+  };
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
-  const venmoUsername = "bsquaredsolutions";
-  const note = encodeURIComponent(`Payment for ${planParam} - $${amountParam}`);
-  const venmoLink = `venmo://paycharge?txn=pay&recipients=${venmoUsername}&amount=${amountParam}&note=${note}`;
-  const fallbackLink = `https://venmo.com/${venmoUsername}?txn=pay&amount=${amountParam}&note=${note}`;
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname]);
 
   return (
-    <section id="checkout-venmo" className="container mx-auto px-6 mt-20 py-20">
-      <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-10">
-        Checkout
-      </h2>
+    <section className="min-h-screen py-16 mt-20 px-4 bg-gray-50">
+      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8 text-center">
+        <h1 className="text-3xl font-bold text-primary mb-4">Checkout with Venmo</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Instructions */}
-        <div className="px-8">
-          <p className="mb-6">
-            To help us receive the full amount of your payment without Venmo’s transaction fees,
-            we request you send your payment as a <strong>GIFT</strong> in the Venmo app.
-          </p>
-          <p>
-            When you open the Venmo payment screen, choose Pay, enter the exact amount shown above,
-            select the Friends option (or Business if you’re using a business profile), and in the
-            What’s it for? field begin your note with <strong>GIFT</strong> – (for example:
-            GIFT – Payment for Custom Site Build). This ensures that Venmo treats the transaction as
-            a gift, sparing B Squared Solutions from any additional fees that we would have to pass
-            on to you. Once you’ve confirmed the details, tap <strong>Pay</strong> to complete your
-            gift payment.
-          </p>
+        <p className="text-lg mb-4 text-gray-700">
+          You’re purchasing <strong>{plan}</strong> for <strong>${amount}</strong>
+        </p>
+
+        {/* QR Image */}
+        <div className="my-6">
+          <img
+            src={qrImage}
+            alt={`Scan to pay for ${plan}`}
+            className="w-48 mx-auto rounded-lg border border-gray-200 shadow-md"
+          />
+          <p className="text-sm text-gray-600 mt-2">Scan this code in the Venmo app</p>
         </div>
 
-        {/* Order Summary */}
-        <div>
-          <div className="border rounded-lg p-6 bg-white shadow-lg">
-            <h3 className="text-xl font-semibold mb-4 text-primary">
-              Order Summary
-            </h3>
-            <ul className="divide-y divide-gray-200 mb-4">
-              <li className="flex justify-between py-2">
-                {planParam}
-                <span className="font-semibold">${amountParam}</span>
-              </li>
-            </ul>
-            <div className="flex justify-between font-bold text-lg mb-6">
-              <span>Total</span>
-              <span>${amountParam}</span>
-            </div>
-            <div className="text-center">
-              <a
-                href={venmoLink}
-                onClick={(e) => {
-                  // Attempt deep link
-                  window.location.href = venmoLink;
-                  // Fallback to web after short delay
-                  setTimeout(() => {
-                    window.location.href = fallbackLink;
-                  }, 100);
-                  e.preventDefault();
-                }}
-                className="inline-flex items-center justify-center bg-[#3D86CA] text-white font-semibold px-6 py-1 rounded-lg hover:bg-[#0185e4] transition-colors"
-              >
-                Pay ${amountParam} via
-                <SiVenmo className="ml-2 text-6xl flex-shrink-0" />
-              </a>
-            </div>
-            <p className="text-sm text-gray-500 text-center mt-4">
-              You will be prompted to complete payment in the Venmo app or web.
-            </p>
+        {/* OR link */}
+        <p className="mt-4 text-gray-700">or</p>
+        <a
+          href={venmoLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-lg text-white font-semibold bg-primary px-6 py-3 rounded-lg hover:bg-primary-dark mt-4"
+        >
+          <IoLogoVenmo className="text-2xl" />
+          Pay on Venmo
+        </a>
+
+        {/* Copyable Note */}
+        <div className="mt-8 text-left">
+          <p className="font-semibold text-gray-800 mb-2">Include this in the Venmo note:</p>
+          <div className="flex items-center justify-between bg-gray-100 px-4 py-2 rounded-md">
+            <code className="text-sm text-gray-700">{note}</code>
+            <button
+              onClick={handleCopy}
+              className="ml-4 text-primary font-semibold hover:underline"
+              title="Copy to clipboard"
+            >
+              <FaCopy />
+            </button>
           </div>
         </div>
+
+        <p className="mt-6 text-sm text-gray-600">
+          Once payment is received, we’ll email you the download link within 1 business day.
+        </p>
       </div>
     </section>
   );

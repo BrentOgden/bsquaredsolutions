@@ -1,4 +1,3 @@
-// src/components/Pricing.jsx
 import React, { useState } from 'react';
 import { IoShieldCheckmarkOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
@@ -9,7 +8,7 @@ const tiers = [
   {
     name: 'CMS Site Build',
     price: 'From $2000',
-    disclaimer: '(price based on complexity - no recurring fees)',
+    disclaimer: '(price based on complexity)',
     features: [
       '1 website',
       'Basic support',
@@ -24,7 +23,7 @@ const tiers = [
   {
     name: 'Custom Site Build',
     price: 'From $3000',
-    disclaimer: '(price based on complexity - no recurring fees)',
+    disclaimer: '(price based on complexity)',
     features: [
       'Complete build from scratch',
       'React w/TailwindCSS',
@@ -39,7 +38,7 @@ const tiers = [
   {
     name: 'Website Maintenance',
     price: '$50/hr',
-    disclaimer: '(ad hoc maintenance - separate from included site support)',
+    disclaimer: '(2 hr minimum - for existing sites)',
     features: [
       'Content revisions/additions',
       'Troubleshooting & site fixes',
@@ -68,7 +67,10 @@ const tiers = [
 
 function FlipCard({ tier }) {
   const [flipped, setFlipped] = useState(false);
-  const numericAmount = tier.price.replace(/[^0-9.]/g, '');
+  const numericAmount =
+    tier.name === 'Website Maintenance'
+      ? '100'
+      : tier.price.replace(/[^0-9.]/g, '');
 
   return (
     <div
@@ -102,7 +104,7 @@ function FlipCard({ tier }) {
                   </li>
                 ))}
               </ul>
-              <p className="text-2xl text-center font-bold mb-2 text-primary">
+              <p className="text-2xl justify-center align-top items-center text-center font-bold mb-2 text-primary">
                 {tier.price}
               </p>
               <p className="text-sm text-center mb-2 italic text-gray-700">
