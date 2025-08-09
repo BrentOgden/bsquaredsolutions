@@ -1,5 +1,6 @@
 // src/components/TemplateSelector.jsx
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'
 import { GiShoppingCart } from 'react-icons/gi';
 
 /**
@@ -9,7 +10,7 @@ import { GiShoppingCart } from 'react-icons/gi';
  * @property {string} description
  * @property {string} thumbnail
  * @property {string=} fullImage  // optional: use for hi-res modal image
- * @property {string} downloadUrl
+ * @property {string} detailUrl
  * @property {string} price
  */
 
@@ -77,6 +78,13 @@ export default function TemplateSelector({ templates, thumbHeight = 250 }) {
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-2xl font-semibold text-primary mb-2">{tpl.name}</h3>
                 <p className="text-gray-700 flex-1">{tpl.description}</p>
+                 {/* Visible CTA also using detailURL */}
+                <Link
+                  to={tpl.detailUrl}
+                  className="rounded-md px-4 py-2 mt-4 text-md text-center text-primary hover:border-1 hover:border-accent"
+                >
+                  View details
+                </Link>
 
                 {/* Price */}
                 <div className="mt-4 text-xl font-bold text-primary">{tpl.price}</div>

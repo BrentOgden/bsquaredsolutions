@@ -7,31 +7,34 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/NavBar";
-import Hero           from "./components/Hero";
-import Services       from "./components/Services";
-import Pricing        from "./components/Pricing";
-import QuoteScroller  from "./components/Quotes";
-import About          from "./components/About";
-import Contact        from "./components/Contact";
-import Footer         from "./components/Footer";
-import ScrollToTop    from "./components/ScrollToTop";
-import HashScroll     from "./components/HashScroll";
-import Checkout       from "./components/Checkout";
-import CheckoutVenmo  from "./components/CheckoutVenmo";
-import Terms          from "./components/Terms";
-import Privacy        from "./components/Privacy";
+import Hero from "./components/Hero";
+import Services from "./components/Services";
+import Pricing from "./components/Pricing";
+import QuoteScroller from "./components/Quotes";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import ScrollManager from "./components/ScrollManager";
+import HashScroll from "./components/HashScroll";
+import Checkout from "./components/Checkout";
+import CheckoutVenmo from "./components/CheckoutVenmo";
+import Terms from "./components/Terms";
+import Privacy from "./components/Privacy";
 import FAQ from "./components/FAQ";
 import Portfolio from "./components/Portfolio";
 import Packages from "./components/Packages";
 import Templates from "./components/Templates";
+import SimpleTemplate from "./pages/SimpleTemplate";
+import BasicTemplate from "./pages/BasicTemplate";
+import SmallBusinessTemplate from "./pages/SmallBusinessTemplate";
 
 export default function App() {
   return (
     <Router>
       <div className="flex flex-col overflow-x-hidden min-h-screen">
         <Navbar />
-        <ScrollToTop />
-        <HashScroll />
+        <ScrollManager />
+        
 
         <main className="flex-grow">
           <Routes>
@@ -45,7 +48,7 @@ export default function App() {
                   <Pricing />
                   <QuoteScroller />
                   <About />
-                  
+
                   <Contact />
                 </>
               }
@@ -56,6 +59,9 @@ export default function App() {
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/packages" element={<Packages />} />
             <Route path="/templates" element={<Templates />} />
+            <Route path="/basictemplate" element={<BasicTemplate />} />
+            <Route path="/simpletemplate" element={<SimpleTemplate />} />
+            <Route path="/smallbusinesstemplate" element={<SmallBusinessTemplate />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/checkoutvenmo" element={<CheckoutVenmo />} />
             <Route path="/terms" element={<Terms />} />
