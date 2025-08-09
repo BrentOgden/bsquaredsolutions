@@ -1,49 +1,123 @@
+/* Tailwind v4 */
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 :root {
-  font-family: Lato;
+  font-family: Lato, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   line-height: 1.5;
   font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --primary: #3d86ca;
-  --accent: #0185e4;
+
+  /* Brand colors */
+  --primary: #3d86ca;      /* site blue */
+  --accent:  #0185e4;      /* use same blue for glow */
+  --accent-soft:  rgba(61,134,202,.32);
+  --accent-strong:rgba(61,134,202,.55);
 }
-html {
-  scroll-behavior: smooth;
-}
-.bg-primary {
-  background-color: var(--primary);
-}
-.bg-accent {
-  background-color: var(--accent);
-}
-.text-primary {
-  color: var(--primary);
-}
-.text-accent {
-  color: var(--accent);
-}
+
+
 @layer utilities {
-  .hover\:bg-primary:hover {
-    background-color: var(--primary);
-  }
+  /* Box-shadow glow helpers */
+  .glow        { box-shadow: 0 0 28px var(--accent-soft); }
+  .glow-strong { box-shadow: 0 0 56px var(--accent-strong); }
 
-  .hover\:text-primary:hover {
-    color: var(--primary);
-  }
-  .hover\:bg-accent:hover {
-    background-color: var(--accent);
-  }
+  /* Subtle colored ring + hover */
+  .glow-ring   { --tw-ring-color: var(--accent); }
+  .glow-hover  { transition: box-shadow .25s ease, filter .25s ease; }
+  .glow-hover:hover { box-shadow: 0 0 40px var(--accent-strong); filter: saturate(1.08); }
 
-  .hover\:text-accent:hover {
-    color: var(--accent);
-  }
+  /* Text glow for links */
+  .link-glow { text-shadow: 0 0 .6rem var(--accent-strong), 0 0 1.2rem var(--accent-soft); }
+  .link-glow-hover { transition: color .2s ease, text-shadow .2s ease, filter .2s ease; }
+  .link-glow-hover:hover { color: #fff; text-shadow: 0 0 .8rem var(--accent-strong), 0 0 1.6rem var(--accent-soft); }
+
+  /* Accessible focus outline for links */
+  .focus-glow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: .375rem; }
+
+  /* Optional: accent underline */
+  .link-underline { text-decoration-line: underline; text-underline-offset: .2em; text-decoration-color: rgba(61,134,202,.65); }
+
+  /* Convenience brand utilities */
+  .bg-primary   { background-color: var(--primary); }
+  .bg-accent    { background-color: var(--accent); }
+  .text-primary { color: var(--primary); }
+  .text-accent  { color: var(--accent); }
+  .hover\:bg-primary:hover { background-color: var(--primary); }
+  .hover\:text-primary:hover { color: var(--primary); }
+  .hover\:bg-accent:hover { background-color: var(--accent); }
+  .hover\:text-accent:hover { color: var(--accent); }
 }
+
+/* ---- BLUE HALO FOR ALL FOOTER LINKS (text stays white) ---- */
+.footer a{
+  color: rgb(255 255 255 / .92);
+  position: relative;      /* anchor creates a stacking context */
+  z-index: 0;
+  display: inline-block;   /* gives the link a box to place the halo under */
+  transition: filter .2s ease, text-shadow .2s ease, color .2s ease, opacity .2s ease;
+}
+
+/* subtle idle halo (optional, comment out if you want none) */
+.footer a::after{
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 120%; height: 120%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: -1;             /* sits behind the text */
+  background: radial-gradient(closest-side, var(--accent) 0%, transparent 90%);
+  filter: blur(10px);
+  opacity: 0;              /* hidden by default */
+  transition: opacity .2s ease;
+}
+
+/* show a strong blue halo on hover/focus (text remains white) */
+.footer a:hover::after,
+.footer a:focus-visible::after{
+  opacity: 1.5;
+}
+
+/* extra pop if you want: keep these or remove if too strong */
+.footer a:hover,
+.footer a:focus-visible{
+  text-shadow:
+    0 0 .3rem rgb(69, 3, 250),
+    0 0 .4rem  rgb(35, 11, 252);
+}
+
+/* accessible focus ring */
+.footer a:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: .375rem;
+}
+/* SVG glow (the glyph itself) */
+.footer a > svg{
+  transition: filter .2s ease, transform .2s ease;
+}
+.footer a:hover > svg,
+.footer a:focus-visible > svg{
+  /* blue glow ON the icon */
+  filter:
+    drop-shadow(0 0 .3rem rgba(61,134,202,.9))
+    drop-shadow(0 0 .4rem  rgba(61,134,202,.9));
+}
+
+/* Optional: slightly larger clickable area for icons */
+.footer a.icon-link{
+  padding: .375rem;                  /* ~6px padding around the icon */
+  border-radius: .5rem;
+}
+/* Match the ::after halo to the padded size for icon links */
+.footer a.icon-link::after{
+  width: 160%;
+  height: 160%;
+}
+
+html { scroll-behavior: smooth; }
 
 
