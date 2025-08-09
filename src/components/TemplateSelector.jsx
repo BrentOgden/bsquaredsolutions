@@ -37,9 +37,9 @@ export default function TemplateSelector({ templates, thumbHeight = 250 }) {
   }, [lightbox.open]);
 
   return (
-    <section id="template-gallery" className="py-16 px-4 bg-gray-50">
+    <section id="template-gallery" className="py-8 px-4 bg-gray-50">
       <div className="max-w-6xl mx-auto text-center mb-12">
-        <h2 className="text-4xl font-bold text-primary mb-3">Choose a Template</h2>
+        <h2 className="text-3xl font-bold text-primary mb-3">Choose a Template</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Browse our pre-built site templates to find the starter package that’s right for you.
         </p>
