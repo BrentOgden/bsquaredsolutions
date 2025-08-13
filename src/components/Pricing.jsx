@@ -7,7 +7,7 @@ import pricingHero from '../assets/pricingHero2.jpg';
 const tiers = [
   {
     name: 'CMS Site Build',
-    price: 'From $2000',
+    price: 'From $1500',
     disclaimer: '(price based on complexity)',
     features: [
       '1 website',
@@ -118,14 +118,14 @@ function FlipCard({ tier }) {
                   )}&amount=${numericAmount}`}
                   className="mt-auto block w-full text-center py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition"
                 >
-                  Choose Plan
+                  Purchase 
                 </Link>
               ) : (
                 <a
-                  href="#contact"
+                  href="/packages"
                   className="mt-auto block w-full text-center py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition"
                 >
-                  Customize Plan
+                  Choose a Package
                 </a>
               )}
             </div>
