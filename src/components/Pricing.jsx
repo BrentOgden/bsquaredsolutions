@@ -181,7 +181,7 @@ export default function Pricing() {
 
           <p className="mt-6 text-shadow-xl/50 text-center text-sm text-gray-200">
             * Click a card to see more details.{' '}
-            <a href="#contact" className="font-semibold hover:text-primary">
+            <a href="#contactform" className="font-semibold hover:text-primary">
               Contact us
             </a>{' '}
             for a custom quote to fit your needs.
@@ -197,6 +197,8 @@ export default function Pricing() {
           </div>
         </div>
       </Parallax>
+      
     </section>
+    
   );
 }

@@ -1,7 +1,51 @@
 // src/components/FAQ.jsx
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import faqHero from "../assets/packageHero.jpg";
 
+/* ── Minimal parallax util (same as other pages) ─────────────────────── */
+function useParallax({ speed = 0.7, axis = "y", respectPRM = true } = {}) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    if (respectPRM && reduce) return;
+
+    let rafId = 0;
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        const r = el.getBoundingClientRect();
+        const offset = r.top + r.height / 2 - window.innerHeight / 2;
+        const d = -offset * speed;
+        el.style.transform =
+          axis === "x" ? `translate3d(${d}px,0,0)` : `translate3d(0,${d}px,0)`;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [speed, axis, respectPRM]);
+  return ref;
+}
+function Parallax({ speed, axis, respectPRM = true, className = "", children }) {
+  const ref = useParallax({ speed, axis, respectPRM });
+  return (
+    <div ref={ref} className={`will-change-transform ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+/* ── Data (unchanged copy) ───────────────────────────────────────────── */
 const faqs = [
   {
     question: "How long does it take to build a custom website?",
@@ -11,7 +55,7 @@ const faqs = [
   {
     question: "What technologies do you use for your custom sites?",
     answer:
-      "We build primarily in React for dynamic UIs and can accomodate either single-page applications or multi-page sites. We use Tailwind CSS for efficiency and utility‑first styling, and can integrate with headless CMS platforms like Contentful or Sanity on request. For e‑commerce sites, we often choose to work with Shopify.",
+      "We build primarily in React for dynamic UIs and can accomodate either single-page applications or multi-page sites. We use Tailwind CSS for efficiency and utility-first styling, and can integrate with headless CMS platforms like Contentful or Sanity on request. For e-commerce sites, we often choose to work with Shopify.",
   },
   {
     question: "Which CMS platforms are available if I choose a CMS site build?",
@@ -46,7 +90,7 @@ const faqs = [
   {
     question: "Can you help with SEO and marketing?",
     answer:
-      "Absolutely! Our website build packages include intitial custom SEO integration and Google Analytics. We also offer on‑page SEO audits, keyword research, Google Analytics/Tag Manager setup, and basic content strategy for existing sites to help your site rank and convert (for existing sites, you would select the maintenance plan option).",
+      "Absolutely! Our website build packages include intitial custom SEO integration and Google Analytics. We also offer on-page SEO audits, keyword research, Google Analytics/Tag Manager setup, and basic content strategy for existing sites to help your site rank and convert (for existing sites, you would select the maintenance plan option).",
   },
   {
     question: "Once the site is complete, do you charge a monthy fee for maintenance or monitoring?",
@@ -80,48 +124,107 @@ const faqs = [
   },
 ];
 
+/* ── Item ────────────────────────────────────────────────────────────── */
 function FAQItem({ question, answer }) {
   const [open, setOpen] = useState(false);
+  const contentId = `faq-${question.replace(/\s+/g, "-").toLowerCase()}`;
+
   return (
-    <div className="px-8 border-b border-[#0187e3]/40 last:border-none">
+    <div className="border-b border-white/15 last:border-none">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex justify-between items-center py-4 focus:outline-none"
+        aria-expanded={open}
+        aria-controls={contentId}
+        className="w-full flex justify-between items-center p-5 sm:p-6 hover:bg-white/5 transition rounded-xl"
       >
-        <span className="text-lg font-semibold text-gray-800">{question}</span>
-        {open ? (
-          <IoIosArrowUp className="text-2xl text-accent" />
-        ) : (
-          <IoIosArrowDown className="text-2xl text-accent" />
-        )}
+        <span className="text-base sm:text-lg font-semibold text-white">
+          {question}
+        </span>
+        <span className="ml-4 text-white">
+          {open ? <IoIosArrowUp className="text-2xl" /> : <IoIosArrowDown className="text-2xl" />}
+        </span>
       </button>
-      {open && (
-        <div className="pb-4 text-gray-700">
-          {answer}
-        </div>
-      )}
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            id={contentId}
+            key="content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <div className="px-5 sm:px-6 pb-6 text-white mt-2 leading-relaxed">
+              {answer}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
+/* ── Page ────────────────────────────────────────────────────────────── */
 export default function FAQ() {
   return (
-    <section
-      id="faq"
-      className="container mx-auto px-6 py-20 scroll-mt-20"
-    >
-      <h2 className="text-3xl mt-20 md:text-4xl font-bold text-primary text-center mb-12">
-        Frequently Asked Questions
-      </h2>
-      <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-        {faqs.map((faq) => (
-          <FAQItem
-            key={faq.question}
-            question={faq.question}
-            answer={faq.answer}
+    <>
+      {/* HERO (matches your other sections) */}
+      <section id="faq-hero" className="relative mt-10 pb-10 isolate overflow-hidden bg-gray-900">
+        {/* Background image (parallax) */}
+        <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">
+          <img
+            alt="FAQ backdrop"
+            src={faqHero}
+            className="size-full object-cover object-center"
           />
-        ))}
-      </div>
-    </section>
+        </Parallax>
+
+        {/* Brand gradient overlay */}
+        <Parallax speed={0.07} respectPRM={false} className="absolute inset-0 -z-10 pointer-events-none">
+          <div className="h-full w-full bg-gradient-to-b from-black/80 to-black/70" />
+        </Parallax>
+
+        {/* Accent blob */}
+        <Parallax speed={0.04} respectPRM={false} className="absolute inset-x-0 -top-40 -z-10 overflow-hidden blur-3xl sm:-top-80">
+          <div
+            style={{
+              clipPath:
+                "polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)",
+            }}
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[60deg] bg-gradient-to-br from-[#3d86ca] to-[#0185e4] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+          />
+        </Parallax>
+
+        {/* Copy */}
+        <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center lg:text-left">
+            <span className="hidden sm:inline-flex items-center rounded-full mb-3 px-3 py-1 text-lg text-white ring-2 ring-white/90">
+              FAQ
+            </span>
+            <h1 className="text-5xl font-semibold text-shadow-lg/50 tracking-tight text-pretty text-white sm:text-6xl">
+              Frequently Asked Questions
+            </h1>
+            <h4 className="text-white text-2xl mt-4 text-shadow-lg/50">Your questions on timelines, costs, and maintenance—answered.</h4>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTENT (dark gradient bg + glass panel like other pages) */}
+      <section className="relative bg-gradient-to-br from-[#04223f] to-[#023c72]">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-16">
+          {/* Glass wrapper */}
+          <div className="rounded-3xl glow bg-gradient-to-b from-white/10 to-white/5 ring-1 ring-white/20 backdrop-blur-2xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-2 sm:p-4">
+            {/* Inner white card for contrast with same spacing style */}
+            <div className="bg-white/5 rounded-2xl ring-2 ring-white/10 overflow-hidden">
+              {faqs.map((faq) => (
+                <FAQItem key={faq.question} question={faq.question} answer={faq.answer} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

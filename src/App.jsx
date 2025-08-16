@@ -1,21 +1,17 @@
 // src/App.jsx
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/NavBar";
+import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
 import Pricing from "./components/Pricing";
 import QuoteScroller from "./components/Quotes";
 import About from "./components/About";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ScrollManager from "./components/ScrollManager";
 import HashScroll from "./components/HashScroll";
+import ContactForm from "./components/ContactForm";
 import Checkout from "./components/Checkout";
 import CheckoutVenmo from "./components/CheckoutVenmo";
 import Terms from "./components/Terms";
@@ -24,9 +20,11 @@ import FAQ from "./components/FAQ";
 import Portfolio from "./components/Portfolio";
 import Packages from "./components/Packages";
 import Templates from "./components/Templates";
+
 import SimpleTemplate from "./pages/SimpleTemplate";
 import BasicTemplate from "./pages/BasicTemplate";
 import SmallBusinessTemplate from "./pages/SmallBusinessTemplate";
+import ContactPage from "./pages/Contact"; // renamed to avoid conflict
 
 export default function App() {
   return (
@@ -34,7 +32,7 @@ export default function App() {
       <div className="flex flex-col overflow-x-hidden min-h-screen">
         <Navbar />
         <ScrollManager />
-        
+        <HashScroll />
 
         <main className="flex-grow">
           <Routes>
@@ -48,14 +46,14 @@ export default function App() {
                   <Pricing />
                   <QuoteScroller />
                   <About />
-
-                  <Contact />
+                  <ContactForm />
                 </>
               }
             />
 
             {/* Full‐page routes */}
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkoutvenmo" element={<CheckoutVenmo />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/packages" element={<Packages />} />
             <Route path="/templates" element={<Templates />} />
@@ -63,7 +61,7 @@ export default function App() {
             <Route path="/simpletemplate" element={<SimpleTemplate />} />
             <Route path="/smallbusinesstemplate" element={<SmallBusinessTemplate />} />
             <Route path="/faq" element={<FAQ />} />
-            <Route path="/checkoutvenmo" element={<CheckoutVenmo />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
           </Routes>

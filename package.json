@@ -15,7 +15,7 @@
     "braintree": "^3.32.0",
     "braintree-web-drop-in": "^1.45.1",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.0",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "framer-motion": "^12.23.6",
     "puppeteer": "^24.14.0",

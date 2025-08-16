@@ -1,0 +1,175 @@
+2025-08-14T05:26:05.516614Z  INFO tailwindcss_oxide::scanner: Provided sources:
+2025-08-14T05:26:05.516760Z  INFO tailwindcss_oxide::scanner: Source: PublicSourceEntry { base: "/Users/brentogden/bsquaredsolutions", pattern: "**/*", negated: false }
+2025-08-14T05:26:05.516801Z  INFO tailwindcss_oxide::scanner: Optimized sources:
+2025-08-14T05:26:05.516808Z  INFO tailwindcss_oxide::scanner: Source: Auto { base: "/Users/brentogden/bsquaredsolutions" }
+2025-08-14T05:26:05.912914Z  INFO tailwindcss_oxide::scanner: Provided sources:
+2025-08-14T05:26:05.912941Z  INFO tailwindcss_oxide::scanner: Source: PublicSourceEntry { base: "/Users/brentogden/bsquaredsolutions", pattern: "**/*", negated: false }
+2025-08-14T05:26:05.912963Z  INFO tailwindcss_oxide::scanner: Optimized sources:
+2025-08-14T05:26:05.912968Z  INFO tailwindcss_oxide::scanner: Source: Auto { base: "/Users/brentogden/bsquaredsolutions" }
+2025-08-14T05:26:05.913222Z  INFO scan_sources: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.914318Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/screenshots"
+2025-08-14T05:26:05.914397Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/index.html"
+2025-08-14T05:26:05.914418Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/tailwind.config.js"
+2025-08-14T05:26:05.914435Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/netlify.toml"
+2025-08-14T05:26:05.914518Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/server.js"
+2025-08-14T05:26:05.914578Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/vite.config.js"
+2025-08-14T05:26:05.914597Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/README.md"
+2025-08-14T05:26:05.914620Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/netlify"
+2025-08-14T05:26:05.914659Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/netlify/functions"
+2025-08-14T05:26:05.914682Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/netlify/functions/subscribe.js"
+2025-08-14T05:26:05.914696Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/screenshot.js"
+2025-08-14T05:26:05.914719Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/public"
+2025-08-14T05:26:05.914746Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/public/_redirects"
+2025-08-14T05:26:05.914767Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/public/sitemap.xml"
+2025-08-14T05:26:05.914783Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/public/robots.txt"
+2025-08-14T05:26:05.914803Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/site.webmanifest"
+2025-08-14T05:26:05.914834Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/package.json"
+2025-08-14T05:26:05.914886Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/api"
+2025-08-14T05:26:05.914908Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/api/client_token.js"
+2025-08-14T05:26:05.914919Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/api/checkout.js"
+2025-08-14T05:26:05.914933Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/eslint.config.js"
+2025-08-14T05:26:05.914967Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/postcss.config.js"
+2025-08-14T05:26:05.914989Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src"
+2025-08-14T05:26:05.915028Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/App.css"
+2025-08-14T05:26:05.915040Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/index.css"
+2025-08-14T05:26:05.915051Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/scrollToTopArrow.css"
+2025-08-14T05:26:05.915071Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components"
+2025-08-14T05:26:05.915098Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Portfolio.jsx"
+2025-08-14T05:26:05.915108Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Privacy.jsx"
+2025-08-14T05:26:05.915118Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Quotes.jsx"
+2025-08-14T05:26:05.915127Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/TemplateFeatures.jsx"
+2025-08-14T05:26:05.915136Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Packages.jsx"
+2025-08-14T05:26:05.915145Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/ContactForm.jsx"
+2025-08-14T05:26:05.915155Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/CheckoutVenmo.jsx"
+2025-08-14T05:26:05.915164Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/TemplateSelector.jsx"
+2025-08-14T05:26:05.915176Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Footer.jsx"
+2025-08-14T05:26:05.915185Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/About.jsx"
+2025-08-14T05:26:05.915194Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/ScrollManager.jsx"
+2025-08-14T05:26:05.915205Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/FAQ.jsx"
+2025-08-14T05:26:05.915214Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Terms.jsx"
+2025-08-14T05:26:05.915222Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Pricing.jsx"
+2025-08-14T05:26:05.915233Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/NavBar.jsx"
+2025-08-14T05:26:05.915242Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Hero.jsx"
+2025-08-14T05:26:05.915251Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Templates.jsx"
+2025-08-14T05:26:05.915262Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Services.jsx"
+2025-08-14T05:26:05.915270Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/HashScroll.jsx"
+2025-08-14T05:26:05.915282Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components/Checkout.jsx"
+2025-08-14T05:26:05.915295Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/main.jsx"
+2025-08-14T05:26:05.915306Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/App.jsx"
+2025-08-14T05:26:05.915327Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/data"
+2025-08-14T05:26:05.915354Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/data/templatesData.js"
+2025-08-14T05:26:05.915376Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/assets"
+2025-08-14T05:26:05.915428Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/assets/screenshots"
+2025-08-14T05:26:05.915491Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/assets/react.svg"
+2025-08-14T05:26:05.915517Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/pages"
+2025-08-14T05:26:05.915540Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/pages/BasicTemplate.jsx"
+2025-08-14T05:26:05.915552Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/pages/SmallBusinessTemplate.jsx"
+2025-08-14T05:26:05.915564Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/pages/SimpleTemplate.jsx"
+2025-08-14T05:26:05.915575Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/pages/Contact.jsx"
+2025-08-14T05:26:05.915604Z  INFO scan_sources: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.915609Z  INFO extract_candidates: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.915612Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.915614Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: Reading 45 file(s)
+2025-08-14T05:26:05.915793Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/index.html"
+2025-08-14T05:26:05.915831Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/netlify.toml"
+2025-08-14T05:26:05.915864Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/postcss.config.js"
+2025-08-14T05:26:05.915965Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/site.webmanifest"
+2025-08-14T05:26:05.916011Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/package.json"
+2025-08-14T05:26:05.916059Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Templates.jsx"
+2025-08-14T05:26:05.916063Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/README.md"
+2025-08-14T05:26:05.916079Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/server.js"
+2025-08-14T05:26:05.916098Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/tailwind.config.js"
+2025-08-14T05:26:05.916122Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/netlify/functions/subscribe.js"
+2025-08-14T05:26:05.916073Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/ContactForm.jsx"
+2025-08-14T05:26:05.916183Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Privacy.jsx"
+2025-08-14T05:26:05.916212Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Services.jsx"
+2025-08-14T05:26:05.916224Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/ScrollManager.jsx"
+2025-08-14T05:26:05.916176Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Footer.jsx"
+2025-08-14T05:26:05.916177Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/api/client_token.js"
+2025-08-14T05:26:05.916287Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Portfolio.jsx"
+2025-08-14T05:26:05.916143Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/TemplateSelector.jsx"
+2025-08-14T05:26:05.916172Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/vite.config.js"
+2025-08-14T05:26:05.916260Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/data/templatesData.js"
+2025-08-14T05:26:05.916140Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Quotes.jsx"
+2025-08-14T05:26:05.916432Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/api/checkout.js"
+2025-08-14T05:26:05.916380Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/screenshot.js"
+2025-08-14T05:26:05.916371Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/main.jsx"
+2025-08-14T05:26:05.916571Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Checkout.jsx"
+2025-08-14T05:26:05.916593Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/FAQ.jsx"
+2025-08-14T05:26:05.916483Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/App.jsx"
+2025-08-14T05:26:05.916503Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/HashScroll.jsx"
+2025-08-14T05:26:05.916635Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/public/_redirects"
+2025-08-14T05:26:05.916650Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/eslint.config.js"
+2025-08-14T05:26:05.916516Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/CheckoutVenmo.jsx"
+2025-08-14T05:26:05.916552Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/assets/react.svg"
+2025-08-14T05:26:05.916713Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/public/sitemap.xml"
+2025-08-14T05:26:05.916454Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/About.jsx"
+2025-08-14T05:26:05.916751Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Terms.jsx"
+2025-08-14T05:26:05.916787Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/public/robots.txt"
+2025-08-14T05:26:05.916798Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/pages/SimpleTemplate.jsx"
+2025-08-14T05:26:05.916831Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/TemplateFeatures.jsx"
+2025-08-14T05:26:05.916856Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Pricing.jsx"
+2025-08-14T05:26:05.916874Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/pages/SmallBusinessTemplate.jsx"
+2025-08-14T05:26:05.916912Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/pages/Contact.jsx"
+2025-08-14T05:26:05.916938Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/pages/BasicTemplate.jsx"
+2025-08-14T05:26:05.916973Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/NavBar.jsx"
+2025-08-14T05:26:05.916992Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Packages.jsx"
+2025-08-14T05:26:05.917053Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/components/Hero.jsx"
+2025-08-14T05:26:05.917160Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.917170Z  INFO extract_candidates:parse_all_blobs: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.917173Z  INFO extract_candidates:parse_all_blobs:extract: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.918503Z  INFO extract_candidates:parse_all_blobs:extract: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.918521Z  INFO extract_candidates:parse_all_blobs: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.918534Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.918537Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: Reading 3 file(s)
+2025-08-14T05:26:05.918581Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/index.css"
+2025-08-14T05:26:05.918717Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/App.css"
+2025-08-14T05:26:05.918797Z  INFO tailwindcss_oxide::scanner: Reading "/Users/brentogden/bsquaredsolutions/src/scrollToTopArrow.css"
+2025-08-14T05:26:05.918823Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.918835Z  INFO extract_candidates:extract_css_variables: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.918838Z  INFO extract_candidates:extract_css_variables:extract: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.919044Z  INFO extract_candidates:extract_css_variables:extract: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.919054Z  INFO extract_candidates:extract_css_variables: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.919772Z  INFO extract_candidates: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.920618Z  INFO get_files: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.920626Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.920950Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/screenshots"
+2025-08-14T05:26:05.921072Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/netlify"
+2025-08-14T05:26:05.921101Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/netlify/functions"
+2025-08-14T05:26:05.921138Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/public"
+2025-08-14T05:26:05.921235Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/api"
+2025-08-14T05:26:05.921296Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src"
+2025-08-14T05:26:05.921340Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components"
+2025-08-14T05:26:05.921451Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/data"
+2025-08-14T05:26:05.921481Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/assets"
+2025-08-14T05:26:05.921527Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/assets/screenshots"
+2025-08-14T05:26:05.921597Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/pages"
+2025-08-14T05:26:05.921641Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.921800Z  INFO get_files: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.921954Z  INFO get_globs: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.921961Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: enter
+2025-08-14T05:26:05.922312Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/screenshots"
+2025-08-14T05:26:05.922452Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/netlify"
+2025-08-14T05:26:05.922484Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/netlify/functions"
+2025-08-14T05:26:05.922523Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/public"
+2025-08-14T05:26:05.922617Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/api"
+2025-08-14T05:26:05.922696Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src"
+2025-08-14T05:26:05.922742Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/components"
+2025-08-14T05:26:05.922897Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/data"
+2025-08-14T05:26:05.922942Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/assets"
+2025-08-14T05:26:05.923003Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/assets/screenshots"
+2025-08-14T05:26:05.923086Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "/Users/brentogden/bsquaredsolutions/src/pages"
+2025-08-14T05:26:05.923137Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:05.924980Z  INFO get_globs: tailwindcss_oxide::scanner: exit
+2025-08-14T05:26:07.618273Z  INFO tailwindcss_oxide::scanner: Provided sources:
+2025-08-14T05:26:07.618301Z  INFO tailwindcss_oxide::scanner: Source: PublicSourceEntry { base: "/Users/brentogden/bsquaredsolutions", pattern: "**/*", negated: false }
+2025-08-14T05:26:07.618335Z  INFO tailwindcss_oxide::scanner: Optimized sources:
+2025-08-14T05:26:07.618342Z  INFO tailwindcss_oxide::scanner: Source: Auto { base: "/Users/brentogden/bsquaredsolutions" }
+2025-08-14T05:26:59.275869Z  INFO tailwindcss_oxide::scanner: Provided sources:
+2025-08-14T05:26:59.276095Z  INFO tailwindcss_oxide::scanner: Source: PublicSourceEntry { base: "/Users/brentogden/bsquaredsolutions", pattern: "**/*", negated: false }
+2025-08-14T05:26:59.276192Z  INFO tailwindcss_oxide::scanner: Optimized sources:
+2025-08-14T05:26:59.276201Z  INFO tailwindcss_oxide::scanner: Source: Auto { base: "/Users/brentogden/bsquaredsolutions" }
+2025-08-14T05:26:59.393979Z  INFO tailwindcss_oxide::scanner: Provided sources:
+2025-08-14T05:26:59.394010Z  INFO tailwindcss_oxide::scanner: Source: PublicSourceEntry { base: "/Users/brentogden/bsquaredsolutions", pattern: "**/*", negated: false }
+2025-08-14T05:26:59.394046Z  INFO tailwindcss_oxide::scanner: Optimized sources:
+2025-08-14T05:26:59.394054Z  INFO tailwindcss_oxide::scanner: Source: Auto { base: "/Users/brentogden/bsquaredsolutions" }

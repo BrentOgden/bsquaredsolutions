@@ -255,7 +255,7 @@ export default function Example({
                   For the more savvy user
                 </h2>
                 <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
-                  A simple way to get up and running with all the most important functionality - but with those little extra goodies that set you apart
+                  A simple way to get up and running with all the most important functionality - but with those little extras that help set you apart
                 </p>
                 <p className="mt-6 text-lg/8 text-gray-700">
                   This template provides all of the basics of the beginner template, with added functionality to publish blog posts, add customized image grids, and can include an optional chatbot (must set up a ReAmaze account to use this feature).

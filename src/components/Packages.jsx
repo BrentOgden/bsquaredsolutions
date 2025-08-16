@@ -83,7 +83,7 @@ const packagesData = [
     subtitle: '$69 - Template only (w/out support)', features: [
       'Up to 8 pages with custom styling tweaks','Domain install & hosting configuration',
       'Includes 1 hour of installation/customization support','Access to premium components & plugins',
-    ], cta: 'View Template', path: '/simpletemplate', popular: false },
+    ], cta: 'View Template', path: '/simpletemplate', popular: true },
   { id: 'diybusiness', title: 'DIY Small Business', price: '$149',
     blurb: 'Launch fast with our feature-packed, multi-page small-business template.',
     subtitle: '$99 - Template only (w/out support)', features: [

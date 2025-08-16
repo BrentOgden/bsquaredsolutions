@@ -1,45 +1,55 @@
 // src/components/Navbar.jsx
 import React, { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
-import logo from '../assets/bsquaredlogo2.png';
+import { useNavigate, useLocation } from "react-router-dom";
+import logo from "../assets/bsquaredlogo2.png";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  
-  // Added "FAQ" at the end
-  const links = ["Home", "Services", "Pricing", "About", "FAQ", "Contact", ];
+  // Order shown in the UI
+  const links = ["Home", "Services", "Pricing", "About", "FAQ", "Contact"];
 
+  // Sections that live on the home page
   const slugMap = {
     Home: "hero",
     Services: "services",
     Pricing: "pricing",
     About: "about",
-    Contact: "contact",
-    // no slugMap entry for FAQ
+    // Contact is a standalone route; FAQ too (no slug here)
   };
 
   const handleClick = (e, link) => {
     e.preventDefault();
     setIsOpen(false);
 
-    // FAQ is a standalone page
+    // Standalone pages (no hash scroll)
     if (link === "FAQ") {
-      window.location.href = "/faq";
+      navigate("/faq");
+      return;
+    }
+    if (link === "Contact") {
+      navigate("/contact");
       return;
     }
 
-    // For the others, scroll or navigate back home  hash
+    // In-page sections on the Home route
     const slug = slugMap[link];
-    if (window.location.pathname === "/") {
+    if (!slug) return;
+
+    if (location.pathname === "/") {
       if (slug === "hero") {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         const el = document.getElementById(slug);
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        else window.location.hash = `#${slug}`; // fallback
       }
     } else {
-      window.location.href = `/#${slug}`;
+      // Let the browser jump to the anchor on the home page
+      navigate(`/#${slug}`);
     }
   };
 
@@ -63,6 +73,8 @@ export default function Navbar() {
               href={
                 link === "FAQ"
                   ? "/faq"
+                  : link === "Contact"
+                  ? "/contact"
                   : `/#${slugMap[link]}`
               }
               onClick={(e) => handleClick(e, link)}
@@ -78,6 +90,7 @@ export default function Navbar() {
           className="md:hidden text-gray-700 text-4xl"
           onClick={() => setIsOpen((o) => !o)}
           aria-label="Toggle menu"
+          aria-expanded={isOpen}
         >
           {isOpen ? <HiX /> : <HiMenu />}
         </button>
@@ -93,6 +106,8 @@ export default function Navbar() {
                 href={
                   link === "FAQ"
                     ? "/faq"
+                    : link === "Contact"
+                    ? "/contact"
                     : `/#${slugMap[link]}`
                 }
                 onClick={(e) => handleClick(e, link)}

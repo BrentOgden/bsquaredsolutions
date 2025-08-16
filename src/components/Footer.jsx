@@ -29,7 +29,7 @@ function SmartLink({ to, children, className = '', ...props }) {
 }
 
 export default function Footer() {
-  const slugMap = { Services: 'services', Pricing: 'pricing', About: 'about', Contact: 'contact' };
+  const slugMap = { Services: 'services', Pricing: 'pricing', About: 'about'};
 
   /** Smooth-scroll to sections on the home page; otherwise navigate to /#slug */
   const handleAnchor = (e, slug) => {
@@ -86,7 +86,7 @@ export default function Footer() {
             <div>
               <h4 className="text-white text-xl font-semibold mb-3">Explore</h4>
               <ul className="space-y-2 text-white/90">
-                {['Services', 'Pricing', 'About', 'Contact'].map((label) => {
+                {['Services', 'Pricing', 'About'].map((label) => {
                   const slug = slugMap[label];
                   return (
                     <li key={label}>
@@ -98,6 +98,9 @@ export default function Footer() {
                 })}
                 <li>
                   <SmartLink to="/faq">FAQs</SmartLink>
+                </li>
+                <li>
+                  <SmartLink to="/contact">Contact</SmartLink>
                 </li>
               </ul>
             </div>
