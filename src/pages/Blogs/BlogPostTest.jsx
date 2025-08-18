@@ -1,6 +1,6 @@
 // src/pages/BlogPost.jsx
-import React, { useEffect, useRef } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useParams, Navigate, Link } from "react-router-dom";
 import { Helmet } from "@dr.pogodin/react-helmet";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -64,23 +64,91 @@ const heroByName = Object.fromEntries(
   Object.entries(heroAssets).map(([path, url]) => [path.split("/").pop(), url])
 );
 
-/* ── Markdown components (site style) ───────────────────────────────── */
+/* ── Helpers ────────────────────────────────────────────────────────── */
+function parseFrontMatter(raw) {
+  // Strip BOM/leading whitespace; capture first front-matter block.
+  const s = raw.replace(/^\uFEFF/, "").replace(/^\s+/, "");
+  const m = s.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?/);
+  if (!m) return [{}, raw];
+  const fm = m[1];
+  const body = s.slice(m[0].length);
+
+  const data = {};
+  fm.split(/\r?\n/).forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) return;
+    const idx = trimmed.indexOf(":");
+    if (idx === -1) return;
+    const key = trimmed.slice(0, idx).trim();
+    let value = trimmed.slice(idx + 1).trim();
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+    data[key] = value;
+    data[key.toLowerCase()] = value; // case-insensitive lookups
+  });
+  return [data, body];
+}
+
+function resolveHero(src) {
+  if (!src) return heroFallback;
+  if (/^https?:\/\//i.test(src) || src.startsWith("/")) return src; // remote or /public
+  if (heroByName[src]) return heroByName[src]; // src/assets/blog/<file>
+  const base = src.split("/").pop();
+  if (base && heroByName[base]) return heroByName[base];
+  return heroFallback;
+}
+
+const slugify = (str = "") =>
+  str
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/<\/?[^>]+(>|$)/g, "") // strip tags if any
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
+/* ── Allow FA classes ───────────────────────────────────────────────── */
+const faSanitizeSchema = {
+  ...defaultSchema,
+  tagNames: [...(defaultSchema.tagNames || []), "i", "span"],
+  attributes: {
+    ...(defaultSchema.attributes || {}),
+    i: ["class", "className", "aria-hidden", "aria-label", "role", "title"],
+    span: ["class", "className", "aria-hidden", "aria-label", "role", "title"],
+    "*": [...(defaultSchema.attributes?.["*"] || []), "class", "className"],
+  },
+};
+
+/* ── Markdown components (site style + id anchors) ──────────────────── */
 const markdownComponents = {
   h1: ({ children, ...props }) => (
     <h1 className="text-4xl sm:text-5xl font-semibold text-white tracking-tight mb-6" {...props}>
       {children}
     </h1>
   ),
-  h2: ({ children, ...props }) => (
-    <h2 className="text-2xl sm:text-3xl font-bold text-white mt-10 mb-3" {...props}>
-      {children}
-    </h2>
-  ),
-  h3: ({ children, ...props }) => (
-    <h3 className="text-xl sm:text-2xl font-semibold text-white mt-8 mb-2" {...props}>
-      {children}
-    </h3>
-  ),
+  h2: ({ children, ...props }) => {
+    const text = Array.isArray(children) ? children.join(" ") : String(children || "");
+    const id = slugify(text);
+    return (
+      <h2 id={id} className="scroll-mt-28 text-2xl sm:text-3xl font-bold text-white mt-10 mb-3" {...props}>
+        {children}
+      </h2>
+    );
+  },
+  h3: ({ children, ...props }) => {
+    const text = Array.isArray(children) ? children.join(" ") : String(children || "");
+    const id = slugify(text);
+    return (
+      <h3 id={id} className="scroll-mt-28 text-xl sm:text-2xl font-semibold text-white mt-8 mb-2" {...props}>
+        {children}
+      </h3>
+    );
+  },
   p: ({ children, ...props }) => (
     <p className="text-white/90 text-lg leading-relaxed mb-5" {...props}>
       {children}
@@ -127,15 +195,12 @@ const markdownComponents = {
         <code className={className}>{children}</code>
       </pre>
     ),
-  /* GFM checkboxes + tables */
   input: (props) => {
     if (props.type === "checkbox") {
       return (
         <input
           {...props}
-          className={`accent-[#3d86ca] align-[-2px] mr-2 h-4 w-4 rounded-sm bg-transparent ${
-            props.className || ""
-          }`}
+          className={`accent-[#3d86ca] align-[-2px] mr-2 h-4 w-4 rounded-sm bg-transparent ${props.className || ""}`}
         />
       );
     }
@@ -143,16 +208,15 @@ const markdownComponents = {
   },
   table: ({ children, ...props }) => (
     <div className="my-6 overflow-x-auto">
-      <table
-        className="w-full text-left border-separate border-spacing-0 rounded-lg ring-1 ring-white/10"
-        {...props}
-      >
+      <table className="w-full text-left border-separate border-spacing-0 rounded-lg ring-1 ring-white/10" {...props}>
         {children}
       </table>
     </div>
   ),
   thead: ({ children, ...props }) => (
-    <thead className="bg-white/10 text-white" {...props}>{children}</thead>
+    <thead className="bg-white/10 text-white" {...props}>
+      {children}
+    </thead>
   ),
   tbody: ({ children, ...props }) => <tbody className="text-white/90" {...props}>{children}</tbody>,
   tr: ({ children, ...props }) => (
@@ -172,77 +236,115 @@ const markdownComponents = {
   ),
 };
 
-/* ── Helpers ────────────────────────────────────────────────────────── */
-function parseFrontMatter(raw) {
-  // Strip BOM and leading whitespace, then capture first front-matter block.
-  const s = raw.replace(/^\uFEFF/, "").replace(/^\s+/, "");
-  const m = s.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?/);
-  if (!m) return [{}, raw]; // no front matter — return original
-  const fm = m[1];
-  const body = s.slice(m[0].length);
-
-  const data = {};
-  fm.split(/\r?\n/).forEach((line) => {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) return;
-    const idx = trimmed.indexOf(":");
-    if (idx === -1) return;
-    const key = trimmed.slice(0, idx).trim();
-    let value = trimmed.slice(idx + 1).trim();
-    if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1);
-    }
-    // Store original and lowercased keys for flexibility
-    data[key] = value;
-    data[key.toLowerCase()] = value;
+/* ── Extract headings for TOC (## and ###) ──────────────────────────── */
+function extractHeadings(md) {
+  const lines = md.split(/\r?\n/);
+  const items = [];
+  lines.forEach((l) => {
+    const m2 = l.match(/^##\s+(.+)$/);
+    const m3 = l.match(/^###\s+(.+)$/);
+    if (m2) items.push({ depth: 2, text: m2[1].trim(), id: slugify(m2[1].trim()) });
+    else if (m3) items.push({ depth: 3, text: m3[1].trim(), id: slugify(m3[1].trim()) });
   });
-  return [data, body];
+  return items;
 }
 
-function resolveHero(src) {
-  if (!src) return heroFallback;
-  // Absolute URL or /public
-  if (/^https?:\/\//i.test(src) || src.startsWith("/")) return src;
-  // File in src/assets/blog/*
-  if (heroByName[src]) return heroByName[src];
-  const base = src.split("/").pop();
-  if (base && heroByName[base]) return heroByName[base];
-  return heroFallback;
+/* ── Reading time (approx) ──────────────────────────────────────────── */
+const wordsPerMin = 225;
+function estimateReadMinutes(md) {
+  const text = md
+    .replace(/`{1,3}[\s\S]*?`{1,3}/g, " ") // code
+    .replace(/<\/?[^>]*>/g, " ") // tags
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, " ") // images
+    .replace(/\[[^\]]*\]\([^)]+\)/g, " ") // links
+    .replace(/[#>*_\-\+]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const words = text ? text.split(" ").length : 0;
+  return Math.max(1, Math.round(words / wordsPerMin));
 }
 
-/* ── Allow FA classes ───────────────────────────────────────────────── */
-const faSanitizeSchema = {
-  ...defaultSchema,
-  tagNames: [...(defaultSchema.tagNames || []), "i", "span"],
-  attributes: {
-    ...(defaultSchema.attributes || {}),
-    i: ["class", "className", "aria-hidden", "aria-label", "role", "title"],
-    span: ["class", "className", "aria-hidden", "aria-label", "role", "title"],
-    "*": [...(defaultSchema.attributes?.["*"] || []), "class", "className"],
-  },
-};
+/* ── Scroll progress bar hook ───────────────────────────────────────── */
+function useReadingProgress(targetRef) {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const el = targetRef.current;
+      const docY = window.scrollY;
+      const vh = window.innerHeight;
+      if (!el) return setProgress(0);
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      const height = el.offsetHeight;
+      const start = top - 80; // start a bit before the card
+      const end = top + height - vh * 0.8;
+      const p = (docY - start) / (end - start);
+      setProgress(Math.min(1, Math.max(0, p)));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [targetRef]);
+  return progress;
+}
 
+/* ── Component ──────────────────────────────────────────────────────── */
 export default function BlogPost() {
   const { slug } = useParams();
   const raw = posts[slug];
   if (!raw) return <Navigate to="/404" replace />;
 
-  // Robust front-matter parse (handles BOM/whitespace/CRLF)
-  const [data, content] = parseFrontMatter(raw);
+  // Parse front-matter & body
+  const [data, content] = useMemo(() => parseFrontMatter(raw), [raw]);
 
-  // Accept common aliases (case-insensitive thanks to parse)
+  // Hero / meta
   const heroSrc = data.hero || data.image || data.cover;
   const title = data.title;
   const description = data.description;
   const date = data.date;
   const heroAlt = data.heroAlt || data.heroalt || "Blog post backdrop";
-  const heroPosition = data.heroPosition || data.heroposition || "center";
-
+  const heroPosition = data.heroPosition || data.heroposition || "50% 35%"; // match other heros
   const heroUrl = resolveHero(heroSrc);
-  const objectPosition = heroPosition;
+
+  // Author (optional in front-matter)
+  const authorName = data.author || data.authorname || "";
+  const authorTitle = data.authortitle || "";
+  const authorAvatar = data.authoravatar || "";
+
+  // Reading time + TOC
+  const readMins = useMemo(() => estimateReadMinutes(content), [content]);
+  const headings = useMemo(() => extractHeadings(content), [content]);
+
+  // Related posts (simple: first 3 others)
+  const related = useMemo(() => {
+    const items = [];
+    for (const [s, r] of Object.entries(posts)) {
+      if (s === slug) continue;
+      const [d] = parseFrontMatter(r);
+      const t = d.title || s;
+      const h = resolveHero(d.hero || d.image || d.cover);
+      items.push({ slug: s, title: t, date: d.date || "", hero: h });
+    }
+    // Recent first if dates exist
+    items.sort((a, b) => (new Date(b.date) - new Date(a.date)) || a.title.localeCompare(b.title));
+    return items.slice(0, 3);
+  }, [slug]);
+
+  // Refs for progress and section anchors
+  const contentCardRef = useRef(null);
+  const progress = useReadingProgress(contentCardRef);
+
+  // Smooth scroll for TOC
+  const handleTocClick = (e, id) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - 88; // offset for hero spacing
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
 
   return (
     <>
@@ -257,6 +359,19 @@ export default function BlogPost() {
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
+      {/* Top reading progress bar */}
+      <div
+        className="fixed left-0 top-0 h-1 z-40"
+        style={{
+          width: `${progress * 100}%`,
+          background:
+            "linear-gradient(90deg, rgba(1,133,228,1) 0%, rgba(61,134,202,1) 100%)",
+          boxShadow: progress > 0 ? "0 0 12px rgba(1,133,228,0.6)" : "none",
+          transition: "width 80ms linear",
+        }}
+        aria-hidden="true"
+      />
+
       {/* HERO */}
       <section id="post-hero" className="relative mt-10 pb-12 isolate overflow-hidden bg-gray-900">
         <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">
@@ -264,11 +379,15 @@ export default function BlogPost() {
             alt={heroAlt}
             src={heroUrl}
             className="size-full object-cover"
-            style={{ objectPosition }}
+            style={{ objectPosition: heroPosition }}
             fetchpriority="high"
           />
         </Parallax>
-        <Parallax speed={0.07} respectPRM={false} className="absolute inset-0 -z-10 pointer-events-none">
+        <Parallax
+          speed={0.07}
+          respectPRM={false}
+          className="absolute inset-0 -z-10 pointer-events-none"
+        >
           <div className="h-full w-full bg-gradient-to-b from-black/80 to-black/70" />
         </Parallax>
         <Parallax
@@ -293,51 +412,133 @@ export default function BlogPost() {
             <h1 className="text-5xl font-semibold tracking-tight text-pretty text-white sm:text-6xl">
               {title}
             </h1>
-            {date && <p className="mt-3 text-white/80">{date}</p>}
+
+            {(date || authorName) && (
+              <div className="mt-4 flex flex-wrap items-center gap-4 text-white/85">
+                {authorAvatar ? (
+                  <img
+                    src={authorAvatar}
+                    alt={authorName}
+                    className="h-9 w-9 rounded-full ring-2 ring-white/40 object-cover"
+                    loading="lazy"
+                  />
+                ) : null}
+                <div className="flex items-center gap-2">
+                  {authorName && <span className="font-semibold">{authorName}</span>}
+                  {authorTitle && <span className="text-white/70">· {authorTitle}</span>}
+                </div>
+                {date && <span className="text-white/70">· {date}</span>}
+                <span className="text-white/70">· {readMins} min read</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* BACK LINK + CONTENT (single gradient section) */}
+      {/* BACK LINK + CONTENT + TOC (single gradient section) */}
       <section className="relative pb-20 bg-gradient-to-br from-[#04223f] to-[#023c72]">
         <div className="relative z-10 max-w-7xl mx-auto px-6 pt-6 sm:pt-8">
-          <a
-            href="/blog"
+          {/* Back link outside the card */}
+          <Link
+            to="/blog"
             className="inline-flex items-center gap-2 text-md font-semibold text-white hover:text-white underline-offset-2 glow-hover"
           >
             <FaArrowLeft />
             Back to Blog
-          </a>
+          </Link>
 
-          <div className="mt-4 sm:mt-6 glow rounded-3xl bg-gradient-to-b from-black/65 to-black/60 backdrop-blur-2xl ring-1 ring-white/20 shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-6 md:p-10">
-            {/* Force dark theme styles inside markdown */}
-            <style>{`
-              .blog-prose :where(h1,h2,h3,h4,h5,h6,p,li,blockquote,em,strong,th,td) { color: #fff !important; }
-              .blog-prose :where(a) { color: #3d86ca; }
-              .blog-prose :where(a:hover) { color: #0185e4; }
-              .blog-prose :where(code):not(pre code) { background: rgba(255,255,255,0.12); color:#fff; }
-              .blog-prose :where(pre) { background: rgba(0,0,0,0.9); color:#fff; }
-              .blog-prose :where(hr) { border-color: rgba(255,255,255,0.1); }
-              .blog-prose :where(table) { border-color: rgba(255,255,255,0.15); }
-              .blog-prose :where(th,td) { border-color: rgba(255,255,255,0.15); }
-              .blog-prose :where(.task-list-item){ list-style: none; }
-              .blog-prose :where(input[type="checkbox"]){
-                accent-color: #3d86ca;
-                background: transparent;
-                inline-size: 1rem; block-size: 1rem;
-              }
-            `}</style>
+          {/* Grid: content + sticky TOC */}
+          <div className="mt-4 sm:mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Content card */}
+            <div
+              ref={contentCardRef}
+              className="lg:col-span-8 glow rounded-3xl bg-gradient-to-b from-black/65 to-black/60 backdrop-blur-2xl ring-1 ring-white/20 shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-6 md:p-10"
+            >
+              {/* Force dark theme styles inside markdown */}
+              <style>{`
+                .blog-prose :where(h1,h2,h3,h4,h5,h6,p,li,blockquote,em,strong,th,td) { color: #fff !important; }
+                .blog-prose :where(a) { color: #3d86ca; }
+                .blog-prose :where(a:hover) { color: #0185e4; }
+                .blog-prose :where(code):not(pre code) { background: rgba(255,255,255,0.12); color:#fff; }
+                .blog-prose :where(pre) { background: rgba(0,0,0,0.9); color:#fff; }
+                .blog-prose :where(hr) { border-color: rgba(255,255,255,0.1); }
+                .blog-prose :where(table) { border-color: rgba(255,255,255,0.15); }
+                .blog-prose :where(th,td) { border-color: rgba(255,255,255,0.15); }
+                .blog-prose :where(.task-list-item){ list-style: none; }
+                .blog-prose :where(input[type="checkbox"]){
+                  accent-color: #3d86ca;
+                  background: transparent;
+                  inline-size: 1rem; block-size: 1rem;
+                }
+              `}</style>
 
-            <article className="blog-prose prose prose-invert max-w-none">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeRaw, [rehypeSanitize, faSanitizeSchema]]}
-                components={markdownComponents}
-              >
-                {content}
-              </ReactMarkdown>
-            </article>
+              <article className="blog-prose prose prose-invert max-w-none">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw, [rehypeSanitize, faSanitizeSchema]]}
+                  components={markdownComponents}
+                >
+                  {content}
+                </ReactMarkdown>
+              </article>
+            </div>
+
+            {/* Sticky TOC (desktop) */}
+            <aside className="lg:col-span-4">
+              <div className="lg:sticky lg:top-24 space-y-4">
+                {headings.length > 0 && (
+                  <nav
+                    aria-label="Table of contents"
+                    className="rounded-2xl bg-black/35 ring-1 ring-white/15 backdrop-blur-xl p-4"
+                  >
+                    <div className="text-white/80 font-semibold mb-2">On this page</div>
+                    <ul className="space-y-2">
+                      {headings.map((h) => (
+                        <li key={h.id} className={h.depth === 3 ? "pl-4" : ""}>
+                          <a
+                            href={`#${h.id}`}
+                            onClick={(e) => handleTocClick(e, h.id)}
+                            className="text-white/80 hover:text-white"
+                          >
+                            {h.text}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                )}
+              </div>
+            </aside>
           </div>
+
+          {/* Related posts */}
+          {related.length > 0 && (
+            <div className="mt-10">
+              <h3 className="text-2xl font-semibold text-white mb-4">Related articles</h3>
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                {related.map((r) => (
+                  <Link
+                    key={r.slug}
+                    to={`/blog/${r.slug}`}
+                    className="group rounded-2xl overflow-hidden ring-1 ring-white/15 bg-black/35 backdrop-blur-xl hover:ring-white/30 transition"
+                  >
+                    <div className="aspect-[16/9] overflow-hidden">
+                      <img
+                        src={r.hero || heroFallback}
+                        alt={r.title}
+                        className="h-full w-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <div className="text-white font-semibold">{r.title}</div>
+                      {r.date && <div className="text-white/70 text-sm mt-1">{r.date}</div>}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </>
