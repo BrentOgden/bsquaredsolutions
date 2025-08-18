@@ -157,8 +157,8 @@ function Hero({
   title = 'Basic Single Page Template',
   subtitle = 'Simple single page React application using TailwindCSS and is mobile responsive - perfect for event or photo sites. This is the easiest way to get your site up and out there. Includes an About, Event Grid, Photo Grid, and Subscribe section. ',
   bgImage = hero,
-  heroPosition = '50% 35%', // e.g., '50% 55%'
-  buyHref,                 // injected from parent
+  heroPosition = '50% 35%', 
+  buyHref,                 
 }) {
   return (
     <section

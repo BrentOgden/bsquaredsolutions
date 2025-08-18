@@ -197,7 +197,7 @@ export default function Contact() {
                   Include links to websites you admire directly in the form. If you have design mockups or additional materials, you can email them to us anytime.
                 </p>
                 <a
-                  href="mailto:support@bsquaredsolutions.com"
+                  href="mailto:info@bsquaredsolutions.com"
                   className="inline-flex mt-4 items-center gap-2 rounded-lg bg-primary px-5 py-2 font-semibold text-white hover:bg-primary/90 transition"
                 >
                   <FiMail className="h-5 w-5" />

@@ -15,7 +15,7 @@ heroPosition: "50% 40%"
 
 - Clean navigation and logical hierarchy (Home → Services → Service Detail → Contact).
 - XML sitemap and robots.txt configured.
-- Descriptive, human-readable URLs (e.g., `/services/web-design`).
+- Descriptive, human-readable URLs (e.g., '/services/web-design').
 
 **Checklist**
 - [ ] Submit sitemap to Google Search Console  
@@ -35,14 +35,14 @@ heroPosition: "50% 40%"
 - [ ] Unique title + meta per page  
 - [ ] One H1; semantic H2/H3  
 - [ ] Internal links to related pages  
-- [ ] Image `alt` attributes  
+- [ ] Image 'alt' attributes  
 
 ---
 
 ## 3) Technical SEO & performance
 
 - Pass Core Web Vitals (LCP, CLS, INP).
-- Mobile-friendly layout, responsive images (`srcset`/lazy-load where appropriate).
+- Mobile-friendly layout, responsive images ('srcset'/lazy-load where appropriate).
 - 301 redirects for moved content; avoid 404 chains.
 
 **Checklist**

@@ -44,6 +44,7 @@ const tiers = [
       'Troubleshooting & site fixes',
       'Code enhancements',
       'Feature additions/updates',
+      'Monthly plans available (ask for details)',
     ],
     details:
       'Keep your site running smoothly and up-to-date. From content tweaks to bug fixes and new feature roll-outs, our $50/hr maintenance service ensures your web presence evolves with your needs.',

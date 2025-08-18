@@ -72,7 +72,7 @@ export default function Footer() {
             <div className="space-y-3 text-white">
               <div className="flex items-center">
                 <MdOutlineMailOutline className="mr-2 text-xl" />
-                <a href="mailto:support@bsquaredsolutions.io">support@bsquaredsolutions.io</a>
+                <a href="mailto:info@bsquaredsolutions.io">info@bsquaredsolutions.io</a>
               </div>
               <div className="flex items-center">
                 <IoIosPhonePortrait className="mr-2 text-xl" />

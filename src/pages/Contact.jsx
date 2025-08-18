@@ -225,7 +225,7 @@ export default function Contact() {
                   <div>
                     <div className="text-white/80 text-sm">Email</div>
                     <a href="mailto:support@bsquaredsolutions.com" className="text-white font-semibold hover:underline">
-                      support@bsquaredsolutions.com
+                      info@bsquaredsolutions.com
                     </a>
                   </div>
                 </li>
