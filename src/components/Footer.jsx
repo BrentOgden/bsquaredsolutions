@@ -99,6 +99,9 @@ export default function Footer() {
                 <li>
                   <SmartLink to="/faq">FAQs</SmartLink>
                 </li>
+                 <li>
+                  <SmartLink to="/blog">Blog</SmartLink>
+                </li>
                 <li>
                   <SmartLink to="/contact">Contact</SmartLink>
                 </li>

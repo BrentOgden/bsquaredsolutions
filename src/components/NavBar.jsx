@@ -10,7 +10,7 @@ export default function Navbar() {
   const location = useLocation();
 
   // Order shown in the UI
-  const links = ["Home", "Services", "Pricing", "About", "FAQ", "Contact"];
+  const links = ["Home", "Services", "Pricing", "About", "FAQ", "Blog","Contact"];
 
   // Sections that live on the home page
   const slugMap = {
@@ -28,6 +28,10 @@ export default function Navbar() {
     // Standalone pages (no hash scroll)
     if (link === "FAQ") {
       navigate("/faq");
+      return;
+    }
+    if (link === "Blog") {
+      navigate("/blog");
       return;
     }
     if (link === "Contact") {

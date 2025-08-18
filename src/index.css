@@ -1,5 +1,7 @@
 /* Tailwind v4 */
 @import "tailwindcss";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
 
 :root {
   font-family: Lato, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
