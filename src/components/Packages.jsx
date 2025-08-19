@@ -4,6 +4,8 @@ import { motion, LayoutGroup } from 'framer-motion'
 import { FiCheck } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import hero from '../assets/packageHero.jpg'
+const CONTACT_FORM_URL = 'https://myformflow.io/b-squared-solutions/w';
+
 
 /* ── Minimal parallax util (no deps) ─────────────────────────────────── */
 function useParallax({ speed = 0.7, axis = 'y', respectPRM = true } = {}) {
@@ -43,35 +45,126 @@ function Parallax({ speed, axis, respectPRM = true, className = '', children }) 
   return <div ref={ref} className={`will-change-transform ${className}`}>{children}</div>
 }
 
+/* ── Equal heights hook (section-scoped) ─────────────────────────────── */
+function useEqualCardHeights(containerRef, selector = '.pkg-card') {
+  useEffect(() => {
+    const root = containerRef.current
+    if (!root) return
+
+    const measure = () => {
+      const cards = Array.from(root.querySelectorAll(selector))
+      if (!cards.length) return
+      cards.forEach(c => { c.style.height = 'auto' })
+      const max = Math.max(...cards.map(c => c.offsetHeight))
+      cards.forEach(c => { c.style.height = `${max}px` })
+    }
+
+    const requestMeasure = () => requestAnimationFrame(() => setTimeout(measure, 0))
+
+    requestMeasure()
+    if (document?.fonts?.ready) {
+      document.fonts.ready.then(requestMeasure).catch(() => {})
+    }
+    window.addEventListener('load', requestMeasure)
+    window.addEventListener('resize', requestMeasure)
+
+    const resizeObs = 'ResizeObserver' in window ? new ResizeObserver(requestMeasure) : null
+    const mutationObs = 'MutationObserver' in window ? new MutationObserver(requestMeasure) : null
+
+    const cards = Array.from(root.querySelectorAll(selector))
+    cards.forEach(c => {
+      resizeObs?.observe(c)
+      mutationObs?.observe(c, { childList: true, subtree: true, characterData: true })
+    })
+    resizeObs?.observe(root)
+
+    return () => {
+      window.removeEventListener('load', requestMeasure)
+      window.removeEventListener('resize', requestMeasure)
+      resizeObs?.disconnect?.()
+      mutationObs?.disconnect?.()
+    }
+  }, [containerRef, selector])
+}
+
+/* ── Simple Modal for embedded forms ─────────────────────────────────── */
+function ContactFormModal({ open, src, onClose, title = 'Contact Us' }) {
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => { if (e.key === 'Escape') onClose?.() }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open, onClose])
+
+  if (!open) return null
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+    >
+      <div
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative z-[101] w-full max-w-3xl sm:max-w-4xl lg:max-w-5xl">
+        <div className="rounded-2xl overflow-hidden ring-1 ring-white/20 shadow-2xl bg-gradient-to-br from-[#04223f] to-[#023c72]">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-white/10">
+            <h3 className="text-white text-lg font-semibold">{title}</h3>
+            <button
+              onClick={onClose}
+              className="text-white/80 hover:text-white rounded-md px-2 py-1"
+              aria-label="Close"
+            >
+              ✕
+            </button>
+          </div>
+          <div className="bg-black/40">
+            <iframe
+              title="Contact form"
+              src={src}
+              className="w-full h-[70vh] sm:h-[75vh] lg:h-[80vh]"
+              style={{ border: 0 }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ── Data ────────────────────────────────────────────────────────────── */
 const packagesData = [
+  // Build
   { id: 'startercms', title: 'CMS Starter', price: '$1,500',
     blurb: 'Ideal for solo entrepreneurs or small businesses needing a clean, conversion-focused site.',
-    subtitle: '', features: [
+    subtitle: 'Basic site on your choice of CMS platform', features: [
       'Up to 5 custom-designed pages','Mobile-first, responsive layout','Contact form with email notifications',
       'Basic on-page SEO (titles, meta descriptions)','Google Analytics setup & Search Console submission',
       '1 round of design & content revisions','Deployment guidance & launch support','1 month post-launch support',
-    ], cta: 'Get Started', path: '/#contact', popular: false },
-  { id: 'starter', title: 'Starter', price: '$2000',
+    ], cta: 'Get Started', path: '/#contactform', popular: false },
+  { id: 'starter', title: 'Starter', price: '$2,000',
     blurb: 'Ideal for solo entrepreneurs or small businesses needing a clean, conversion-focused site.',
-    subtitle: '', features: [
+    subtitle: 'Basic custom-built React site', features: [
       'Up to 5 custom-designed pages','Mobile-first, responsive layout','Contact form with email notifications',
       'Basic on-page SEO (titles, meta descriptions)','Google Analytics setup & Search Console submission',
       '1 round of design & content revisions','Deployment guidance & launch support','1 month post-launch support',
-    ], cta: 'Get Started', path: '/#contact', popular: false },
+    ], cta: 'Get Started', path: '/#contactform', popular: false },
   { id: 'growth', title: 'Growth', price: '$3,000',
     blurb: 'For growing teams ready to scale traffic, leads and content.',
-    subtitle: 'Everything in Starter plus:', features: [
+    subtitle: 'Everything in Starter PLUS:', features: [
       'Up to 10 pages, plus optional blog or news section','Optional CMS integration (WordPress, Headless CMS, etc.)',
       'Advanced on-page SEO & schema markup','Performance optimization & page-speed tuning',
       '2 rounds of revisions','3 months post-launch support','Basic accessibility compliance (WCAG AA)',
-    ], cta: 'Get Started', path: '/#contact', popular: true },
+    ], cta: 'Get Started', path: '/#contactform', popular: true },
   { id: 'platinum', title: 'Professional', price: 'Starts at $6,000',
     blurb: 'Complex sites with custom integrations, dashboards or e-commerce.',
-    subtitle: 'All Growth features plus:', features: [
+    subtitle: 'Everything in Growth PLUS:', features: [
       'Unlimited pages & custom components','Custom API integrations & automations','E-commerce or membership system setup',
       'Design system / UI component library','Advanced accessibility & security hardening','6 months dedicated support & maintenance',
-    ], cta: 'Get Started', path: '/#contact', popular: false },
+    ], cta: 'Get Started', path: '/#contactform', popular: false },
+
+  // Templates
   { id: 'diy', title: 'DIY Starter', price: '$99',
     blurb: 'Choose our pre-built, fully-functional basic starter template and we will provide an hour of dedicated support to get you up and running fast.',
     subtitle: '$49 - Template only (w/out support)', features: [
@@ -90,18 +183,41 @@ const packagesData = [
       'Up to 8 pages with custom styling tweaks','Domain install & hosting configuration',
       'Priority email support & 1×1 tutorial session','Access to premium components & plugins',
     ], cta: 'View Template', path: '/smallbusinesstemplate', popular: false },
+
+  // Maintenance
+  { id: 'on-demand', title: 'On-Demand', price: '$50 / hr',
+    blurb: 'Comprehensive, as-needed updates for your site — new or existing.',
+    subtitle: 'Pay-as-you-go flexibility', features: [
+      'Bug fixes & feature enhancements','Content edits & styling tweaks',
+      'Consulting services','Any other service you may need — as you need it',
+    ], cta: 'Request Hours', path: '/contact', popular: false },
+  { id: 'basic-monthly', title: 'Ongoing - Basic', price: '$199 / mo',
+    blurb: 'Stay secure and fast with monthly updates, monitoring, and priority support.',
+    subtitle: 'Includes these features and more:', features: [
+      'Theme updates','Blog posting/creation',
+      'Uptime monitoring & alerts','Monthly SEO audit / optimization',
+      'Dedicated content/dev time (up to 2 hrs / mo)',
+    ], cta: 'Get Started', path: '/#maintenanceform', popular: true },
+  { id: 'premium-monthly', title: 'Ongoing - Premium', price: '$399 / mo',
+    blurb: 'Premium, all-in maintenance—updates, SEO monitoring, proactive enhancements, QA, priority support.',
+    subtitle: 'Everything in Basic PLUS:', features: [
+      'Weekly performance checks','Frequent site updates/revisions',
+      'Monthly analytics & SEO report',
+      'Dedicated content/dev time (up to 6 hrs / mo)',
+    ], cta: 'Get Started', path: '/#maintenanceform', popular: false },
 ]
 
 /* ── Helpers ─────────────────────────────────────────────────────────── */
 const inGroup = (ids) => (p) => ids.includes(p.id)
-const BUILD_IDS = ['startercms','starter', 'growth', 'platinum', 'allinclusive']
-const DIY_IDS   = ['diy', 'diypro', 'diybusiness']
+const BUILD_IDS = ['startercms','starter','growth','platinum','allinclusive']
+const DIY_IDS   = ['diy','diypro','diybusiness']
+const MAINT_IDS = ['on-demand','basic-monthly','premium-monthly']
 
 /* ── Presentational components ───────────────────────────────────────── */
 function PackageCard({ pkg, onCtaClick }) {
   return (
     <div
-      className={`pkg-card relative flex flex-col rounded-2xl shadow-xl overflow-hidden bg-white/90 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#0185e4]/60
+      className={`pkg-card relative flex h-full flex-col rounded-2xl shadow-xl overflow-hidden bg-white/90 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#0185e4]/60
         ${pkg.popular ? 'ring-2 ring-[#3d86ca]' : 'ring-1 ring-gray-200/60'}`}
     >
       {pkg.popular && (
@@ -151,10 +267,6 @@ function PackageCard({ pkg, onCtaClick }) {
 const MARQUEE_PX_PER_SEC = 40
 
 /* ── Section block ───────────────────────────────────────────────────── */
-/**
- * marquee=true => auto-scrolling row on ≥640px screens, 1-column grid on mobile.
- * marquee=false => standard responsive grid everywhere (1-col on mobile).
- */
 function SectionBlock({
   id,
   kicker,
@@ -168,7 +280,6 @@ function SectionBlock({
   const ringColor = variant === 'accent' ? 'ring-[#04223f]/80' : 'ring-white/95'
   const bgGrad = 'bg-gradient-to-b from-black/65 to-black/60'
 
-  // Detect mobile (Tailwind "sm" breakpoint: <640px)
   const [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
     const mql = window.matchMedia('(max-width: 639px)')
@@ -180,16 +291,6 @@ function SectionBlock({
     }
   }, [])
 
-  /* Shared: equalize card heights */
-  const equalizeHeights = (rootEl) => {
-    const cards = rootEl ? Array.from(rootEl.querySelectorAll('.pkg-card')) : []
-    if (!cards.length) return
-    cards.forEach((c) => (c.style.height = 'auto'))
-    const max = Math.max(...cards.map((c) => c.offsetHeight))
-    cards.forEach((c) => (c.style.height = `${max}px`))
-  }
-
-  /* Marquee-specific refs/state */
   const containerRef = useRef(null)
   const rowRef = useRef(null)
   const pausedRef = useRef(false)
@@ -198,7 +299,8 @@ function SectionBlock({
   const rafRef = useRef(0)
   const roRef = useRef(null)
 
-  // Measure width of first set + one gap so the seam equals internal gaps
+  useEqualCardHeights(containerRef, '.pkg-card')
+
   const measureLoopWidth = () => {
     const row = rowRef.current
     if (!row) return 0
@@ -231,16 +333,12 @@ function SectionBlock({
     rafRef.current = requestAnimationFrame(step)
   }
 
-  /* Effects only when marquee is enabled and not on mobile */
   useEffect(() => {
     if (!marquee) return
     const container = containerRef.current
 
     const t = setTimeout(() => {
-      if (!isMobile) {
-        measureLoopWidth()
-      }
-      equalizeHeights(rowRef.current || container)
+      if (!isMobile) measureLoopWidth()
       startLoop()
     }, 0)
 
@@ -260,17 +358,15 @@ function SectionBlock({
         offsetRef.current = 0
         if (rowRef.current) rowRef.current.style.transform = 'translate3d(0,0,0)'
       }
-      equalizeHeights(rowRef.current || container)
     }
     window.addEventListener('resize', onResize)
 
     if ('ResizeObserver' in window) {
       const ro = new ResizeObserver(() => {
         if (!isMobile) measureLoopWidth()
-        equalizeHeights(rowRef.current || container)
       })
       roRef.current = ro
-      const cards = (rowRef.current || container)?.querySelectorAll?.('.pkg-card') ?? []
+      const cards = container?.querySelectorAll?.('.pkg-card') ?? []
       cards.forEach((c) => ro.observe(c))
     }
 
@@ -287,7 +383,6 @@ function SectionBlock({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [marquee, items.length, isMobile])
 
-  // Build repeated list (only for marquee on non-mobile)
   const repeated = (!isMobile && marquee)
     ? [...items, ...items].map((pkg, idx) => ({
         ...pkg,
@@ -299,6 +394,7 @@ function SectionBlock({
   return (
     <div
       id={id}
+      ref={containerRef}
       className={`scroll-mt-28 md:scroll-mt-32 rounded-3xl ${bgGrad} glow glow-strong backdrop-blur-2xl ring-1 ${ringColor} shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-6 md:p-10`}
     >
       <div className="mb-6 text-center">
@@ -317,37 +413,25 @@ function SectionBlock({
         )}
       </div>
 
-      {/* Top marquee on ≥sm screens; 1-col grid on mobile OR plain grid when marquee=false */}
       {marquee && !isMobile ? (
-        // Continuous marquee with uniform gap (first set + one gap)
-        <div ref={containerRef} className="relative overflow-hidden" aria-label={`${title} packages`}>
+        <div className="relative overflow-hidden" aria-label={`${title} packages`}>
           <div
             ref={rowRef}
-            className="
-              grid grid-flow-col auto-cols-[minmax(18rem,22rem)]
-              md:auto-cols-[minmax(20rem,24rem)]
-              gap-8 pr-1 will-change-transform
-            "
+            className="grid grid-flow-col auto-cols-[minmax(18rem,22rem)] md:auto-cols-[minmax(20rem,24rem)] gap-8 pr-1 will-change-transform items-stretch"
             style={{ transform: 'translate3d(0,0,0)' }}
           >
             {repeated.map((pkg) => (
-              <div key={pkg._key} data-rep={pkg._rep} className="snap-start">
+              <div key={pkg._key} data-rep={pkg._rep} className="snap-start h-full">
                 <PackageCard pkg={pkg} onCtaClick={onCtaClick} />
               </div>
             ))}
           </div>
         </div>
       ) : (
-        // Standard responsive grid: 1-col on mobile, 2-col on sm, 3-col on lg
         <div className="relative" aria-label={`${title} packages`}>
-          <div
-            className="
-              grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
-              gap-8
-            "
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
             {repeated.map((pkg) => (
-              <div key={pkg._key}>
+              <div key={pkg._key} className="h-full">
                 <PackageCard pkg={pkg} onCtaClick={onCtaClick} />
               </div>
             ))}
@@ -363,6 +447,7 @@ function MiniStickyNav({ active }) {
   const items = [
     { id: 'build', label: 'Build' },
     { id: 'templates', label: 'Templates' },
+    { id: 'maintenance', label: 'Maintenance' },
   ]
 
   const handleClick = (e, id) => {
@@ -419,17 +504,30 @@ function MiniStickyNav({ active }) {
 }
 
 /* ── Page component ───────────────────────────────────────────────────── */
-export default function Packages({ packages = packagesData, onCtaClick }) {
+export default function Packages({ packages = packagesData }) {
   const [activeSection, setActiveSection] = useState('build')
 
-  const buildPackages = packages.filter(inGroup(BUILD_IDS))
-  const diyPackages   = packages.filter(inGroup(DIY_IDS))
+  // Modal state
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalSrc, setModalSrc] = useState(CONTACT_FORM_URL) // default
+
+  // Any CTA that targets /#contactform will open the modal instead of routing
+  const handleCtaClick = (path) => {
+  if (typeof path === 'string' && (path.includes('/#maintenanceform'))) {
+    // Always load the canonical FormFlow URL in the modal
+    setModalSrc(CONTACT_FORM_URL);
+    setModalOpen(true);
+  } else if (typeof path === 'string') {
+    window.location.href = path; // normal navigation
+  }
+};
+
 
   useEffect(() => { setActiveSection('build') }, [])
 
   // ScrollSpy
   useEffect(() => {
-    const ids = ['build', 'templates']
+    const ids = ['build', 'templates', 'maintenance']
     const targets = ids.map((id) => document.getElementById(id)).filter(Boolean)
     if (!targets.length) return
     const observer = new IntersectionObserver(
@@ -482,7 +580,7 @@ export default function Packages({ packages = packagesData, onCtaClick }) {
               Transparent pricing, clear deliverables.
             </h1>
             <p className="mt-6 text-lg/8 text-white text-shadow-lg/50 sm:text-xl/8">
-              Choose the path that fits your goals — <strong>Custom Build</strong>: hand-crafted to your brand, search-ready and performance-tuned; or <strong>Pre-designed Template</strong>: quick, flexible, and budget-friendly.
+              Choose the path that fits your goals — <strong>Custom Build</strong>: hand-crafted to your brand, search-ready and performance-tuned; <strong>Pre-designed Template</strong>: quick, flexible, and budget-friendly; or <strong>Maintenance</strong>: proactive updates, monitoring, and support.
             </p>
           </motion.div>
         </div>
@@ -495,7 +593,7 @@ export default function Packages({ packages = packagesData, onCtaClick }) {
             <MiniStickyNav active={activeSection} />
           </div>
 
-          {/* SECTION 1: Custom Builds — marquee ON (desktop), 1-col grid on mobile */}
+          {/* SECTION 1: Custom Builds — marquee ON (desktop) */}
           <div className="pt-6 pb-8">
             <SectionBlock
               id="build"
@@ -504,13 +602,13 @@ export default function Packages({ packages = packagesData, onCtaClick }) {
               blurb="Have us build a polished, performance-focused site — designed and developed for your brand. We translate your brand vision into a cohesive, expertly built website with full setup and support."
               variant="primary"
               items={packages.filter(inGroup(BUILD_IDS))}
-              onCtaClick={onCtaClick}
+              onCtaClick={handleCtaClick}
               marquee
             />
           </div>
 
           {/* SECTION 2: DIY Templates — standard responsive grid */}
-          <div className="pt-10 pb-16">
+          <div className="pt-10 pb-8">
             <SectionBlock
               id="templates"
               kicker="DIY Templates"
@@ -518,12 +616,34 @@ export default function Packages({ packages = packagesData, onCtaClick }) {
               blurb="Get moving quickly with a professional template you can evolve over time. Pick a prebuilt site, brand it your way, and go live with 1 hour of included support."
               variant="accent"
               items={packages.filter(inGroup(DIY_IDS))}
-              onCtaClick={onCtaClick}
+              onCtaClick={handleCtaClick}
+              marquee={false}
+            />
+          </div>
+
+          {/* SECTION 3: Maintenance — standard responsive grid */}
+          <div className="pt-10 pb-16">
+            <SectionBlock
+              id="maintenance"
+              kicker="Website Maintenance"
+              title="Keep Your Site Fast, Secure & Up-to-Date"
+              blurb="Stay ahead of issues with proactive updates, backups, performance checks, and priority support. Choose a plan that matches how often your site changes."
+              variant="accent"
+              items={packages.filter(inGroup(MAINT_IDS))}
+              onCtaClick={handleCtaClick}
               marquee={false}
             />
           </div>
         </div>
       </section>
+
+      {/* Modal (opens for /#contactform CTAs) */}
+      <ContactFormModal
+        open={modalOpen}
+        src={modalSrc}
+        onClose={() => setModalOpen(false)}
+        title="Get Started — Quick Contact"
+      />
     </>
   )
 }

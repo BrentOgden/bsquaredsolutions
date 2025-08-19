@@ -1,9 +1,34 @@
-import React, { useState } from 'react';
-import { IoShieldCheckmarkOutline } from 'react-icons/io5';
+// src/pages/Pricing.jsx
+import React, { useEffect, useState } from 'react';
+import { IoShieldCheckmarkOutline, IoClose } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
 import pricingHero from '../assets/pricingHero2.jpg';
 
+/* ── Helper: smart link (internal vs external) ─────────────────────── */
+function SmartLink({ to, className = '', children, onClick }) {
+  const isExternal = /^https?:\/\//i.test(to);
+  if (isExternal) {
+    return (
+      <a
+        href={to}
+        className={className}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClick}
+      >
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link to={to} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
+
+/* ── Data ──────────────────────────────────────────────────────────── */
 const tiers = [
   {
     name: 'CMS Site Build',
@@ -18,7 +43,10 @@ const tiers = [
     ],
     details:
       'Get online fast with a powerful, easy-to-manage CMS site—complete with custom templates, built-in SEO optimization, and two free rounds of revisions. Enjoy full control without any monthly fees.',
-    action: 'contact',
+    action: 'contact', // primary CTA (existing behavior)
+    // Secondary CTA
+    action2Label: 'Get Started',
+    action2Href: '/#contactform',
   },
   {
     name: 'Custom Site Build',
@@ -34,21 +62,26 @@ const tiers = [
     details:
       'Experience a fully bespoke React application styled with TailwindCSS. Includes two complimentary revision rounds, on-page SEO setup, and zero recurring fees—your brand, your way.',
     action: 'contact',
+    action2Label: 'Get Started',
+    action2Href: '/#contactform',
   },
   {
     name: 'Website Maintenance',
     price: '$50/hr',
-    disclaimer: '(2 hr minimum - for existing sites)',
+    disclaimer: '(2 hr minimum - new or existing sites)',
     features: [
       'Content revisions/additions',
       'Troubleshooting & site fixes',
       'Code enhancements',
       'Feature additions/updates',
-      'Monthly plans available (ask for details)',
+      'Monthly plans available for dedicated support',
     ],
     details:
       'Keep your site running smoothly and up-to-date. From content tweaks to bug fixes and new feature roll-outs, our $50/hr maintenance service ensures your web presence evolves with your needs.',
-    action: 'checkout',
+    action: 'contact',
+    action2Label: 'Discuss a Plan',
+    // This external link will open in a modal instead of a new page
+    action2Href: 'https://myformflow.io/b-squared-solutions/w',
   },
   {
     name: 'Logo Design',
@@ -62,16 +95,98 @@ const tiers = [
     ],
     details:
       'Stand out with a custom logo crafted to your brand vision. Enjoy included revisions, expert design guidance, and receive all final files—web and print ready—yours to own forever.',
-    action: 'checkout',
+    action: 'checkout', // will still route to checkoutvenmo
+    action2Label: "Let's Chat",
+    action2Href: '/contact',
   },
 ];
 
-function FlipCard({ tier }) {
+/* ── Modal for embedding external forms (iframe) ───────────────────── */
+function Modal({ open, onClose, url, title = 'Website Maintenance' }) {
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === 'Escape' && onClose();
+    document.addEventListener('keydown', onKey);
+    // Lock scroll
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+    >
+      {/* Overlay */}
+      <div
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      {/* Dialog */}
+      <div className="relative z-10 w-full max-w-4xl rounded-2xl overflow-hidden bg-white shadow-2xl ring-1 ring-black/10">
+        <div className="flex items-center justify-between px-4 py-3 bg-black">
+          <h3 className="text-white font-semibold">{title}</h3>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="text-white/80 hover:text-white"
+          >
+            <IoClose className="text-2xl" />
+          </button>
+        </div>
+        <div className="bg-white">
+          {/* 80vh viewport height iframe */}
+          <iframe
+            title="Maintenance Form"
+            src={url}
+            className="w-full"
+            style={{ height: '80vh', border: '0' }}
+            // Some providers require these:
+            allow="clipboard-write; geolocation *; microphone *; camera *"
+            sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+          />
+        </div>
+        <div className="flex items-center justify-between px-4 py-3 bg-gray-50">
+          <span className="text-sm text-gray-600">
+            Having trouble in the modal?
+          </span>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-semibold text-primary hover:underline"
+          >
+            Open full page ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Card ──────────────────────────────────────────────────────────── */
+function FlipCard({ tier, openModal }) {
   const [flipped, setFlipped] = useState(false);
+
+  // Preserve your amount logic for checkout
   const numericAmount =
     tier.name === 'Website Maintenance'
       ? '100'
       : tier.price.replace(/[^0-9.]/g, '');
+
+  const isExternalAction2 = !!tier.action2Href && /^https?:\/\//i.test(tier.action2Href);
+  const openInModal =
+    tier.name === 'Website Maintenance' && isExternalAction2 && typeof openModal === 'function';
 
   return (
     <div
@@ -96,6 +211,7 @@ function FlipCard({ tier }) {
             <div className="bg-primary text-white py-4 text-center">
               <h3 className="text-xl font-extrabold">{tier.name}</h3>
             </div>
+
             <div className="p-6 flex-1 flex flex-col">
               <ul className="flex-1 mb-6 space-y-2 text-gray-600">
                 {tier.features.map((f) => (
@@ -105,29 +221,57 @@ function FlipCard({ tier }) {
                   </li>
                 ))}
               </ul>
-              <p className="text-2xl justify-center align-top items-center text-center font-bold mb-2 text-primary">
+
+              <p className="text-2xl text-center font-bold mb-2 text-primary">
                 {tier.price}
               </p>
-              <p className="text-sm text-center mb-2 italic text-gray-700">
+              <p className="text-sm text-center mb-4 italic text-gray-700">
                 {tier.disclaimer}
               </p>
 
+              {/* Primary CTA (existing behavior) */}
               {tier.action === 'checkout' ? (
                 <Link
                   to={`/checkoutvenmo?plan=${encodeURIComponent(
                     tier.name
                   )}&amount=${numericAmount}`}
-                  className="mt-auto block w-full text-center py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition"
+                  className="block w-full text-center py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  Purchase 
+                  Purchase
                 </Link>
               ) : (
-                <a
-                  href="/packages"
-                  className="mt-auto block w-full text-center py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition"
+                <SmartLink
+                  to="/packages"
+                  className="block w-full text-center py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   Choose a Package
-                </a>
+                </SmartLink>
+              )}
+
+              {/* Secondary CTA (opens modal for Website Maintenance external link) */}
+              {tier.action2Href && tier.action2Label && (
+                openInModal ? (
+                  <button
+                    type="button"
+                    className="mt-2 block w-full text-center py-2.5 font-semibold rounded-lg border-2 border-primary text-primary hover:bg-primary/10 transition"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal(tier.action2Href);
+                    }}
+                  >
+                    {tier.action2Label}
+                  </button>
+                ) : (
+                  <SmartLink
+                    to={tier.action2Href}
+                    className="mt-2 block w-full text-center py-2.5 font-semibold rounded-lg border-2 border-primary text-primary hover:bg-primary/10 transition"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {tier.action2Label}
+                  </SmartLink>
+                )
               )}
             </div>
           </div>
@@ -135,19 +279,18 @@ function FlipCard({ tier }) {
           {/* BACK */}
           <div
             className="absolute inset-0 flex flex-col bg-white"
-            style={{
-              backfaceVisibility: 'hidden',
-              transform: 'rotateY(180deg)',
-            }}
+            style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
           >
             <div className="bg-accent text-white py-4 text-center">
               <h3 className="text-xl font-extrabold">{tier.name}</h3>
             </div>
             <div className="p-6 flex-1 flex flex-col">
               <p className="text-gray-700 mb-6">{tier.details}</p>
+
               <a
-                href="#contact"
+                href="/contact"
                 className="mt-auto block w-full text-center py-3 font-semibold rounded-lg border-2 border-primary text-primary hover:bg-primary/10 transition"
+                onClick={(e) => e.stopPropagation()}
               >
                 Get a Quote
               </a>
@@ -159,7 +302,20 @@ function FlipCard({ tier }) {
   );
 }
 
+/* ── Page ───────────────────────────────────────────────────────────── */
 export default function Pricing() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalUrl, setModalUrl] = useState('');
+
+  const openModal = (url) => {
+    setModalUrl(url);
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalUrl('');
+  };
+
   return (
     <section id="pricing" className="relative scroll-mt-20">
       <Parallax
@@ -176,7 +332,7 @@ export default function Pricing() {
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {tiers.map((tier) => (
-              <FlipCard key={tier.name} tier={tier} />
+              <FlipCard key={tier.name} tier={tier} openModal={openModal} />
             ))}
           </div>
 
@@ -198,8 +354,9 @@ export default function Pricing() {
           </div>
         </div>
       </Parallax>
-      
+
+      {/* Modal */}
+      <Modal open={modalOpen} onClose={closeModal} url={modalUrl} title="Website Maintenance" />
     </section>
-    
   );
 }
