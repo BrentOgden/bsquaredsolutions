@@ -91,7 +91,7 @@ export default function Hero({
   eyebrow = "What We Do",
   title = "Elevate Your Online Presence with our Suite of Custom Web Development Services",
   subtitle = "From scalable React applications and TailwindCSS designs to data-driven SEO optimization and dedicated ongoing support, B Squared Solutions delivers digital experiences that attract visitors, convert leads, and fuel your business growth.",
-  primaryCta = { label: "Learn How We Can Help", href: "/#contact" },
+  primaryCta = { label: "Learn How We Can Help", href: "/contact" },
   secondaryCta = { label: "Our Recent Projects", href: "/portfolio" },
   badge = { text: "New Templates Available", href: "/templates" },
 
