@@ -213,7 +213,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="rounded-3xl bg-gradient-to-b from-black/10 to-black/5 ring-1 ring-white/20 backdrop-blur-2xl p-6 lg:sticky lg:top-6 h-max"
+              className="rounded-3xl bg-gradient-to-b from-black/10 to-black/5 ring-1 ring-black/20 backdrop-blur-2xl p-6 lg:sticky lg:top-6 h-max"
             >
               <h3 className="text-white text-2xl font-bold mb-4">Get in touch</h3>
               <p className="text-white/90 mb-6">
@@ -259,7 +259,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.35, ease: "easeOut", delay: 0.05 }}
-              className="lg:col-span-2 rounded-3xl bg-gradient-to-b from-black/10 to-black/5 ring-1 ring-white/20 backdrop-blur-2xl p-6 sm:p-8"
+              className="lg:col-span-2 rounded-3xl bg-gradient-to-b from-black/10 to-black/5 ring-1 ring-black/20 backdrop-blur-2xl p-6 sm:p-8"
             >
               <form onSubmit={onSubmit} noValidate>
                 {/* Honeypot */}
@@ -396,7 +396,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-white hover:bg-primary/90 transition disabled:opacity-70"
+                    className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-white hover:bg-[#0185e4]/90 transition disabled:opacity-70"
                   >
                     <FiSend />
                     {submitting ? "Sending…" : "Send message"}

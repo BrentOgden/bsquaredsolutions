@@ -5,6 +5,8 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import faqHero from "../assets/packageHero.jpg";
+// Optionally import a main-section background image and pass it in via props
+// import faqMainBg from "../assets/faqMainBg.jpg";
 
 /* ── Minimal parallax util (same as other pages) ─────────────────────── */
 function useParallax({ speed = 0.7, axis = "y", respectPRM = true } = {}) {
@@ -132,7 +134,7 @@ function FAQItem({ question, answer }) {
   const contentId = `faq-${question.replace(/\s+/g, "-").toLowerCase()}`;
 
   return (
-    <div className="border-b border-white/15 last:border-none">
+    <div className="border-b border-white/10 last:border-none">
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
@@ -168,7 +170,7 @@ function FAQItem({ question, answer }) {
                       <a
                         href={href}
                         {...props}
-                        className="text-blue-300 hover:text-[#0185e4]/80"
+                        className="text-blue-300 hover:text-blue-200"
                         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       >
                         {children}
@@ -190,10 +192,18 @@ function FAQItem({ question, answer }) {
 }
 
 /* ── Page ────────────────────────────────────────────────────────────── */
-export default function FAQ() {
+/**
+ * Props:
+ * - contentBgImage: string | undefined (URL or imported asset) to show behind the main FAQ section
+ * - overlayOpacity: number (0.0–1.0) for a subtle dark overlay above the image/gradient (default 0.15)
+ *
+ * Example:
+ * <FAQ contentBgImage={faqMainBg} overlayOpacity={0.12} />
+ */
+export default function FAQ({ contentBgImage, overlayOpacity = 0.15 }) {
   return (
     <>
-      {/* HERO (matches your other sections) */}
+      {/* HERO (image-based, unchanged) */}
       <section id="faq-hero" className="relative mt-10 pb-10 isolate overflow-hidden bg-gray-900">
         {/* Background image (parallax) */}
         <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">
@@ -216,7 +226,7 @@ export default function FAQ() {
               clipPath:
                 "polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)",
             }}
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[60deg] bg-gradient-to-br from-[#3d86ca] to-[#0185e4] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[60deg] bg-[linear-gradient(120deg,_#0B3E73_0%,_#145DA0_50%,_#3D86CA_100%)] sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
           />
         </Parallax>
 
@@ -229,18 +239,46 @@ export default function FAQ() {
             <h1 className="text-5xl font-semibold text-shadow-lg/50 tracking-tight text-pretty text-white sm:text-6xl">
               Frequently Asked Questions
             </h1>
-            <h4 className="text-white text-2xl mt-4 text-shadow-lg/50">Your questions on timelines, costs, and maintenance—answered.</h4>
+            <h4 className="text-white text-2xl mt-4 text-shadow-lg/50">
+              Your questions on timelines, costs, and maintenance—answered.
+            </h4>
           </div>
         </div>
       </section>
 
-      {/* CONTENT (dark gradient bg + glass panel like other pages) */}
-      <section className="relative bg-[linear-gradient(120deg,_#0B3E73_0%,_#145DA0_50%,_#3D86CA_100%)]">
+      {/* CONTENT — optional background image with low-opacity overlay */}
+      <section className="relative">
+        {/* Background (image if provided, otherwise gradient) */}
+        {contentBgImage ? (
+          <Parallax speed={0.2} respectPRM={false} className="absolute inset-0 -z-20">
+            <img
+              alt="FAQ section background"
+              src={contentBgImage}
+              className="h-full w-full object-cover object-center"
+            />
+          </Parallax>
+        ) : (
+          <div
+            className="absolute inset-0 -z-20"
+            style={{
+              background:
+                "linear-gradient(120deg, #0B3E73 0%, #145DA0 50%, #3D86CA 100%)",
+            }}
+          />
+        )}
+
+        {/* Low-opacity dark overlay */}
+        <div
+          className="absolute inset-0 -z-10 pointer-events-none"
+          style={{ backgroundColor: `rgba(0,0,0,${overlayOpacity})` }}
+        />
+
+        {/* Content */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-16">
           {/* Glass wrapper */}
-          <div className="rounded-3xl glow bg-gradient-to-b from-black/10 to-black/5 ring-1 ring-white/20 backdrop-blur-2xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-2 sm:p-4">
-            {/* Inner white card for contrast with same spacing style */}
-            <div className="bg-white/5 rounded-2xl ring-2 ring-white/10 overflow-hidden">
+          <div className="rounded-3xl bg-black/10 ring-1 ring-black/20 glow backdrop-blur-2xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-2 sm:p-4">
+            {/* Inner panel */}
+            <div className="bg-black/5 rounded-2xl ring-1 ring-black/10 overflow-hidden">
               {faqs.map((faq) => (
                 <FAQItem key={faq.question} question={faq.question} answer={faq.answer} />
               ))}
