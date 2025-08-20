@@ -174,10 +174,10 @@ export default function Hero({
           </div>
 
           {/* RIGHT: image panel with auto-pan */}
-          <Parallax speed={0.12} respectPRM={false} className="relative mx-auto w-full lg:max-w-none">
+          <Parallax speed={0.12} respectPRM={false} className="relative mt-4 mx-auto w-full lg:max-w-none">
             <div
               ref={panelRef}
-              className={`relative mx-auto ${rightImageAspect} h-full mt-6 max-w-[560px] rounded-sm glow glow-strong border border-white/10 overflow-hidden`}
+              className={`relative mx-auto ${rightImageAspect} h-full mt-6 max-w-[560px] rounded-sm overflow-hidden`}
             >
               {rightImageSrc ? (
                 <img
