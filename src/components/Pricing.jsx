@@ -47,6 +47,7 @@ const tiers = [
     // Secondary CTA
     action2Label: 'Get Started',
     action2Href: '/#contactform',
+    category: '/packages#build',
   },
   {
     name: 'Custom Site Build',
@@ -64,6 +65,7 @@ const tiers = [
     action: 'contact',
     action2Label: 'Get Started',
     action2Href: '/#contactform',
+    category: '/packages#build',
   },
   {
     name: 'Website Maintenance',
@@ -82,6 +84,7 @@ const tiers = [
     action2Label: 'Discuss a Plan',
     // This external link will open in a modal instead of a new page
     action2Href: 'https://myformflow.io/b-squared-solutions/w',
+    category: '/packages#maintenance'
   },
   {
     name: 'Logo Design',
@@ -242,7 +245,7 @@ function FlipCard({ tier, openModal }) {
                 </Link>
               ) : (
                 <SmartLink
-                  to="/packages"
+                  to={tier.category}
                   className="block w-full text-center py-3 font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition"
                   onClick={(e) => e.stopPropagation()}
                 >
