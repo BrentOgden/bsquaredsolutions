@@ -168,7 +168,7 @@ function FAQItem({ question, answer }) {
                       <a
                         href={href}
                         {...props}
-                        className="text-[#3d86ca] hover:text-[#0185e4]/80"
+                        className="text-blue-300 hover:text-[#0185e4]/80"
                         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       >
                         {children}
@@ -235,10 +235,10 @@ export default function FAQ() {
       </section>
 
       {/* CONTENT (dark gradient bg + glass panel like other pages) */}
-      <section className="relative bg-gradient-to-br from-[#04223f] to-[#023c72]">
+      <section className="relative bg-[linear-gradient(120deg,_#0B3E73_0%,_#145DA0_50%,_#3D86CA_100%)]">
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-16">
           {/* Glass wrapper */}
-          <div className="rounded-3xl glow bg-gradient-to-b from-white/10 to-white/5 ring-1 ring-white/20 backdrop-blur-2xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-2 sm:p-4">
+          <div className="rounded-3xl glow bg-gradient-to-b from-black/10 to-black/5 ring-1 ring-white/20 backdrop-blur-2xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-2 sm:p-4">
             {/* Inner white card for contrast with same spacing style */}
             <div className="bg-white/5 rounded-2xl ring-2 ring-white/10 overflow-hidden">
               {faqs.map((faq) => (

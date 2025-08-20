@@ -178,7 +178,7 @@ export default function Contact() {
               clipPath:
                 "polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)",
             }}
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[60deg] bg-gradient-to-br from-[#3d86ca] to-[#0185e4] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[60deg] bg-[linear-gradient(120deg,_#0B3E73_0%,_#145DA0_50%,_#3D86CA_100%)] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
           />
         </Parallax>
 
@@ -213,7 +213,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="rounded-3xl bg-gradient-to-b from-white/10 to-white/5 ring-1 ring-white/20 backdrop-blur-2xl p-6 lg:sticky lg:top-6 h-max"
+              className="rounded-3xl bg-gradient-to-b from-black/10 to-black/5 ring-1 ring-white/20 backdrop-blur-2xl p-6 lg:sticky lg:top-6 h-max"
             >
               <h3 className="text-white text-2xl font-bold mb-4">Get in touch</h3>
               <p className="text-white/90 mb-6">
@@ -259,7 +259,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.35, ease: "easeOut", delay: 0.05 }}
-              className="lg:col-span-2 rounded-3xl bg-gradient-to-b from-white/10 to-white/5 ring-1 ring-white/20 backdrop-blur-2xl p-6 sm:p-8"
+              className="lg:col-span-2 rounded-3xl bg-gradient-to-b from-black/10 to-black/5 ring-1 ring-white/20 backdrop-blur-2xl p-6 sm:p-8"
             >
               <form onSubmit={onSubmit} noValidate>
                 {/* Honeypot */}

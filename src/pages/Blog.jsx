@@ -307,7 +307,7 @@ export default function Blog() {
       </section>
 
       {/* CONTENT */}
-      <section className="relative bg-gradient-to-br from-[#04223f] to-[#023c72]">
+      <section className="relative bg-[linear-gradient(120deg,_#0B3E73_0%,_#145DA0_50%,_#3D86CA_100%)]">
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
           <div className="mx-auto max-w-2xl lg:mx-0 mb-6">
             <h2 className="text-3xl font-semibold tracking-tight text-pretty text-white sm:text-4xl">
