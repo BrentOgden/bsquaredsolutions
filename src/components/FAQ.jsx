@@ -139,7 +139,7 @@ function FAQItem({ question, answer }) {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls={contentId}
-        className="w-full flex justify-between items-center p-5 sm:p-6 hover:bg-white/5 transition rounded-xl"
+        className="w-full flex justify-between items-center p-5 sm:p-6 hover:bg-[linear-gradient(120deg,_#0B3E73_0%,_#145DA0_50%,_#3D86CA_100%)] transition"
       >
         <span className="text-base sm:text-lg font-semibold text-white">
           {question}
@@ -276,9 +276,9 @@ export default function FAQ({ contentBgImage, overlayOpacity = 0.15 }) {
         {/* Content */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-16">
           {/* Glass wrapper */}
-          <div className="rounded-3xl bg-black/10 ring-1 ring-black/20 glow backdrop-blur-2xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-2 sm:p-4">
+          <div className="rounded-3xl bg-black/65 ring-1 ring-black/10 glow backdrop-blur-2xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-2 sm:p-4">
             {/* Inner panel */}
-            <div className="bg-black/5 rounded-2xl ring-1 ring-black/10 overflow-hidden">
+            <div className="bg-black/65 rounded-2xl ring-1 ring-black/10 overflow-hidden">
               {faqs.map((faq) => (
                 <FAQItem key={faq.question} question={faq.question} answer={faq.answer} />
               ))}
