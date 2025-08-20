@@ -10,7 +10,7 @@ export default function Navbar() {
   const location = useLocation();
 
   // Order shown in the UI
-  const links = ["Home", "Services", "Pricing", "About", "FAQ", "Blog","Contact"];
+  const links = ["Home", "Services", "Pricing", "About", "FAQ", "Blog", "Contact"];
 
   // Sections that live on the home page
   const slugMap = {
@@ -18,7 +18,7 @@ export default function Navbar() {
     Services: "services",
     Pricing: "pricing",
     About: "about",
-    // Contact is a standalone route; FAQ too (no slug here)
+    // FAQ and Contact are standalone routes; Blog is standalone too.
   };
 
   const handleClick = (e, link) => {
@@ -43,17 +43,26 @@ export default function Navbar() {
     const slug = slugMap[link];
     if (!slug) return;
 
-    if (location.pathname === "/") {
-      if (slug === "hero") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        const el = document.getElementById(slug);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-        else window.location.hash = `#${slug}`; // fallback
-      }
+    const targetHashHref = `/#${slug}`;
+
+    // If we're NOT currently on the home route, force a real navigation
+    // so the browser loads / and then jumps to the section.
+    if (location.pathname !== "/") {
+      window.location.assign(targetHashHref); // full reload + jump to hash
+      return;
+    }
+
+    // Already on home: do smooth scroll
+    if (slug === "hero") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      // Let the browser jump to the anchor on the home page
-      navigate(`/#${slug}`);
+      const el = document.getElementById(slug);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        // Fallback: update hash so the browser jumps if the element appears later
+        window.location.hash = `#${slug}`;
+      }
     }
   };
 
@@ -79,6 +88,8 @@ export default function Navbar() {
                   ? "/faq"
                   : link === "Contact"
                   ? "/contact"
+                  : link === "Blog"
+                  ? "/blog"
                   : `/#${slugMap[link]}`
               }
               onClick={(e) => handleClick(e, link)}
@@ -112,6 +123,8 @@ export default function Navbar() {
                     ? "/faq"
                     : link === "Contact"
                     ? "/contact"
+                    : link === "Blog"
+                    ? "/blog"
                     : `/#${slugMap[link]}`
                 }
                 onClick={(e) => handleClick(e, link)}
