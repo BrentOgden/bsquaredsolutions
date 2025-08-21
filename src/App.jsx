@@ -30,11 +30,13 @@ import ContactPage from "./pages/Contact"; // renamed to avoid conflict
 
 /* ✅ Site-wide SEO (head-only; no UI changes) */
 import SEO from "./components/SEO";
+import GA4Listener from "./analytics/GA4Listener";
 
 export default function App() {
   return (
     <HelmetProvider>
       <Router>
+        <GA4Listener />
         <div className="flex flex-col overflow-x-hidden min-h-screen">
           {/* Global defaults */}
           <SEO
