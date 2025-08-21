@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiPhone, FiMapPin, FiSend } from "react-icons/fi";
 import hero from "../assets/contactHero.jpg";
+/* ✅ SEO (added; head-only, no visual changes) */
+import SEO from "../components/SEO";
 
 /* ── Minimal parallax util (same as other pages) ─────────────────────── */
 function useParallax({ speed = 0.7, axis = "y", respectPRM = true } = {}) {
@@ -158,8 +160,47 @@ export default function Contact() {
     }
   };
 
+  /* ✅ JSON-LD (head-only; no UI changes) */
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bsquaredsolutions.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://bsquaredsolutions.io/contact" }
+    ]
+  };
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "B Squared Solutions",
+    "url": "https://bsquaredsolutions.io",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+1-720-254-5354",
+      "contactType": "customer support",
+      "areaServed": "US",
+      "availableLanguage": ["English"]
+    }]
+  };
+  const contactPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact B Squared Solutions",
+    "url": "https://bsquaredsolutions.io/contact",
+    "mainEntity": organizationSchema
+  };
+
   return (
     <>
+      {/* ✅ SEO (added) */}
+      <SEO
+        title="Contact Us | B Squared Solutions"
+        description="Get in touch about custom websites, CMS builds, templates, or maintenance. We’ll reply with next steps."
+        path="/contact"
+        image="https://bsquaredsolutions.io/og-default.svg"
+        schema={[breadcrumbSchema, contactPageSchema]}
+      />
+
       {/* HERO */}
       <section id="contact-hero" className="relative mt-10 pb-10 isolate overflow-hidden bg-gray-900">
         <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">

@@ -4,6 +4,8 @@ import { Helmet } from "@dr.pogodin/react-helmet";
 import { useSearchParams } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
 import hero from "../assets/aboutHero.png";
+/* ✅ SEO (added; head-only, no visual changes) */
+import SEO from "../components/SEO";
 
 /* ── Minimal parallax util ──────────────────────────────────────────── */
 function useParallax({ speed = 0.7, axis = "y", respectPRM = true } = {}) {
@@ -120,7 +122,6 @@ const posts = [
       "A practical guide to setting up Google Analytics 4, configuring events with Google Tag Manager, and tracking real conversions like form submissions, phone clicks, and email leads.",
     image: "https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg",
   },
-  // Add more posts and pagination will expand automatically
 ];
 
 const SITE_URL = "https://bsquaredsolutions.io";
@@ -149,7 +150,6 @@ function usePageState(totalPages) {
 }
 
 function getPageNumbers(current, total) {
-  // Show up to 5 numbers with ellipses when needed
   if (total <= 5) return Array.from({ length: total }, (_, i) => i + 1);
   if (current <= 3) return [1, 2, 3, 4, "...", total];
   if (current >= total - 2) return [1, "...", total - 3, total - 2, total - 1, total];
@@ -227,8 +227,40 @@ export default function Blog() {
     return posts.slice(start, start + PAGE_SIZE);
   }, [currentPage]);
 
+  /* ✅ JSON-LD (head-only; no visual changes) */
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": `${SITE_URL}/` },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": canonical }
+    ]
+  };
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "B Squared Solutions Blog",
+    "url": canonical,
+    "blogPost": posts.map((p) => ({
+      "@type": "BlogPosting",
+      "headline": p.title,
+      "url": `${SITE_URL}/blog/${p.slug}`,
+      "image": p.image,
+      "description": p.excerpt
+    }))
+  };
+
   return (
     <>
+      {/* ✅ SEO component (added) */}
+      <SEO
+        title="Blog | B Squared Solutions"
+        description="Insights on web development, performance, UX, SEO, and growing your business online."
+        path="/blog"
+        image={ogImage}
+        schema={[breadcrumbSchema, blogSchema]}
+      />
+
       <Helmet>
         <title>Blog | B Squared Solutions</title>
         <meta

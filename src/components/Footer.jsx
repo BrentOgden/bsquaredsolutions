@@ -102,6 +102,9 @@ export default function Footer() {
                  <li>
                   <SmartLink to="/blog">Blog</SmartLink>
                 </li>
+                 <li>
+                  <SmartLink to="/templates">Templates</SmartLink>
+                </li>
                 <li>
                   <SmartLink to="/contact">Contact</SmartLink>
                 </li>
@@ -149,7 +152,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 border-t border-white/10 pt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-white/70">
-            © {new Date().getFullYear()} B Squared Solutions. All rights reserved.
+            © {new Date().getFullYear()} B Squared Solutions, LLC. All rights reserved.
           </p>
           <nav className="flex items-center gap-4 text-sm">
             <SmartLink to="/terms">Terms</SmartLink>

@@ -4,10 +4,10 @@ import { XMarkIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/2
 import { FaThumbsUp } from "react-icons/fa";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { IoTicket } from "react-icons/io5";
-
-
-
 import { GiShoppingCart } from 'react-icons/gi'
+
+// ✅ SEO (head-only; no visual changes)
+import SEO from '../components/SEO'
 
 // Replace with your actual assets
 import hero from '../assets/Basic-Template-min.png'
@@ -45,8 +45,6 @@ const features = [
 
 // ───────────────────────────────────────────────────────────────────────────────
 // Shot: arbitrary object-position via `position`, object-fit via `fit`
-// position examples: 'center', 'top', '50% 35%', '40% 60%', 'left 30%', etc.
-// fit: 'cover' (default) or 'contain'
 // ───────────────────────────────────────────────────────────────────────────────
 function Shot({ src, alt, onOpen, position = '50% 50%', fit = 'cover' }) {
   const fitClass = fit === 'contain' ? 'object-contain' : 'object-cover'
@@ -75,7 +73,7 @@ function Shot({ src, alt, onOpen, position = '50% 50%', fit = 'cover' }) {
 }
 
 // ───────────────────────────────────────────────────────────────────────────────
-// Simple modal/lightbox (Esc to close, click backdrop to close, arrows to nav)
+// Simple modal/lightbox
 // ───────────────────────────────────────────────────────────────────────────────
 function ImageModal({ images, index, onClose, setIndex, accent = ACCENT }) {
   const total = images?.length || 0
@@ -151,7 +149,7 @@ function ImageModal({ images, index, onClose, setIndex, accent = ACCENT }) {
 }
 
 // ───────────────────────────────────────────────────────────────────────────────
-// Hero (takes buyHref to render the Buy Now CTA)
+// Hero
 // ───────────────────────────────────────────────────────────────────────────────
 function Hero({
   title = 'Basic Single Page Template',
@@ -221,7 +219,7 @@ function Hero({
 }
 
 // ───────────────────────────────────────────────────────────────────────────────
-// Main export — staggered 4-image grid with arbitrary per-image positions
+// Main export
 // ───────────────────────────────────────────────────────────────────────────────
 export default function Example({
   screenshots = [
@@ -237,115 +235,151 @@ export default function Example({
 
   // Build Buy Now href from tpl[0]
   const plan = tpl[0]
-  const amount = String(plan.price).replace(/[^0-9.]/g, '') // "69"
+  const amount = String(plan.price).replace(/[^0-9.]/g, '') // "49"
   const buyHref = `/checkoutvenmo?plan=${encodeURIComponent(plan.name)}&amount=${encodeURIComponent(amount)}`
+
+  // ✅ SEO schemas (head-only; do not affect UI)
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bsquaredsolutions.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Basic Template", "item": "https://bsquaredsolutions.io/basictemplate" }
+    ]
+  }
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": plan.name,
+    "description": "A simple one-page React + Tailwind template with About, Events grid, Photo grid, and Subscribe section. Mobile-responsive and easy to customize.",
+    "brand": { "@type": "Brand", "name": "B Squared Solutions" },
+    "image": ["https://bsquaredsolutions.io/og-default.svg"],
+    "url": "https://bsquaredsolutions.io/basictemplate",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": amount,
+      "availability": "https://schema.org/InStock",
+      "url": "https://bsquaredsolutions.io/basictemplate"
+    }
+  }
 
   return (
     <>
-    <section className='scroll-mt-20'>
-      {/* HERO with Buy Now */}
-      <Hero heroPosition={heroPosition} bgImage={hero} buyHref={buyHref} />
+      {/* ✅ SEO */}
+      <SEO
+        title="Basic Single Page React Template | B Squared Solutions"
+        description="Ready-made one-page React + Tailwind template with events and photo grids, subscribe form, and mobile-first design—launch fast."
+        path="/basictemplate"
+        image="https://bsquaredsolutions.io/og-basic-template.jpg"
+        type="product"
+        schema={[breadcrumbSchema, productSchema]}
+      />
 
-      {/* FEATURES + STAGGERED GRID */}
-      <div id="features" className="overflow-hidden bg-white py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-            {/* Left: copy */}
-            <div className="lg:pt-4 lg:pr-8">
-              <div className="lg:max-w-lg">
-                <h2 className="text-2xl font-semibold" style={{ color: ACCENT }}>
-                  For the novice who needs a site up quickly
-                </h2>
-                <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
-                  A simple way to get up and running with the basics
-                </p>
-                <p className="mt-6 text-lg/8 text-gray-700">
-                  This is a simple, single page React template that gives anyone - regardless of skill level - a simple way to get up and running. It includes an About section as well as an Events section and Subscription functionality with CTAs for all social platforms. 
-                </p>
-                <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
-                  {features.map((feature) => (
-                    <div key={feature.name} className="relative pl-9">
-                      <dt className="inline font-semibold text-gray-900">
-                        <feature.icon
-                          aria-hidden="true"
-                          className="absolute top-1 left-1 size-5"
-                          style={{ color: ACCENT }}
-                        />
-                        {feature.name}
-                      </dt>{' '}
-                      <dd className="inline">{feature.description}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            </div>
+      <section className='scroll-mt-20'>
+        {/* HERO with Buy Now */}
+        <Hero heroPosition={heroPosition} bgImage={hero} buyHref={buyHref} />
 
-            {/* Right: staggered 4-image grid (zoom + modal) */}
-            <div id="screenshots" className="md:-ml-4 lg:-ml-0">
-              <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-                {/* Column 1 */}
-                <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-                  {shots[0] && (
-                    <Shot
-                      src={shots[0].src}
-                      alt={shots[0].alt}
-                      position={shots[0].position}
-                      fit={shots[0].fit}
-                      onOpen={() => setModalIndex(0)}
-                    />
-                  )}
-                  {shots[2] && (
-                    <Shot
-                      src={shots[2].src}
-                      alt={shots[2].alt}
-                      position={shots[2].position}
-                      fit={shots[2].fit}
-                      onOpen={() => setModalIndex(2)}
-                    />
-                  )}
-                </div>
-
-                {/* Column 2 (staggered down) */}
-                <div className="mt-8 flex flex-col gap-4 sm:mt-12 sm:gap-6 lg:gap-8">
-                  {shots[1] && (
-                    <Shot
-                      src={shots[1].src}
-                      alt={shots[1].alt}
-                      position={shots[1].position}
-                      fit={shots[1].fit}
-                      onOpen={() => setModalIndex(1)}
-                    />
-                  )}
-                  {shots[3] && (
-                    <Shot
-                      src={shots[3].src}
-                      alt={shots[3].alt}
-                      position={shots[3].position}
-                      fit={shots[3].fit}
-                      onOpen={() => setModalIndex(3)}
-                    />
-                  )}
+        {/* FEATURES + STAGGERED GRID */}
+        <div id="features" className="overflow-hidden bg-white py-24 sm:py-32">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+              {/* Left: copy */}
+              <div className="lg:pt-4 lg:pr-8">
+                <div className="lg:max-w-lg">
+                  <h2 className="text-2xl font-semibold" style={{ color: ACCENT }}>
+                    For the novice who needs a site up quickly
+                  </h2>
+                  <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
+                    A simple way to get up and running with the basics
+                  </p>
+                  <p className="mt-6 text-lg/8 text-gray-700">
+                    This is a simple, single page React template that gives anyone - regardless of skill level - a simple way to get up and running. It includes an About section as well as an Events section and Subscription functionality with CTAs for all social platforms. 
+                  </p>
+                  <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
+                    {features.map((feature) => (
+                      <div key={feature.name} className="relative pl-9">
+                        <dt className="inline font-semibold text-gray-900">
+                          <feature.icon
+                            aria-hidden="true"
+                            className="absolute top-1 left-1 size-5"
+                            style={{ color: ACCENT }}
+                          />
+                          {feature.name}
+                        </dt>{' '}
+                        <dd className="inline">{feature.description}</dd>
+                      </div>
+                    ))}
+                  </dl>
                 </div>
               </div>
 
-              {/* subtle accent underline */}
-              {/* <div
-                className="mt-8 h-0.5 w-full rounded-full"
-                style={{ background: `linear-gradient(90deg, ${ACCENT}, rgba(61,134,202,0))` }}
-              /> */}
+              {/* Right: staggered 4-image grid (zoom + modal) */}
+              <div id="screenshots" className="md:-ml-4 lg:-ml-0">
+                <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+                  {/* Column 1 */}
+                  <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
+                    {shots[0] && (
+                      <Shot
+                        src={shots[0].src}
+                        alt={shots[0].alt}
+                        position={shots[0].position}
+                        fit={shots[0].fit}
+                        onOpen={() => setModalIndex(0)}
+                      />
+                    )}
+                    {shots[2] && (
+                      <Shot
+                        src={shots[2].src}
+                        alt={shots[2].alt}
+                        position={shots[2].position}
+                        fit={shots[2].fit}
+                        onOpen={() => setModalIndex(2)}
+                      />
+                    )}
+                  </div>
+
+                  {/* Column 2 (staggered down) */}
+                  <div className="mt-8 flex flex-col gap-4 sm:mt-12 sm:gap-6 lg:gap-8">
+                    {shots[1] && (
+                      <Shot
+                        src={shots[1].src}
+                        alt={shots[1].alt}
+                        position={shots[1].position}
+                        fit={shots[1].fit}
+                        onOpen={() => setModalIndex(1)}
+                      />
+                    )}
+                    {shots[3] && (
+                      <Shot
+                        src={shots[3].src}
+                        alt={shots[3].alt}
+                        position={shots[3].position}
+                        fit={shots[3].fit}
+                        onOpen={() => setModalIndex(3)}
+                      />
+                    )}
+                  </div>
+                </div>
+
+                {/* subtle accent underline */}
+                {/* <div
+                  className="mt-8 h-0.5 w-full rounded-full"
+                  style={{ background: `linear-gradient(90deg, ${ACCENT}, rgba(61,134,202,0))` }}
+                /> */}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Modal */}
-      <ImageModal
-        images={shots}
-        index={modalIndex}
-        setIndex={setModalIndex}
-        onClose={() => setModalIndex(null)}
-        accent={ACCENT}
-      />
+        {/* Modal */}
+        <ImageModal
+          images={shots}
+          index={modalIndex}
+          setIndex={setModalIndex}
+          onClose={() => setModalIndex(null)}
+          accent={ACCENT}
+        />
       </section>
     </>
   )

@@ -13,6 +13,9 @@ import fantasy from '../assets/screenshots/fantasycentral_co_home.png'
 import jb from '../assets/screenshots/www_jbsimplyclean_com.png'
 import hero from '../assets/portfolioHero.jpg'
 
+/* ✅ SEO (added; no style changes) */
+import SEO from './SEO'
+
 /* ── Minimal parallax util (no deps) ─────────────────────────────────── */
 function useParallax({ speed = 0.7, axis = 'y', respectPRM = true } = {}) {
   const ref = useRef(null)
@@ -65,15 +68,46 @@ const projects = [
 
 /* ── Component ───────────────────────────────────────────────────────── */
 export default function Portfolio() {
+  /* Build JSON-LD from the projects (head-only, no visual changes) */
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bsquaredsolutions.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://bsquaredsolutions.io/portfolio" }
+    ]
+  }
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Portfolio",
+    "url": "https://bsquaredsolutions.io/portfolio",
+    "hasPart": projects.map(p => ({
+      "@type": "CreativeWork",
+      "name": p.title,
+      "url": p.url,
+      "description": p.description
+    }))
+  }
+
   return (
     <>
+      {/* ✅ SEO */}
+      <SEO
+        title="Recent Projects & Case Studies | B Squared Solutions"
+        description="Browse real client results—faster load times, higher conversions, and clean, maintainable code."
+        path="/portfolio"
+        image="https://bsquaredsolutions.io/og-default.svg"
+        schema={[breadcrumbSchema, collectionSchema]}
+      />
+
       {/* HERO (no CTAs, no right image) */}
       <section className="relative isolate overflow-hidden mt-10 bg-gray-900">
         {/* Background photo (parallax) */}
         <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">
           <img
             alt="Portfolio backdrop"
-            src= {hero}
+            src={hero}
             className="size-full object-cover object-center"
           />
         </Parallax>
@@ -93,12 +127,12 @@ export default function Portfolio() {
 
         <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-24 sm:pt-36 sm:pb-32 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0 }}
             className="mx-auto max-w-3xl text-center lg:max-w-4xl lg:text-left"
           >
+
             <div className="hidden sm:flex sm:justify-center lg:justify-start">
               <span className="relative inline-flex items-center rounded-full mb-2 px-3 py-1 text-lg text-white ring-2 ring-white/90">
                 Our Recent Projects

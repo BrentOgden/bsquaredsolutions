@@ -16,7 +16,7 @@ export default function Terms() {
 
         <h2 className="text-2xl font-semibold mt-8">1. Introduction</h2>
         <p>
-          Welcome to B Squared Solutions (“we,” “us,” “our”). By accessing or using our website
+          Welcome to B Squared Solutions, LLC. (“we,” “us,” “our”). By accessing or using our website
           and services (“Services”), you agree to these Terms &amp; Conditions (“Terms”). If you
           don’t agree, please do not use our Services.
         </p>

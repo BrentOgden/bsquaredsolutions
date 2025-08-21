@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "gen:sitemap": "node scripts/sitemap.mjs",
+    "build": "npm run gen:sitemap && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
+    
   },
   "dependencies": {
     "@dr.pogodin/react-helmet": "^3.0.2",

@@ -28,11 +28,56 @@ import BasicTemplate from "./pages/BasicTemplate";
 import SmallBusinessTemplate from "./pages/SmallBusinessTemplate";
 import ContactPage from "./pages/Contact"; // renamed to avoid conflict
 
+/* ✅ Site-wide SEO (head-only; no UI changes) */
+import SEO from "./components/SEO";
+
 export default function App() {
   return (
     <HelmetProvider>
       <Router>
         <div className="flex flex-col overflow-x-hidden min-h-screen">
+          {/* Global defaults */}
+          <SEO
+            title="B Squared Solutions | Custom Websites, Templates & Maintenance"
+            description="Denver-based web studio building fast, SEO-friendly React & CMS sites. Custom builds, ready-made templates, and ongoing maintenance to keep you speedy and secure."
+            path="/"
+            type="website"
+            image="https://bsquaredsolutions.io/bsquaredlogo2.png"
+            schema={[
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "B Squared Solutions",
+                "url": "https://bsquaredsolutions.io",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target":
+                    "https://bsquaredsolutions.io/blog?query={search_term_string}",
+                  "query-input": "required name=search_term_string",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "B Squared Solutions",
+                "url": "https://bsquaredsolutions.io",
+                "logo": "https://bsquaredsolutions.io/bsquaredlogo2.png",
+                "sameAs": [
+                  "https://www.linkedin.com/company/b-squared-solutions",
+                  "https://github.com/"
+                ],
+                "contactPoint": [
+                  {
+                    "@type": "ContactPoint",
+                    "telephone": "+1-720-254-5354",
+                    "contactType": "customer service",
+                    "areaServed": "US",
+                  },
+                ],
+              },
+            ]}
+          />
+
           <NavBar />
           <ScrollManager />
           <HashScroll />

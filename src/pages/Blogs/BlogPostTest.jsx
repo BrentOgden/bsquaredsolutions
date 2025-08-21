@@ -9,6 +9,9 @@ import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import heroFallback from "../../assets/aboutHero.png";
 import { FaArrowLeft } from "react-icons/fa";
 
+/* ✅ SEO component (head-only; does not affect layout) */
+import SEO from "../../components/SEO";
+
 /* ── Minimal parallax ───────────────────────────────────────────────── */
 function useParallax({ speed = 0.7, axis = "y", respectPRM = true } = {}) {
   const ref = useRef(null);
@@ -66,7 +69,6 @@ const heroByName = Object.fromEntries(
 
 /* ── Helpers ────────────────────────────────────────────────────────── */
 function parseFrontMatter(raw) {
-  // Strip BOM/leading whitespace; capture first front-matter block.
   const s = raw.replace(/^\uFEFF/, "").replace(/^\s+/, "");
   const m = s.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?/);
   if (!m) return [{}, raw];
@@ -88,15 +90,15 @@ function parseFrontMatter(raw) {
       value = value.slice(1, -1);
     }
     data[key] = value;
-    data[key.toLowerCase()] = value; // case-insensitive lookups
+    data[key.toLowerCase()] = value;
   });
   return [data, body];
 }
 
 function resolveHero(src) {
   if (!src) return heroFallback;
-  if (/^https?:\/\//i.test(src) || src.startsWith("/")) return src; // remote or /public
-  if (heroByName[src]) return heroByName[src]; // src/assets/blog/<file>
+  if (/^https?:\/\//i.test(src) || src.startsWith("/")) return src;
+  if (heroByName[src]) return heroByName[src];
   const base = src.split("/").pop();
   if (base && heroByName[base]) return heroByName[base];
   return heroFallback;
@@ -107,7 +109,7 @@ const slugify = (str = "") =>
     .toString()
     .trim()
     .toLowerCase()
-    .replace(/<\/?[^>]+(>|$)/g, "") // strip tags if any
+    .replace(/<\/?[^>]+(>|$)/g, "")
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-");
@@ -253,10 +255,10 @@ function extractHeadings(md) {
 const wordsPerMin = 225;
 function estimateReadMinutes(md) {
   const text = md
-    .replace(/`{1,3}[\s\S]*?`{1,3}/g, " ") // code
-    .replace(/<\/?[^>]*>/g, " ") // tags
-    .replace(/!\[[^\]]*\]\([^)]+\)/g, " ") // images
-    .replace(/\[[^\]]*\]\([^)]+\)/g, " ") // links
+    .replace(/`{1,3}[\s\S]*?`{1,3}/g, " ")
+    .replace(/<\/?[^>]*>/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, " ")
+    .replace(/\[[^\]]*\]\([^)]+\)/g, " ")
     .replace(/[#>*_\-\+]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
@@ -275,7 +277,7 @@ function useReadingProgress(targetRef) {
       if (!el) return setProgress(0);
       const top = el.getBoundingClientRect().top + window.scrollY;
       const height = el.offsetHeight;
-      const start = top - 80; // start a bit before the card
+      const start = top - 80;
       const end = top + height - vh * 0.8;
       const p = (docY - start) / (end - start);
       setProgress(Math.min(1, Math.max(0, p)));
@@ -306,7 +308,7 @@ export default function BlogPost() {
   const description = data.description;
   const date = data.date;
   const heroAlt = data.heroAlt || data.heroalt || "Blog post backdrop";
-  const heroPosition = data.heroPosition || data.heroposition || "50% 35%"; // match other heros
+  const heroPosition = data.heroPosition || data.heroposition || "50% 35%";
   const heroUrl = resolveHero(heroSrc);
 
   // Author (optional in front-matter)
@@ -318,7 +320,7 @@ export default function BlogPost() {
   const readMins = useMemo(() => estimateReadMinutes(content), [content]);
   const headings = useMemo(() => extractHeadings(content), [content]);
 
-  // Related posts (simple: first 3 others)
+  // Related posts
   const related = useMemo(() => {
     const items = [];
     for (const [s, r] of Object.entries(posts)) {
@@ -328,7 +330,6 @@ export default function BlogPost() {
       const h = resolveHero(d.hero || d.image || d.cover);
       items.push({ slug: s, title: t, date: d.date || "", hero: h });
     }
-    // Recent first if dates exist
     items.sort((a, b) => (new Date(b.date) - new Date(a.date)) || a.title.localeCompare(b.title));
     return items.slice(0, 3);
   }, [slug]);
@@ -342,12 +343,53 @@ export default function BlogPost() {
     e.preventDefault();
     const el = document.getElementById(id);
     if (!el) return;
-    const y = el.getBoundingClientRect().top + window.scrollY - 88; // offset for hero spacing
+    const y = el.getBoundingClientRect().top + window.scrollY - 88;
     window.scrollTo({ top: y, behavior: "smooth" });
+  };
+
+  /* ✅ SEO insertion (no UI changes) */
+  const canonicalPath = `/blog/${slug}`;
+  const publishedISO = date ? new Date(date).toISOString() : undefined;
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bsquaredsolutions.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://bsquaredsolutions.io/blog" },
+      { "@type": "ListItem", "position": 3, "name": title, "item": `https://bsquaredsolutions.io${canonicalPath}` }
+    ]
+  };
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": title,
+    "description": description,
+    "image": heroUrl,
+    "datePublished": publishedISO,
+    "author": authorName ? { "@type": "Person", "name": authorName } : undefined,
+    "mainEntityOfPage": `https://bsquaredsolutions.io${canonicalPath}`,
+    "publisher": {
+      "@type": "Organization",
+      "name": "B Squared Solutions",
+      "logo": { "@type": "ImageObject", "url": "https://bsquaredsolutions.io/bsquaredlogo2.png" }
+    }
   };
 
   return (
     <>
+      {/* ✅ New SEO block */}
+      <SEO
+        title={`${title} | B Squared Solutions Blog`}
+        description={description}
+        path={canonicalPath}
+        image={heroUrl}
+        type="article"
+        publishedTime={publishedISO}
+        schema={[breadcrumbSchema, articleSchema]}
+      />
+
       <Helmet>
         <title>{title} | B Squared Solutions Blog</title>
         <meta name="description" content={description} />
@@ -438,7 +480,6 @@ export default function BlogPost() {
       {/* BACK LINK + CONTENT + TOC (single gradient section) */}
       <section className="relative pb-20 bg-gradient-to-br from-[#04223f] to-[#023c72]">
         <div className="relative z-10 max-w-7xl mx-auto px-6 pt-6 sm:pt-8">
-          {/* Back link outside the card */}
           <Link
             to="/blog"
             className="inline-flex items-center gap-2 text-md font-semibold text-white hover:text-white underline-offset-2 glow-hover"
@@ -447,14 +488,11 @@ export default function BlogPost() {
             Back to Blog
           </Link>
 
-          {/* Grid: content + sticky TOC */}
           <div className="mt-4 sm:mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Content card */}
             <div
               ref={contentCardRef}
               className="lg:col-span-8 glow rounded-3xl bg-gradient-to-b from-black/65 to-black/60 backdrop-blur-2xl ring-1 ring-white/20 shadow-[0_0_0_1px_rgba(255,255,255,0.04)] p-6 md:p-10"
             >
-              {/* Force dark theme styles inside markdown */}
               <style>{`
                 .blog-prose :where(h1,h2,h3,h4,h5,h6,p,li,blockquote,em,strong,th,td) { color: #fff !important; }
                 .blog-prose :where(a) { color: #3d86ca; }
@@ -483,7 +521,6 @@ export default function BlogPost() {
               </article>
             </div>
 
-            {/* Sticky TOC (desktop) */}
             <aside className="lg:col-span-4">
               <div className="lg:sticky lg:top-24 space-y-4">
                 {headings.length > 0 && (
@@ -511,7 +548,6 @@ export default function BlogPost() {
             </aside>
           </div>
 
-          {/* Related posts */}
           {related.length > 0 && (
             <div className="mt-10">
               <h3 className="text-2xl font-semibold text-white mb-4">Related articles</h3>

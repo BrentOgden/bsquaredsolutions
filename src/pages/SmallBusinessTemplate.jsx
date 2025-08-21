@@ -6,6 +6,9 @@ import { FaPaintbrush } from "react-icons/fa6";
 import { PiGearSixFill } from "react-icons/pi";
 import { GiShoppingCart } from 'react-icons/gi'
 
+// ✅ SEO (head-only; no visual changes)
+import SEO from '../components/SEO'
+
 // Replace with your actual assets
 import hero from '../assets/smb-2.png'
 import img1 from '../assets/smb-1.png'
@@ -215,11 +218,47 @@ export default function Example({
 
   // Build Buy Now href from tpl[0]
   const plan = tpl[0]
-  const amount = String(plan.price).replace(/[^0-9.]/g, '') // "69"
+  const amount = String(plan.price).replace(/[^0-9.]/g, '') // "99"
   const buyHref = `/checkoutvenmo?plan=${encodeURIComponent(plan.name)}&amount=${encodeURIComponent(amount)}`
+
+  // ✅ SEO schemas (head-only; no UI impact)
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bsquaredsolutions.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Small Business Starter Template", "item": "https://bsquaredsolutions.io/smallbusinesstemplate" }
+    ]
+  }
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": plan.name,
+    "description": "A robust small-business React + Tailwind template with a modern design and a large set of reusable components. Easy to customize and mobile-first.",
+    "brand": { "@type": "Brand", "name": "B Squared Solutions" },
+    "image": ["https://bsquaredsolutions.io/og-default.svg"],
+    "url": "https://bsquaredsolutions.io/smallbusinesstemplate",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": amount,
+      "availability": "https://schema.org/InStock",
+      "url": "https://bsquaredsolutions.io/smallbusinesstemplate"
+    }
+  }
 
   return (
     <>
+      {/* ✅ SEO */}
+      <SEO
+        title="Small Business Starter React Template | B Squared Solutions"
+        description="Feature-rich small business React + Tailwind template with a sleek, modern design and reusable components. Fast to set up and easy to customize."
+        path="/smallbusinesstemplate"
+        image="https://bsquaredsolutions.io/og-small-business-template.jpg"
+        type="product"
+        schema={[breadcrumbSchema, productSchema]}
+      />
+
       {/* HERO with Buy Now */}
       <Hero heroPosition={heroPosition} bgImage={hero} buyHref={buyHref} />
 

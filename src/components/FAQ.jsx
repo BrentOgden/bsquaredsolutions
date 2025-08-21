@@ -8,6 +8,9 @@ import faqHero from "../assets/packageHero.jpg";
 // Optionally import a main-section background image and pass it in via props
 // import faqMainBg from "../assets/faqMainBg.jpg";
 
+/* ✅ SEO (no style changes) */
+import SEO from "./SEO";
+
 /* ── Minimal parallax util (same as other pages) ─────────────────────── */
 function useParallax({ speed = 0.7, axis = "y", respectPRM = true } = {}) {
   const ref = useRef(null);
@@ -128,6 +131,20 @@ const faqs = [
   },
 ];
 
+/* JSON-LD built from your existing data (no style changes) */
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.answer
+    }
+  }))
+};
+
 /* ── Item ────────────────────────────────────────────────────────────── */
 function FAQItem({ question, answer }) {
   const [open, setOpen] = useState(false);
@@ -203,6 +220,15 @@ function FAQItem({ question, answer }) {
 export default function FAQ({ contentBgImage, overlayOpacity = 0.15 }) {
   return (
     <>
+      {/* SEO only; no style changes anywhere */}
+      <SEO
+        title="Website FAQs | B Squared Solutions"
+        description="Answers to common questions about timelines, pricing, tech stack, maintenance plans, and support for your new website."
+        path="/faq"
+        image="https://bsquaredsolutions.io/og-default.svg"
+        schema={faqSchema}
+      />
+
       {/* HERO (image-based, unchanged) */}
       <section id="faq-hero" className="relative mt-10 pb-10 isolate overflow-hidden bg-gray-900">
         {/* Background image (parallax) */}

@@ -6,6 +6,9 @@ import TemplateSelector from './TemplateSelector'
 import { templatesData } from '../data/templatesData'
 import hero from '../assets/templateHero.png'
 
+/* ✅ SEO (added; head-only, no style changes) */
+import SEO from './SEO'
+
 /* ── Minimal parallax util (no deps) ─────────────────────────────────── */
 function useParallax({ speed = 0.7, axis = 'y', respectPRM = true } = {}) {
   const ref = useRef(null)
@@ -49,8 +52,38 @@ export default function TemplatesPage() {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [pathname])
 
+  /* JSON-LD (no visual impact) */
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bsquaredsolutions.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Templates", "item": "https://bsquaredsolutions.io/templates" }
+    ]
+  }
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Template Library",
+    "url": "https://bsquaredsolutions.io/templates",
+    "hasPart": templatesData.map((t) => ({
+      "@type": "CreativeWork",
+      "name": t.title || t.name || `Template ${t.id}`,
+      "url": `https://bsquaredsolutions.io/templates#${t.id}`
+    }))
+  }
+
   return (
     <div>
+      {/* ✅ SEO */}
+      <SEO
+        title="React Website Templates | B Squared Solutions"
+        description="Ready-made React + Tailwind templates with clean structure, SEO basics, and quick setup so you can launch fast."
+        path="/templates"
+        image="https://bsquaredsolutions.io/og-default.svg"
+        schema={[breadcrumbSchema, collectionSchema]}
+      />
+
       {/* HERO (matches other sections) */}
       <section id="templates-hero" className="relative mt-10 isolate overflow-hidden bg-gray-900">
         {/* Background image (parallax) */}
@@ -78,12 +111,12 @@ export default function TemplatesPage() {
         {/* Copy (left-aligned) */}
         <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-24 sm:pt-36 sm:pb-32 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="mx-auto max-w-3xl lg:max-w-4xl text-center lg:text-left"
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0 }}
+            className="mx-auto max-w-3xl text-center lg:max-w-4xl lg:text-left"
           >
+
             <div className="hidden sm:flex sm:justify-center lg:justify-start">
               <span className="relative inline-flex items-center rounded-full mb-2 px-3 py-1 text-lg text-white ring-2 ring-white/90">
                 Template Library
@@ -98,7 +131,7 @@ export default function TemplatesPage() {
               production-ready structure to launch fast.
             </p>
             <p className="mt-4 text-sm italic font-semibold text-white text-shadow-lg/50">
-              Every template includes TailwindCSS, helpful code comments, and easy installation instructions.
+              Every template includes TailwindCSS, helpful code comments, and easy installation instructions. The templates below are standalone templates built in React, however they can be used as the basis for a CMS-hosted site with a little bit of effort. We'd be happy to build a <a href="/packages#build">CMS site</a> based on one or these if you would like.
             </p>
           </motion.div>
         </div>

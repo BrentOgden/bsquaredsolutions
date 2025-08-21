@@ -4,6 +4,7 @@ import { IoShieldCheckmarkOutline, IoClose } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
 import pricingHero from '../assets/pricingHero2.jpg';
+import SEO from '../components/SEO'; // ✅ SEO
 
 /* ── Helper: smart link (internal vs external) ─────────────────────── */
 function SmartLink({ to, className = '', children, onClick }) {
@@ -320,46 +321,74 @@ export default function Pricing() {
   };
 
   return (
-    <section id="pricing" className="relative scroll-mt-20">
-      <Parallax
-        bgImage={pricingHero}
-        strength={600}
-        bgImageStyle={{ minHeight: '100vh', objectFit: 'cover' }}
-        className="h-auto bg-cover bg-center md:bg-top-right"
-        renderLayer={() => <div className="absolute inset-0 bg-black opacity-80" />}
-      >
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <h2 className="text-4xl font-bold text-center mb-12 text-white text-shadow-xl/50">
-            Find Your Ideal Web Solution
-          </h2>
+    <>
+      {/* ✅ SEO (head-only; no UI changes) */}
+      <SEO
+        title="Pricing | B Squared Solutions"
+        description="Transparent pricing for CMS sites, custom React builds, maintenance, and logo design. No monthly fees on builds, SEO included, and flexible support plans."
+        path="/pricing"
+        type="website"
+        image={pricingHero}
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Pricing",
+            "url": "https://bsquaredsolutions.io/pricing",
+            "description": "Transparent pricing for CMS sites, custom React builds, maintenance, and logo design.",
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bsquaredsolutions.io/" },
+              { "@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://bsquaredsolutions.io/pricing" }
+            ]
+          }
+        ]}
+      />
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {tiers.map((tier) => (
-              <FlipCard key={tier.name} tier={tier} openModal={openModal} />
-            ))}
+      <section id="pricing" className="relative scroll-mt-20">
+        <Parallax
+          bgImage={pricingHero}
+          strength={600}
+          bgImageStyle={{ minHeight: '100vh', objectFit: 'cover' }}
+          className="h-auto bg-cover bg-center md:bg-top-right"
+          renderLayer={() => <div className="absolute inset-0 bg-black opacity-80" />}
+        >
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <h2 className="text-4xl font-bold text-center mb-12 text-white text-shadow-xl/50">
+              Find Your Ideal Web Solution
+            </h2>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {tiers.map((tier) => (
+                <FlipCard key={tier.name} tier={tier} openModal={openModal} />
+              ))}
+            </div>
+
+            <p className="mt-6 text-shadow-xl/50 text-center text-sm text-gray-200">
+              * Click a card to see more details.{' '}
+              <a href="#contactform" className="font-semibold hover:text-primary">
+                Contact us
+              </a>{' '}
+              for a custom quote to fit your needs.
+            </p>
+
+            <div className="flex justify-center mt-6">
+              <Link
+                to="/packages"
+                className="py-3 px-6 font-semibold rounded-lg border-2 border-[#0185e4] text-white hover:bg-white hover:text-primary transition"
+              >
+                Explore Package Options
+              </Link>
+            </div>
           </div>
+        </Parallax>
 
-          <p className="mt-6 text-shadow-xl/50 text-center text-sm text-gray-200">
-            * Click a card to see more details.{' '}
-            <a href="#contactform" className="font-semibold hover:text-primary">
-              Contact us
-            </a>{' '}
-            for a custom quote to fit your needs.
-          </p>
-
-          <div className="flex justify-center mt-6">
-            <Link
-              to="/packages"
-              className="py-3 px-6 font-semibold rounded-lg border-2 border-[#0185e4] text-white hover:bg-white hover:text-primary transition"
-            >
-              Explore Package Options
-            </Link>
-          </div>
-        </div>
-      </Parallax>
-
-      {/* Modal */}
-      <Modal open={modalOpen} onClose={closeModal} url={modalUrl} title="Website Maintenance" />
-    </section>
+        {/* Modal */}
+        <Modal open={modalOpen} onClose={closeModal} url={modalUrl} title="Website Maintenance" />
+      </section>
+    </>
   );
 }

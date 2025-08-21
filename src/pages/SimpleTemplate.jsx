@@ -4,9 +4,10 @@ import { XMarkIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/2
 import { FaThumbsUp } from "react-icons/fa";
 import { FaBookOpen } from "react-icons/fa";
 import { IoIosContact } from "react-icons/io";
-
-
 import { GiShoppingCart } from 'react-icons/gi'
+
+// ✅ SEO (head-only; no visual changes)
+import SEO from '../components/SEO'
 
 // Replace with your actual assets
 import hero from '../assets/multi-template.png'
@@ -44,8 +45,6 @@ const features = [
 
 // ───────────────────────────────────────────────────────────────────────────────
 // Shot: arbitrary object-position via `position`, object-fit via `fit`
-// position examples: 'center', 'top', '50% 35%', '40% 60%', 'left 30%', etc.
-// fit: 'cover' (default) or 'contain'
 // ───────────────────────────────────────────────────────────────────────────────
 function Shot({ src, alt, onOpen, position = '50% 50%', fit = 'cover' }) {
   const fitClass = fit === 'contain' ? 'object-contain' : 'object-cover'
@@ -239,8 +238,44 @@ export default function Example({
   const amount = String(plan.price).replace(/[^0-9.]/g, '') // "69"
   const buyHref = `/checkoutvenmo?plan=${encodeURIComponent(plan.name)}&amount=${encodeURIComponent(amount)}`
 
+  // ✅ SEO schemas (head-only; no UI impact)
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bsquaredsolutions.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Simple Multi-Page Template", "item": "https://bsquaredsolutions.io/simpletemplate" }
+    ]
+  }
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": plan.name,
+    "description": "A multi-page React + Tailwind template with blog, image grids, and contact components. Easy color theming and mobile-first design.",
+    "brand": { "@type": "Brand", "name": "B Squared Solutions" },
+    "image": ["https://bsquaredsolutions.io/og-default.svg"],
+    "url": "https://bsquaredsolutions.io/simpletemplate",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": amount,
+      "availability": "https://schema.org/InStock",
+      "url": "https://bsquaredsolutions.io/simpletemplate"
+    }
+  }
+
   return (
     <>
+      {/* ✅ SEO */}
+      <SEO
+        title="Simple Multi-Page React Template | B Squared Solutions"
+        description="Multi-page React + Tailwind template with a blog, image grids, and contact components. Easy theming and fast setup to launch quickly."
+        path="/simpletemplate"
+        image="https://bsquaredsolutions.io/og-simple-template.jpg"
+        type="product"
+        schema={[breadcrumbSchema, productSchema]}
+      />
+
       {/* HERO with Buy Now */}
       <Hero heroPosition={heroPosition} bgImage={hero} buyHref={buyHref} />
 

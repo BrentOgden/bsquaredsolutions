@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import hero from '../assets/packageHero.jpg'
 const CONTACT_FORM_URL = 'https://myformflow.io/b-squared-solutions/w';
 
+/* ✅ SEO (added; no style changes) */
+import SEO from './SEO'
 
 /* ── Minimal parallax util (no deps) ─────────────────────────────────── */
 function useParallax({ speed = 0.7, axis = 'y', respectPRM = true } = {}) {
@@ -212,6 +214,13 @@ const inGroup = (ids) => (p) => ids.includes(p.id)
 const BUILD_IDS = ['startercms','starter','growth','platinum','allinclusive']
 const DIY_IDS   = ['diy','diypro','diybusiness']
 const MAINT_IDS = ['on-demand','basic-monthly','premium-monthly']
+
+/* price helper for JSON-LD */
+const parsePriceToNumber = (s = '') => {
+  const m = String(s).match(/[\d,]+(\.\d+)?/)
+  if (!m) return undefined
+  try { return Number(m[0].replace(/,/g, '')) } catch { return undefined }
+}
 
 /* ── Presentational components ───────────────────────────────────────── */
 function PackageCard({ pkg, onCtaClick }) {
@@ -513,15 +522,13 @@ export default function Packages({ packages = packagesData }) {
 
   // Any CTA that targets /#contactform will open the modal instead of routing
   const handleCtaClick = (path) => {
-  if (typeof path === 'string' && (path.includes('/#maintenanceform'))) {
-    // Always load the canonical FormFlow URL in the modal
-    setModalSrc(CONTACT_FORM_URL);
-    setModalOpen(true);
-  } else if (typeof path === 'string') {
-    window.location.href = path; // normal navigation
-  }
-};
-
+    if (typeof path === 'string' && (path.includes('/#maintenanceform'))) {
+      setModalSrc(CONTACT_FORM_URL);
+      setModalOpen(true);
+    } else if (typeof path === 'string') {
+      window.location.href = path; // normal navigation
+    }
+  };
 
   useEffect(() => { setActiveSection('build') }, [])
 
@@ -543,8 +550,48 @@ export default function Packages({ packages = packagesData }) {
     return () => observer.disconnect()
   }, [])
 
+  /* ✅ Build JSON-LD (no visual changes) */
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bsquaredsolutions.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Packages", "item": "https://bsquaredsolutions.io/packages" }
+    ]
+  }
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Pricing & Packages",
+    "url": "https://bsquaredsolutions.io/packages"
+  }
+  const offerCatalogSchema = {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "name": "B Squared Solutions Packages",
+    "url": "https://bsquaredsolutions.io/packages",
+    "itemListElement": packages.map((pkg, i) => ({
+      "@type": "Offer",
+      "name": pkg.title,
+      "description": pkg.blurb,
+      "position": i + 1,
+      "url": `https://bsquaredsolutions.io/packages#${pkg.id}`,
+      "priceCurrency": "USD",
+      ...(parsePriceToNumber(pkg.price) ? { "price": parsePriceToNumber(pkg.price) } : {})
+    }))
+  }
+
   return (
     <>
+      {/* ✅ SEO (head-only; does not affect layout) */}
+      <SEO
+        title="Website Packages & Pricing | B Squared Solutions"
+        description="Transparent pricing with clear deliverables: custom builds, professional templates, and ongoing maintenance plans tailored to your goals."
+        path="/packages"
+        image="https://bsquaredsolutions.io/og-default.svg"
+        schema={[breadcrumbSchema, collectionPageSchema, offerCatalogSchema]}
+      />
+
       {/* HERO */}
       <section id="packages-hero" className="relative mt-10 pb-20 isolate overflow-hidden bg-gray-900">
         <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">
@@ -637,7 +684,7 @@ export default function Packages({ packages = packagesData }) {
         </div>
       </section>
 
-      {/* Modal (opens for /#contactform CTAs) */}
+      {/* Modal (opens for /#maintenanceform CTAs) */}
       <ContactFormModal
         open={modalOpen}
         src={modalSrc}
