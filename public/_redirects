@@ -1,1 +1,10 @@
 /*    /index.html   200
+# Force HTTPS & apex → canonical (keep if not already)
+http://bsquaredsolutions.io/*      https://bsquaredsolutions.io/:splat   301!
+http://www.bsquaredsolutions.io/*  https://bsquaredsolutions.io/:splat   301!
+
+# Section URLs (not real pages) → homepage
+/pricing           /                         301!
+/services          /                         301!
+/about             /                         301!
+/quotes            /                         301!

@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "@dr.pogodin/react-helmet";
 
 import NavBar from "./components/NavBar";
@@ -26,10 +26,9 @@ import BlogPostTest from "./pages/Blogs/BlogPostTest";
 import SimpleTemplate from "./pages/SimpleTemplate";
 import BasicTemplate from "./pages/BasicTemplate";
 import SmallBusinessTemplate from "./pages/SmallBusinessTemplate";
-import ContactPage from "./pages/Contact"; // renamed to avoid conflict
+import ContactPage from "./pages/Contact";
 
-/* ✅ Site-wide SEO (head-only; no UI changes) */
-import SEO from "./components/SEO";
+import RouteSEO from "./components/RouteSEO";
 import GA4Listener from "./analytics/GA4Listener";
 
 export default function App() {
@@ -37,56 +36,14 @@ export default function App() {
     <HelmetProvider>
       <Router>
         <GA4Listener />
+        <RouteSEO /> {/* 🔗 route-aware canonicals & JSON-LD */}
         <div className="flex flex-col overflow-x-hidden min-h-screen">
-          {/* Global defaults */}
-          <SEO
-            title="B Squared Solutions | Custom Websites, Templates & Maintenance"
-            description="Denver-based web studio building fast, SEO-friendly React & CMS sites. Custom builds, ready-made templates, and ongoing maintenance to keep you speedy and secure."
-            path="/"
-            type="website"
-            image="https://bsquaredsolutions.io/bsquaredlogo2.png"
-            schema={[
-              {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "name": "B Squared Solutions",
-                "url": "https://bsquaredsolutions.io",
-                "potentialAction": {
-                  "@type": "SearchAction",
-                  "target":
-                    "https://bsquaredsolutions.io/blog?query={search_term_string}",
-                  "query-input": "required name=search_term_string",
-                },
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                "name": "B Squared Solutions",
-                "url": "https://bsquaredsolutions.io",
-                "logo": "https://bsquaredsolutions.io/bsquaredlogo2.png",
-                "sameAs": [
-                  "https://www.linkedin.com/company/b-squared-solutions",
-                  "https://github.com/"
-                ],
-                "contactPoint": [
-                  {
-                    "@type": "ContactPoint",
-                    "telephone": "+1-720-254-5354",
-                    "contactType": "customer service",
-                    "areaServed": "US",
-                  },
-                ],
-              },
-            ]}
-          />
-
           <NavBar />
           <ScrollManager />
           <HashScroll />
 
           <main className="flex-grow">
             <Routes>
-              {/* Home (all sections on one page) */}
               <Route
                 path="/"
                 element={
@@ -101,7 +58,7 @@ export default function App() {
                 }
               />
 
-              {/* Full‐page routes */}
+              {/* Full-page routes */}
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/checkoutvenmo" element={<CheckoutVenmo />} />
               <Route path="/portfolio" element={<Portfolio />} />
@@ -116,6 +73,9 @@ export default function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
+
+              {/* Optional: client-side catch-all back to home */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
 
