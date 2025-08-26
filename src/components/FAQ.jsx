@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import faqHero from "../assets/packageHero.jpg";
+import SiteHero from "./SiteHero";
+import hero from "../assets/packageHero.jpg";
 // Optionally import a main-section background image and pass it in via props
 // import faqMainBg from "../assets/faqMainBg.jpg";
 
@@ -228,49 +229,16 @@ export default function FAQ({ contentBgImage, overlayOpacity = 0.15 }) {
         image="https://bsquaredsolutions.io/og-default.svg"
         schema={faqSchema}
       />
+      <SiteHero
+        id="faq-hero"
+        imageSrc={hero}
+        kicker="FAQ"
+        title="Frequently Asked Questions"
+        subtitle="Your questions on timelines, costs, and maintenance—answered."
+      />
 
-      {/* HERO (image-based, unchanged) */}
-      <section id="faq-hero" className="relative mt-10 pb-10 isolate overflow-hidden bg-gray-900">
-        {/* Background image (parallax) */}
-        <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">
-          <img
-            alt="FAQ backdrop"
-            src={faqHero}
-            className="size-full object-cover object-center"
-          />
-        </Parallax>
 
-        {/* Brand gradient overlay */}
-        <Parallax speed={0.07} respectPRM={false} className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="h-full w-full bg-gradient-to-b from-black/80 to-black/70" />
-        </Parallax>
 
-        {/* Accent blob */}
-        <Parallax speed={0.04} respectPRM={false} className="absolute inset-x-0 -top-40 -z-10 overflow-hidden blur-3xl sm:-top-80">
-          <div
-            style={{
-              clipPath:
-                "polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)",
-            }}
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[60deg] bg-[linear-gradient(120deg,_#0B3E73_0%,_#145DA0_50%,_#3D86CA_100%)] sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          />
-        </Parallax>
-
-        {/* Copy */}
-        <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center lg:text-left">
-            <span className="hidden sm:inline-flex items-center rounded-full mb-3 px-3 py-1 text-lg text-white ring-2 ring-white/90">
-              FAQ
-            </span>
-            <h1 className="text-5xl font-semibold text-shadow-lg/50 tracking-tight text-pretty text-white sm:text-6xl">
-              Frequently Asked Questions
-            </h1>
-            <h4 className="text-white text-2xl mt-4 text-shadow-lg/50">
-              Your questions on timelines, costs, and maintenance—answered.
-            </h4>
-          </div>
-        </div>
-      </section>
 
       {/* CONTENT — optional background image with low-opacity overlay */}
       <section className="relative">

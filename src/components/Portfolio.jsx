@@ -12,6 +12,7 @@ import milehigh from '../assets/screenshots/www_milehighmashup_com.png'
 import fantasy from '../assets/screenshots/fantasycentral_co_home.png'
 import jb from '../assets/screenshots/www_jbsimplyclean_com.png'
 import hero from '../assets/portfolioHero.jpg'
+import SiteHero from './SiteHero'
 
 /* ✅ SEO (added; no style changes) */
 import SEO from './SEO'
@@ -101,55 +102,15 @@ export default function Portfolio() {
         schema={[breadcrumbSchema, collectionSchema]}
       />
 
-      {/* HERO (no CTAs, no right image) */}
-      <section className="relative isolate overflow-hidden mt-10 bg-gray-900">
-        {/* Background photo (parallax) */}
-        <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">
-          <img
-            alt="Portfolio backdrop"
-            src={hero}
-            className="size-full object-cover object-center"
-          />
-        </Parallax>
+      <SiteHero
+        id="portfolio-hero"
+        imageSrc={hero}
+        kicker="Our Recent Projects"
+        title=" Custom Websites & Web Apps Built for Performance"
+        subtitle="Explore real projects for businesses — React & Tailwind builds, fast load times,
+              clean CMS editing, and SEO baked in."
+      />
 
-        {/* Full-cover brand gradient @ 70% */}
-        <Parallax speed={0.07} respectPRM={false} className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="h-full w-full bg-gradient-to-b from-black/80 to-black/70" />
-        </Parallax>
-
-        {/* Top accent blob */}
-        <Parallax speed={0.04} respectPRM={false} className="absolute inset-x-0 -top-40 -z-10 overflow-hidden blur-3xl sm:-top-80">
-          <div
-            style={{ clipPath: 'polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)' }}
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#3d86ca] to-[#0185e4] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          />
-        </Parallax>
-
-        <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-24 sm:pt-36 sm:pb-32 lg:px-8">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0 }}
-            className="mx-auto max-w-3xl text-center lg:max-w-4xl lg:text-left"
-          >
-
-            <div className="hidden sm:flex sm:justify-center lg:justify-start">
-              <span className="relative inline-flex items-center rounded-full mb-2 px-3 py-1 text-lg text-white ring-2 ring-white/90">
-                Our Recent Projects
-              </span>
-            </div>
-
-            {/* <h2 className="mt-6 text-xl font-semibold text-primary">Our Recent Work</h2> */}
-            <h1 className="mt-2 text-5xl font-semibold text-shadow-lg/50 tracking-tight text-pretty text-white sm:text-6xl">
-              Custom Websites & Web Apps Built for Performance
-            </h1>
-            <p className="mt-6 text-lg/8 text-white text-shadow-lg/50 sm:text-xl/8">
-              Explore real projects for businesses — React & Tailwind builds, fast load times,
-              clean CMS editing, and SEO baked in.
-            </p>
-          </motion.div>
-        </div>
-      </section>
 
       {/* GRID */}
       <section id="work" className="py-16 bg-gray-50">

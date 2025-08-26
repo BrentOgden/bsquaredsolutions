@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import TemplateSelector from './TemplateSelector'
 import { templatesData } from '../data/templatesData'
 import hero from '../assets/templateHero.png'
+import SiteHero from './SiteHero'
 
 /* ✅ SEO (added; head-only, no style changes) */
 import SEO from './SEO'
@@ -86,59 +87,21 @@ export default function TemplatesPage() {
 
       {/* HERO (matches other sections) */}
       <section id="templates-hero" className="relative mt-10 isolate overflow-hidden bg-gray-900">
-        {/* Background image (parallax) */}
-        <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">
-          <img
-            alt="Templates backdrop"
-            src={hero}
-            className="size-full object-cover object-center"
-          />
-        </Parallax>
+        <SiteHero
+          id="templates-hero"
+          imageSrc={hero}
+          kicker="Template Library"
+          title="Ready-Made React Templates"
+          subtitle="Download a clean, SEO-friendly React + Tailwind starter. Clear comments, simple setup, and production-ready structure to launch fast."
+          subtitle2=<>Every template includes TailwindCSS, helpful code comments, and easy installation instructions. The templates below are standalone templates built in React, however they can be used as the basis for a CMS-hosted site with a little bit of effort. We'd be happy to build a <a href="/packages#build">CMS site</a> based on one or these if you would like.</>
+              
+              />
 
-        {/* Full-cover brand gradient @ 70% */}
-        <Parallax speed={0.07} respectPRM={false} className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="h-full w-full bg-gradient-to-b from-black/80 to-black/70" />
-        </Parallax>
 
-        {/* Top accent blob */}
-        <Parallax speed={0.04} respectPRM={false} className="absolute inset-x-0 -top-40 -z-10 overflow-hidden blur-3xl sm:-top-80">
-          <div
-            style={{ clipPath: 'polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)' }}
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#3d86ca] to-[#0185e4] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          />
-        </Parallax>
+    </section>
 
-        {/* Copy (left-aligned) */}
-        <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-24 sm:pt-36 sm:pb-32 lg:px-8">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0 }}
-            className="mx-auto max-w-3xl text-center lg:max-w-4xl lg:text-left"
-          >
-
-            <div className="hidden sm:flex sm:justify-center lg:justify-start">
-              <span className="relative inline-flex items-center rounded-full mb-2 px-3 py-1 text-lg text-white ring-2 ring-white/90">
-                Template Library
-              </span>
-            </div>
-
-            <h1 className="mt-6 text-5xl font-semibold tracking-tight text-pretty text-white text-shadow-lg/50 sm:text-6xl">
-              Ready-Made React Templates
-            </h1>
-            <p className="mt-6 text-lg/8 text-white text-shadow-lg/50 sm:text-xl/8">
-              Download a clean, SEO-friendly React + Tailwind starter. Clear comments, simple setup, and
-              production-ready structure to launch fast.
-            </p>
-            <p className="mt-4 text-sm italic font-semibold text-white text-shadow-lg/50">
-              Every template includes TailwindCSS, helpful code comments, and easy installation instructions. The templates below are standalone templates built in React, however they can be used as the basis for a CMS-hosted site with a little bit of effort. We'd be happy to build a <a href="/packages#build">CMS site</a> based on one or these if you would like.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* The grid itself */}
-      <TemplateSelector templates={templatesData} />
-    </div>
+      {/* The grid itself */ }
+  <TemplateSelector templates={templatesData} />
+    </div >
   )
 }

@@ -4,6 +4,7 @@ import { motion, LayoutGroup } from 'framer-motion'
 import { FiCheck } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import hero from '../assets/packageHero.jpg'
+import SiteHero from './SiteHero'
 const CONTACT_FORM_URL = 'https://myformflow.io/b-squared-solutions/w';
 
 /* ✅ SEO (added; no style changes) */
@@ -65,7 +66,7 @@ function useEqualCardHeights(containerRef, selector = '.pkg-card') {
 
     requestMeasure()
     if (document?.fonts?.ready) {
-      document.fonts.ready.then(requestMeasure).catch(() => {})
+      document.fonts.ready.then(requestMeasure).catch(() => { })
     }
     window.addEventListener('load', requestMeasure)
     window.addEventListener('resize', requestMeasure)
@@ -138,82 +139,102 @@ function ContactFormModal({ open, src, onClose, title = 'Contact Us' }) {
 /* ── Data ────────────────────────────────────────────────────────────── */
 const packagesData = [
   // Build
-  { id: 'startercms', title: 'CMS Starter', price: '$1,500',
+  {
+    id: 'startercms', title: 'CMS Starter', price: '$1,500',
     blurb: 'Ideal for solo entrepreneurs or small businesses needing a clean, conversion-focused site.',
     subtitle: 'Basic site on your choice of CMS platform', features: [
-      'Up to 5 custom-designed pages','Mobile-first, responsive layout','Contact form with email notifications',
-      'Basic on-page SEO (titles, meta descriptions)','Google Analytics setup & Search Console submission',
-      '1 round of design & content revisions','Deployment guidance & launch support','1 month post-launch support',
-    ], cta: 'Get Started', path: '/#contactform', popular: false },
-  { id: 'starter', title: 'Starter', price: '$2,000',
+      'Up to 5 custom-designed pages', 'Mobile-first, responsive layout', 'Contact form with email notifications',
+      'Basic on-page SEO (titles, meta descriptions)', 'Google Analytics setup & Search Console submission',
+      '1 round of design & content revisions', 'Deployment guidance & launch support', '1 month post-launch support',
+    ], cta: 'Get Started', path: '/#contactform', popular: false
+  },
+  {
+    id: 'starter', title: 'Starter', price: '$2,000',
     blurb: 'Ideal for solo entrepreneurs or small businesses needing a clean, conversion-focused site.',
     subtitle: 'Basic custom-built React site', features: [
-      'Up to 5 custom-designed pages','Mobile-first, responsive layout','Contact form with email notifications',
-      'Basic on-page SEO (titles, meta descriptions)','Google Analytics setup & Search Console submission',
-      '1 round of design & content revisions','Deployment guidance & launch support','1 month post-launch support',
-    ], cta: 'Get Started', path: '/#contactform', popular: false },
-  { id: 'growth', title: 'Growth', price: '$3,000',
+      'Up to 5 custom-designed pages', 'Mobile-first, responsive layout', 'Contact form with email notifications',
+      'Basic on-page SEO (titles, meta descriptions)', 'Google Analytics setup & Search Console submission',
+      '1 round of design & content revisions', 'Deployment guidance & launch support', '1 month post-launch support',
+    ], cta: 'Get Started', path: '/#contactform', popular: false
+  },
+  {
+    id: 'growth', title: 'Growth', price: '$3,000',
     blurb: 'For growing teams ready to scale traffic, leads and content.',
     subtitle: 'Everything in Starter PLUS:', features: [
-      'Up to 10 pages, plus optional blog or news section','Optional CMS integration (WordPress, Headless CMS, etc.)',
-      'Advanced on-page SEO & schema markup','Performance optimization & page-speed tuning',
-      '2 rounds of revisions','3 months post-launch support','Basic accessibility compliance (WCAG AA)',
-    ], cta: 'Get Started', path: '/#contactform', popular: true },
-  { id: 'platinum', title: 'Professional', price: 'Starts at $6,000',
+      'Up to 10 pages, plus optional blog or news section', 'Optional CMS integration (WordPress, Headless CMS, etc.)',
+      'Advanced on-page SEO & schema markup', 'Performance optimization & page-speed tuning',
+      '2 rounds of revisions', '3 months post-launch support', 'Basic accessibility compliance (WCAG AA)',
+    ], cta: 'Get Started', path: '/#contactform', popular: true
+  },
+  {
+    id: 'platinum', title: 'Professional', price: 'Starts at $6,000',
     blurb: 'Complex sites with custom integrations, dashboards or e-commerce.',
     subtitle: 'Everything in Growth PLUS:', features: [
-      'Unlimited pages & custom components','Custom API integrations & automations','E-commerce or membership system setup',
-      'Design system / UI component library','Advanced accessibility & security hardening','6 months dedicated support & maintenance',
-    ], cta: 'Get Started', path: '/#contactform', popular: false },
+      'Unlimited pages & custom components', 'Custom API integrations & automations', 'E-commerce or membership system setup',
+      'Design system / UI component library', 'Advanced accessibility & security hardening', '6 months dedicated support & maintenance',
+    ], cta: 'Get Started', path: '/#contactform', popular: false
+  },
 
   // Templates
-  { id: 'diy', title: 'DIY Starter', price: '$99',
+  {
+    id: 'diy', title: 'DIY Starter', price: '$99',
     blurb: 'Choose our pre-built, fully-functional basic starter template and we will provide an hour of dedicated support to get you up and running fast.',
     subtitle: '$49 - Template only (w/out support)', features: [
-      'Pre-designed 5-page basic template','Full access to HTML/CSS for easy customization',
-      'Installation & setup documentation','Includes 1 hour of installation/customization support',
-    ], cta: 'View Template', path: '/basictemplate', popular: false },
-  { id: 'diypro', title: 'DIY Professional', price: '$119',
+      'Pre-designed 5-page basic template', 'Full access to HTML/CSS for easy customization',
+      'Installation & setup documentation', 'Includes 1 hour of installation/customization support',
+    ], cta: 'View Template', path: '/basictemplate', popular: false
+  },
+  {
+    id: 'diypro', title: 'DIY Professional', price: '$119',
     blurb: 'Choose our pre-built, fully-functional multi-page starter template with additional features and we will provide an hour of dedicated support to get you up and running fast.',
     subtitle: '$69 - Template only (w/out support)', features: [
-      'Up to 8 pages with custom styling tweaks','Domain install & hosting configuration',
-      'Includes 1 hour of installation/customization support','Access to premium components & plugins',
-    ], cta: 'View Template', path: '/simpletemplate', popular: true },
-  { id: 'diybusiness', title: 'DIY Small Business', price: '$149',
+      'Up to 8 pages with custom styling tweaks', 'Domain install & hosting configuration',
+      'Includes 1 hour of installation/customization support', 'Access to premium components & plugins',
+    ], cta: 'View Template', path: '/simpletemplate', popular: true
+  },
+  {
+    id: 'diybusiness', title: 'DIY Small Business', price: '$149',
     blurb: 'Launch fast with our feature-packed, multi-page small-business template.',
     subtitle: '$99 - Template only (w/out support)', features: [
-      'Up to 8 pages with custom styling tweaks','Domain install & hosting configuration',
-      'Priority email support & 1×1 tutorial session','Access to premium components & plugins',
-    ], cta: 'View Template', path: '/smallbusinesstemplate', popular: false },
+      'Up to 8 pages with custom styling tweaks', 'Domain install & hosting configuration',
+      'Priority email support & 1×1 tutorial session', 'Access to premium components & plugins',
+    ], cta: 'View Template', path: '/smallbusinesstemplate', popular: false
+  },
 
   // Maintenance
-  { id: 'on-demand', title: 'On-Demand', price: '$50 / hr',
+  {
+    id: 'on-demand', title: 'On-Demand', price: '$50 / hr',
     blurb: 'Comprehensive, as-needed updates for your site — new or existing.',
     subtitle: 'Pay-as-you-go flexibility', features: [
-      'Bug fixes & feature enhancements','Content edits & styling tweaks',
-      'Consulting services','Any other service you may need — as you need it',
-    ], cta: 'Request Hours', path: '/contact', popular: false },
-  { id: 'basic-monthly', title: 'Ongoing - Basic', price: '$199 / mo',
+      'Bug fixes & feature enhancements', 'Content edits & styling tweaks',
+      'Consulting services', 'Any other service you may need — as you need it',
+    ], cta: 'Request Hours', path: '/contact', popular: false
+  },
+  {
+    id: 'basic-monthly', title: 'Ongoing - Basic', price: '$199 / mo',
     blurb: 'Stay secure and fast with monthly updates, monitoring, and priority support.',
     subtitle: 'Includes these features and more:', features: [
-      'Theme updates','Blog posting/creation',
-      'Uptime monitoring & alerts','Monthly SEO audit / optimization',
+      'Theme updates', 'Blog posting/creation',
+      'Uptime monitoring & alerts', 'Monthly SEO audit / optimization',
       'Dedicated content/dev time (up to 2 hrs / mo)',
-    ], cta: 'Get Started', path: '/#maintenanceform', popular: true },
-  { id: 'premium-monthly', title: 'Ongoing - Premium', price: '$399 / mo',
+    ], cta: 'Get Started', path: '/#maintenanceform', popular: true
+  },
+  {
+    id: 'premium-monthly', title: 'Ongoing - Premium', price: '$399 / mo',
     blurb: 'Premium, all-in maintenance—updates, SEO monitoring, proactive enhancements, QA, priority support.',
     subtitle: 'Everything in Basic PLUS:', features: [
-      'Weekly performance checks','Frequent site updates/revisions',
+      'Weekly performance checks', 'Frequent site updates/revisions',
       'Monthly analytics & SEO report',
       'Dedicated content/dev time (up to 6 hrs / mo)',
-    ], cta: 'Get Started', path: '/#maintenanceform', popular: false },
+    ], cta: 'Get Started', path: '/#maintenanceform', popular: false
+  },
 ]
 
 /* ── Helpers ─────────────────────────────────────────────────────────── */
 const inGroup = (ids) => (p) => ids.includes(p.id)
-const BUILD_IDS = ['startercms','starter','growth','platinum','allinclusive']
-const DIY_IDS   = ['diy','diypro','diybusiness']
-const MAINT_IDS = ['on-demand','basic-monthly','premium-monthly']
+const BUILD_IDS = ['startercms', 'starter', 'growth', 'platinum', 'allinclusive']
+const DIY_IDS = ['diy', 'diypro', 'diybusiness']
+const MAINT_IDS = ['on-demand', 'basic-monthly', 'premium-monthly']
 
 /* price helper for JSON-LD */
 const parsePriceToNumber = (s = '') => {
@@ -394,10 +415,10 @@ function SectionBlock({
 
   const repeated = (!isMobile && marquee)
     ? [...items, ...items].map((pkg, idx) => ({
-        ...pkg,
-        _key: `${pkg.id}__rep${idx >= items.length ? '1' : '0'}_${idx}`,
-        _rep: idx >= items.length ? '1' : '0',
-      }))
+      ...pkg,
+      _key: `${pkg.id}__rep${idx >= items.length ? '1' : '0'}_${idx}`,
+      _rep: idx >= items.length ? '1' : '0',
+    }))
     : items.map((pkg) => ({ ...pkg, _key: pkg.id }))
 
   return (
@@ -591,47 +612,14 @@ export default function Packages({ packages = packagesData }) {
         image="https://bsquaredsolutions.io/og-default.svg"
         schema={[breadcrumbSchema, collectionPageSchema, offerCatalogSchema]}
       />
+      <SiteHero
+        id="packages-hero"
+        imageSrc={hero}
+        kicker="Pricing & Packages"
+        title="Transparent pricing, clear deliverables."
+        subtitle=<>Choose the path that fits your goals — <strong>Custom Build</strong>: hand-crafted to your brand, search-ready and performance-tuned; <strong>Pre-designed Template</strong>: quick, flexible, and budget-friendly; or <strong>Maintenance</strong>: proactive updates, monitoring, and support.</>
+      />
 
-      {/* HERO */}
-      <section id="packages-hero" className="relative mt-10 pb-20 isolate overflow-hidden bg-gray-900">
-        <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">
-          <img alt="Packages backdrop" src={hero} className="size-full object-cover object-center" />
-        </Parallax>
-
-        <Parallax speed={0.07} respectPRM={false} className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="h-full w-full bg-gradient-to-b from-black/80 to-black/70" />
-        </Parallax>
-
-        <Parallax speed={0.04} respectPRM={false} className="absolute inset-x-0 -top-40 -z-10 overflow-hidden blur-3xl sm:-top-80">
-          <div
-            style={{ clipPath: 'polygon(74.1%_44.1%,100%_61.6%,97.5%_26.9%,85.5%_0.1%,80.7%_2%,72.5%_32.5%,60.2%_62.4%,52.4%_68.1%,47.5%_58.3%,45.2%_34.5%,27.5%_76.7%,0.1%_64.9%,17.9%_100%,27.6%_76.8%,76.1%_97.7%,74.1%_44.1%)' }}
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[60deg] bg-gradient-to-br from-[#3d86ca] to-[#0185e4] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          />
-        </Parallax>
-
-        <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-12 sm:pt-36 sm:pb-12 lg:px-8">
-          <motion.div
-            initial={{ opacity: 1, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="mx-auto max-w-3xl lg:max-w-4xl text-center lg:text-left"
-          >
-            <div className="hidden sm:flex sm:justify-center lg:justify-start">
-              <span className="relative inline-flex items-center rounded-full mb-2 px-3 py-1 text-lg text-white ring-2 ring-white/90">
-                Pricing & Packages
-              </span>
-            </div>
-
-            <h1 className="mt-2 text-5xl font-semibold text-shadow-lg/50 tracking-tight text-pretty text-white sm:text-6xl">
-              Transparent pricing, clear deliverables.
-            </h1>
-            <p className="mt-6 text-lg/8 text-white text-shadow-lg/50 sm:text-xl/8">
-              Choose the path that fits your goals — <strong>Custom Build</strong>: hand-crafted to your brand, search-ready and performance-tuned; <strong>Pre-designed Template</strong>: quick, flexible, and budget-friendly; or <strong>Maintenance</strong>: proactive updates, monitoring, and support.
-            </p>
-          </motion.div>
-        </div>
-      </section>
 
       {/* CONTENT */}
       <section className="relative pt-20 bg-gradient-to-br from-[#04223f] to-[#023c72]">

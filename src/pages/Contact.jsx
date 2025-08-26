@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiPhone, FiMapPin, FiSend } from "react-icons/fi";
 import hero from "../assets/contactHero.jpg";
+import SiteHero from "../components/SiteHero";
 /* ✅ SEO (added; head-only, no visual changes) */
 import SEO from "../components/SEO";
 
@@ -202,47 +203,24 @@ export default function Contact() {
       />
 
       {/* HERO */}
-      <section id="contact-hero" className="relative mt-10 pb-10 isolate overflow-hidden bg-gray-900">
-        <Parallax speed={0.45} respectPRM={false} className="absolute inset-0 -z-20">
-          <img alt="Contact backdrop" src={hero} className="size-full object-cover object-center" />
-        </Parallax>
-        <Parallax speed={0.07} respectPRM={false} className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="h-full w-full bg-gradient-to-b from-black/80 to-black/70" />
-        </Parallax>
-        <Parallax
-          speed={0.04}
-          respectPRM={false}
-          className="absolute inset-x-0 -top-40 -z-10 overflow-hidden blur-3xl sm:-top-80"
-        >
-          <div
-            style={{
-              clipPath:
-                "polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)",
-            }}
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[60deg] bg-[linear-gradient(120deg,_#0B3E73_0%,_#145DA0_50%,_#3D86CA_100%)] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          />
-        </Parallax>
+      <SiteHero
+        id="contact-hero"
+        imageSrc={hero}
+        kicker="Contact Us"
+        title="Let’s talk about your project."
+        subtitle={
+          <>
+            Share a few details and we’ll get back to you with next steps.
+          </>
 
-        <div className="relative mx-auto max-w-7xl px-6 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:px-8">
-          <motion.div
-            initial={{ opacity: 1, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="mx-auto max-w-3xl text-center lg:text-left"
-          >
-            <span className="hidden sm:inline-flex items-center rounded-full mb-3 px-3 py-1 text-lg text-white ring-2 ring-white/90">
-              Contact Us
-            </span>
-            <h1 className="text-5xl font-semibold text-shadow-lg/50 tracking-tight text-pretty text-white sm:text-6xl">
-              Let’s talk about your project.
-            </h1>
-            <p className="mt-6 text-lg/8 text-white text-shadow-lg/50 sm:text-xl/8">
-              Share a few details and we’ll get back to you with next steps.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+        }
+        size="short"
+        // or force an exact height:
+        // height="70vh"
+        align="center"
+        parallax
+      />
+
 
       {/* CONTENT */}
       <section className="relative bg-[linear-gradient(120deg,_#0B3E73_0%,_#145DA0_50%,_#3D86CA_100%)]">

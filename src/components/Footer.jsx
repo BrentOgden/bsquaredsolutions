@@ -86,7 +86,7 @@ export default function Footer() {
             <div>
               <h4 className="text-white text-xl font-semibold mb-3">Explore</h4>
               <ul className="space-y-2 text-white/90">
-                {['Services', 'Pricing', 'About'].map((label) => {
+                {['About'].map((label) => {
                   const slug = slugMap[label];
                   return (
                     <li key={label}>
@@ -96,6 +96,12 @@ export default function Footer() {
                     </li>
                   );
                 })}
+                <li>
+                  <SmartLink to="/products">Services</SmartLink>
+                </li>
+                <li>
+                  <SmartLink to="/packages">Pricing</SmartLink>
+                </li>
                 <li>
                   <SmartLink to="/faq">FAQs</SmartLink>
                 </li>

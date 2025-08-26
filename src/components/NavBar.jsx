@@ -16,7 +16,6 @@ export default function Navbar() {
   const slugMap = {
     Home: "hero",
     Services: "services",
-    Pricing: "pricing",
     About: "about",
     // FAQ and Contact are standalone routes; Blog is standalone too.
   };
@@ -36,6 +35,14 @@ export default function Navbar() {
     }
     if (link === "Contact") {
       navigate("/contact");
+      return;
+    }
+    if (link === "Pricing") {
+      navigate("/packages");
+      return;
+    }
+    if (link === "Services") {
+      navigate("/products");
       return;
     }
 

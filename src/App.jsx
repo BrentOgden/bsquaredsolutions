@@ -20,6 +20,7 @@ import Privacy from "./components/Privacy";
 import FAQ from "./components/FAQ";
 import Portfolio from "./components/Portfolio";
 import Packages from "./components/Packages";
+import Products from "./pages/Products";
 import Templates from "./components/Templates";
 import Blog from "./pages/Blog";
 import BlogPostTest from "./pages/Blogs/BlogPostTest";
@@ -27,7 +28,7 @@ import SimpleTemplate from "./pages/SimpleTemplate";
 import BasicTemplate from "./pages/BasicTemplate";
 import SmallBusinessTemplate from "./pages/SmallBusinessTemplate";
 import ContactPage from "./pages/Contact";
-
+import Slider from "./components/Slider";
 import RouteSEO from "./components/RouteSEO";
 import GA4Listener from "./analytics/GA4Listener";
 
@@ -54,6 +55,7 @@ export default function App() {
                     <QuoteScroller />
                     <About />
                     <ContactForm />
+                    
                   </>
                 }
               />
@@ -63,6 +65,7 @@ export default function App() {
               <Route path="/checkoutvenmo" element={<CheckoutVenmo />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/packages" element={<Packages />} />
+              <Route path="/products" element={<Products />} />
               <Route path="/templates" element={<Templates />} />
               <Route path="/basictemplate" element={<BasicTemplate />} />
               <Route path="/simpletemplate" element={<SimpleTemplate />} />
