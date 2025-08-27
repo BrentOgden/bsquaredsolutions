@@ -6,6 +6,7 @@ import { SiVenmo } from 'react-icons/si';
 import { MdOutlineMailOutline } from 'react-icons/md';
 import { IoIosPhonePortrait } from 'react-icons/io';
 import logo from '../assets/bsquaredlogowhite.png';
+import { FaLinkedin } from 'react-icons/fa6';
 
 const ACCENT = '#3d86ca';
 
@@ -125,7 +126,7 @@ export default function Footer() {
                   <FaTwitter size={28} />
                 </a>
                 <a href="#" aria-label="YouTube" className="icon-link" target="_blank" rel="noopener noreferrer">
-                  <FaYoutube size={28} />
+                  <FaLinkedin size={28} />
                 </a>
                 <a href="#" aria-label="Instagram" className="icon-link" target="_blank" rel="noopener noreferrer">
                   <FaInstagram size={28} />
