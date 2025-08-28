@@ -8,10 +8,10 @@ import { motion } from "framer-motion";
 import hero from "../assets/packageHero.jpg";
 import Slider from "../components/Slider";
 import SiteHero from "../components/SiteHero";
-import chat from "../assets/IMG_1036.png";
-import web from "../assets/smb-2.png";
-import seoimg from "../assets/IMG_1037.png";
-import design from "../assets/IMG_1033.png";
+import chat from "../assets/IMG_1036.PNG";
+import web from "../assets/smb-2.PNG";
+import seoimg from "../assets/IMG_1037.PNG";
+import design from "../assets/IMG_1033.PNG";
 import SEO from "../components/SEO";
 
 const container = {
