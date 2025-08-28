@@ -2,75 +2,51 @@
 import React from "react";
 import { Helmet } from "@dr.pogodin/react-helmet";
 
-const DEFAULT_BASE_URL = "https://bsquaredsolutions.io";
-
-/** Normalize any input to an array */
-const toArray = (x) => (Array.isArray(x) ? x : x ? [x] : []);
-
-/** Remove per-node @context so we can emit a single, valid top-level @context */
-const stripContext = (node) => {
-  if (!node || typeof node !== "object") return node;
-  const { ["@context"]: _ignored, ...rest } = node;
-  return rest;
-};
-
-/** Build a single JSON-LD payload with @graph (preferred for multiple nodes) */
-const buildJsonLd = (schema) => {
-  const nodes = toArray(schema).filter(Boolean).map(stripContext);
-  if (nodes.length === 0) return null;
-  return {
-    "@context": "https://schema.org",
-    "@graph": nodes,
-  };
-};
-
 export default function SEO({
   title,
   description,
-  path = "/",
-  type = "website",
-  image,
-  schema,            // object or array of objects
-  noindex = false,
-  baseUrl = DEFAULT_BASE_URL,
+  image,          // absolute or site-relative
+  path = "/",     // e.g. "/terms"
+  schema = [],    // array of objects
+  siteUrl = "https://bsquaredsolutions.io",
+  twitter = "@bsquaredsolutions", // adjust as needed
 }) {
-  const base = baseUrl?.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
-  const cleanPath = path?.startsWith("/") ? path : `/${path || ""}`;
-  const canonical = `${base}${cleanPath}`;
+  const url = siteUrl.replace(/\/$/, "") + path;
 
-  const jsonLd = buildJsonLd(schema);
+  // Build children as an array so we don't generate whitespace text nodes
+  const children = [
+    title ? <title key="title">{title}</title> : null,
+    description ? <meta key="desc" name="description" content={description} /> : null,
 
-  return (
-    <Helmet>
-      {/* Title & Description */}
-      {title && <title>{title}</title>}
-      {description && <meta name="description" content={description} />}
+    // Canonical
+    <link key="canonical" rel="canonical" href={url} />,
 
-      {/* Canonical */}
-      <link rel="canonical" href={canonical} />
+    // Open Graph
+    <meta key="og:type" property="og:type" content="website" />,
+    <meta key="og:title" property="og:title" content={title || ""} />,
+    description ? <meta key="og:desc" property="og:description" content={description} /> : null,
+    <meta key="og:url" property="og:url" content={url} />,
+    image ? <meta key="og:image" property="og:image" content={image} /> : null,
 
-      {/* Open Graph */}
-      <meta property="og:type" content={type} />
-      <meta property="og:url" content={canonical} />
-      {title && <meta property="og:title" content={title} />}
-      {description && <meta property="og:description" content={description} />}
-      {image && <meta property="og:image" content={image} />}
+    // Twitter
+    <meta key="tw:card" name="twitter:card" content="summary_large_image" />,
+    twitter ? <meta key="tw:site" name="twitter:site" content={twitter} /> : null,
+    title ? <meta key="tw:title" name="twitter:title" content={title} /> : null,
+    description ? <meta key="tw:desc" name="twitter:description" content={description} /> : null,
+    image ? <meta key="tw:image" name="twitter:image" content={image} /> : null,
 
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      {title && <meta name="twitter:title" content={title} />}
-      {description && <meta name="twitter:description" content={description} />}
-      {image && <meta name="twitter:image" content={image} />}
+    // JSON-LD (each object → its own <script>)
+    ...(Array.isArray(schema)
+      ? schema.map((obj, i) => (
+          <script
+            key={`ld-${i}`}
+            type="application/ld+json"
+            // IMPORTANT: use JSON.stringify; do NOT nest quotes around it
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(obj) }}
+          />
+        ))
+      : []),
+  ].filter(Boolean); // remove nulls
 
-      {/* Robots */}
-      {noindex && <meta name="robots" content="noindex,nofollow" />}
-
-      {/* JSON-LD (must be serialized string) */}
-      {jsonLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
-      )}
-    </Helmet>
-  );
+  return <Helmet>{children}</Helmet>;
 }
