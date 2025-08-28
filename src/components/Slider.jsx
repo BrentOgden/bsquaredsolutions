@@ -4,30 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
-
-/**
- * HalfImageTextSlider
- *
- * Drop-in, single-file slider with a glossy “black glass on blue-to-black gradient” look.
- * Call on any page: <HalfImageTextSlider slides={...} />
- *
- * Props:
- * - slides: Array<{
- *     image: string,              // required
- *     alt?: string,
- *     kicker?: string,
- *     title: string,              // required
- *     body?: string,
- *     ctaLabel?: string,
- *     ctaHref?: string
- *   }>
- * - auto?: boolean (default: true)
- * - interval?: number ms (default: 6000)
- * - imageFirst?: boolean (default: true) // image on left (lg+)
- * - showBackground?: boolean (default: true) // render built-in gradient backdrop
- * - height?: string tailwind class (default: "min-h-[520px]")
- * - className?: string
- */
 export default function HalfImageTextSlider({
   slides = DEFAULT_SLIDES,
   auto = true,
@@ -104,13 +80,12 @@ export default function HalfImageTextSlider({
       tabIndex={0}
       aria-roledescription="carousel"
       aria-label="Showcase"
-      className={`relative mx-auto w-full max-w-8xl px-6 md:pb-20 pt-8 focus:outline-none ${className}`}
+      className={`relative mx-auto w-full max-w-8xl pb-10 px-6 md:pb-10 pt-8 focus:outline-none ${className}`}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
     >
       {showBackground && (
         <div className="absolute inset-0 -z-10">
-          {/* Subtle blue→black radial gradient */}
           <div className="h-full w-full bg-[radial-gradient(120%_120%_at_10%_10%,#1b6fff_0%,#0c2a51_35%,#0a0f1c_75%,#080b12_100%)]" />
         </div>
       )}
@@ -129,7 +104,8 @@ export default function HalfImageTextSlider({
           }`}
         >
           {/* IMAGE */}
-          <div className="relative">
+          {/* Ensure height on small screens so absolute child is visible */}
+          <div className="relative h-64 sm:h-80 md:h-full">
             <AnimatePresence mode="wait" initial={false} custom={dir}>
               <motion.div
                 key={index}
@@ -145,24 +121,24 @@ export default function HalfImageTextSlider({
                   alt={slide.alt || slide.title}
                   className="h-full w-full object-cover"
                 />
-                {/* light glossy veil */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/30 via-black/10 to-transparent pointer-events-none" />
               </motion.div>
             </AnimatePresence>
 
             {slides.length > 1 && (
               <>
+                {/* Hide nav buttons on mobile; show from md+ */}
                 <button
                   aria-label="Previous slide"
                   onClick={prev}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 grid place-items-center size-11 rounded-full bg-black/40 hover:bg-black/60 ring-1 ring-white/20 text-white transition"
+                  className="hidden md:grid absolute left-4 top-1/2 -translate-y-1/2 place-items-center size-11 rounded-full bg-black/40 hover:bg-black/60 ring-1 ring-white/20 text-white transition"
                 >
                   <FiChevronLeft className="text-2xl" />
                 </button>
                 <button
                   aria-label="Next slide"
                   onClick={next}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 grid place-items-center size-11 rounded-full bg-black/40 hover:bg-black/60 ring-1 ring-white/20 text-white transition"
+                  className="hidden md:grid absolute right-4 top-1/2 -translate-y-1/2 place-items-center size-11 rounded-full bg-black/40 hover:bg-black/60 ring-1 ring-white/20 text-white transition"
                 >
                   <FiChevronRight className="text-2xl" />
                 </button>
@@ -242,24 +218,24 @@ const DEFAULT_SLIDES = [
     kicker: "Web Development",
     title: "Blazing-fast websites built with React & Tailwind.",
     body: (
-    <ul className="space-y-2">
-      {[
-        "Custom React + Tailwind UI built for your brand",
-        "Mobile-first, responsive layouts and components",
-        "Optional CMS integration (WordPress, headless, etc.) for easy editing",
-        "Technical SEO baked in: clean markup, schema, meta, sitemaps",
-        "Page-speed optimization (Core Web Vitals) and accessibility checks",
-      ].map((text) => (
-        <li key={text} className="flex items-start gap-2 leading-7">
-          <IoMdCheckmarkCircleOutline
-            className="relative top-[2px] shrink-0 text-[1.15em]"
-            aria-hidden="true"
-          />
-          <span>{text}</span>
-        </li>
-      ))}
-    </ul>
-  ),
+      <ul className="space-y-2">
+        {[
+          "Custom React + Tailwind UI built for your brand",
+          "Mobile-first, responsive layouts and components",
+          "Optional CMS integration (WordPress, headless, etc.) for easy editing",
+          "Technical SEO baked in: clean markup, schema, meta, sitemaps",
+          "Page-speed optimization (Core Web Vitals) and accessibility checks",
+        ].map((text) => (
+          <li key={text} className="flex items-start gap-2 leading-7">
+            <IoMdCheckmarkCircleOutline
+              className="relative top-[2px] shrink-0 text-[1.15em]"
+              aria-hidden="true"
+            />
+            <span>{text}</span>
+          </li>
+        ))}
+      </ul>
+    ),
     ctaLabel: "View Pricing & Packages",
     ctaHref: "/packages#build",
   },
@@ -270,24 +246,24 @@ const DEFAULT_SLIDES = [
     kicker: "Design & Consulting",
     title: "UI systems, audits, and clear roadmaps",
     body: (
-    <ul className="space-y-2">
-      {[
-        "UX research, sitemap, and wireframes that align to goals",
-        "Visual design system (colors, type, components) for consistency",
-        "Architecture & performance audits of existing sites/apps",
-        "Recommendations for stack, hosting, analytics, and integrations",
-        "Implementation roadmap with milestones and estimates",
-      ].map((text) => (
-        <li key={text} className="flex items-start gap-2 leading-7">
-          <IoMdCheckmarkCircleOutline
-            className="relative top-[2px] shrink-0 text-[1.15em]"
-            aria-hidden="true"
-          />
-          <span>{text}</span>
-        </li>
-      ))}
-    </ul>
-  ),
+      <ul className="space-y-2">
+        {[
+          "UX research, sitemap, and wireframes that align to goals",
+          "Visual design system (colors, type, components) for consistency",
+          "Architecture & performance audits of existing sites/apps",
+          "Recommendations for stack, hosting, analytics, and integrations",
+          "Implementation roadmap with milestones and estimates",
+        ].map((text) => (
+          <li key={text} className="flex items-start gap-2 leading-7">
+            <IoMdCheckmarkCircleOutline
+              className="relative top-[2px] shrink-0 text-[1.15em]"
+              aria-hidden="true"
+            />
+            <span>{text}</span>
+          </li>
+        ))}
+      </ul>
+    ),
     ctaLabel: "Work With Us",
     ctaHref: "/contact",
   },
@@ -298,24 +274,24 @@ const DEFAULT_SLIDES = [
     kicker: "SEO & Analytics",
     title: "Ongoing support to keep you fast, secure, and optimized",
     body: (
-    <ul className="space-y-2">
-      {[
-        "Keyword research mapped to pages and user intent",
-        "On-page SEO (titles, meta, headings, internal linking)",
-        "Technical SEO fixes (indexing, redirects, schema markup)",
-        "GA4 + Search Console setup and conversion tracking",
-        "Content briefs and recommendations to expand rankings",
-      ].map((text) => (
-        <li key={text} className="flex items-start gap-2 leading-7">
-          <IoMdCheckmarkCircleOutline
-            className="relative top-[2px] shrink-0 text-[1.15em]"
-            aria-hidden="true"
-          />
-          <span>{text}</span>
-        </li>
-      ))}
-    </ul>
-  ),
+      <ul className="space-y-2">
+        {[
+          "Keyword research mapped to pages and user intent",
+          "On-page SEO (titles, meta, headings, internal linking)",
+          "Technical SEO fixes (indexing, redirects, schema markup)",
+          "GA4 + Search Console setup and conversion tracking",
+          "Content briefs and recommendations to expand rankings",
+        ].map((text) => (
+          <li key={text} className="flex items-start gap-2 leading-7">
+            <IoMdCheckmarkCircleOutline
+              className="relative top-[2px] shrink-0 text-[1.15em]"
+              aria-hidden="true"
+            />
+            <span>{text}</span>
+          </li>
+        ))}
+      </ul>
+    ),
     ctaLabel: "Explore Maintenance Plans",
     ctaHref: "/packages#maintenance",
   },
@@ -326,24 +302,24 @@ const DEFAULT_SLIDES = [
     kicker: "Ongoing Support",
     title: "Proactive maintenance, monitoring, and quick turnarounds on updates.",
     body: (
-    <ul className="space-y-2">
-      {[
-        "Monthly updates and security patches",
-        "Uptime & performance monitoring with alerts",
-        "Content edits and minor feature requests",
-        "Priority support with clear SLAs",
-        "Regular reviews and update recommendations",
-      ].map((text) => (
-        <li key={text} className="flex items-start gap-2 leading-7">
-          <IoMdCheckmarkCircleOutline
-            className="relative top-[2px] shrink-0 text-[1.15em]"
-            aria-hidden="true"
-          />
-          <span>{text}</span>
-        </li>
-      ))}
-    </ul>
-  ),
+      <ul className="space-y-2">
+        {[
+          "Monthly updates and security patches",
+          "Uptime & performance monitoring with alerts",
+          "Content edits and minor feature requests",
+          "Priority support with clear SLAs",
+          "Regular reviews and update recommendations",
+        ].map((text) => (
+          <li key={text} className="flex items-start gap-2 leading-7">
+            <IoMdCheckmarkCircleOutline
+              className="relative top-[2px] shrink-0 text-[1.15em]"
+              aria-hidden="true"
+            />
+            <span>{text}</span>
+          </li>
+        ))}
+      </ul>
+    ),
     ctaLabel: "Support Packages",
     ctaHref: "/packages#maintenance",
   },

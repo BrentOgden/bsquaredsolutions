@@ -4,14 +4,31 @@ import { CgWebsite } from "react-icons/cg";
 import { HiPaintBrush } from "react-icons/hi2";
 import { IoAnalyticsOutline, IoHeadsetOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import hero from "../assets/packageHero.jpg";
 import Slider from "../components/Slider";
 import SiteHero from "../components/SiteHero";
-import chat from "../assets/chat-window-mockup.png";
+import chat from "../assets/IMG_1036.png";
 import web from "../assets/smb-2.png";
-import seoimg from "../assets/seo-bars-with-search-blue.png";
-import design from "../assets/wireframe-blue-min-light.png";
+import seoimg from "../assets/IMG_1037.png";
+import design from "../assets/IMG_1033.png";
 import SEO from "../components/SEO";
+
+const container = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.3 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: [0.52, 1, 0.66, 1] },
+  },
+};
 
 export default function Products() {
   // --- JSON-LD (same style as other pages) ---
@@ -103,9 +120,16 @@ export default function Products() {
               Build Faster. <span className="text-primary">Rank Higher.</span> Convert More.
             </h2>
 
-            <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
+            {/* Staggered reveal container */}
+            <motion.div
+              className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2"
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: false, amount: 0.17, margin: "0px 0px -10% 0px" }}
+            >
               {/* Web Development */}
-              <div id="web-development" className="relative lg:row-span-2">
+              <motion.div id="web-development" className="relative lg:row-span-2" variants={item}>
                 <div className="absolute inset-px rounded-lg bg-white lg:rounded-l-4xl" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
                   <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
@@ -117,16 +141,16 @@ export default function Products() {
                     </p>
                   </div>
                   <div className="@container relative min-h-120 w-full grow max-lg:mx-auto max-lg:max-w-sm">
-                    <div className="absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-gray-700 bg-gray-900 shadow-2xl">
-                      <img alt="Website UI preview" src={web} className="size-full object-cover object-top" />
+                    <div className="absolute inset-x-3 top-10 bottom-20 overflow-hidden rounded-[12cqw] border-x-[3cqw] border-[3cqw] border-gray-700 bg-gray-900 shadow-2xl">
+                      <img alt="Website UI preview" src={web} className="object-contain object-top" />
                     </div>
                   </div>
                 </div>
                 <div className="pointer-events-none absolute inset-px rounded-lg shadow-lg outline outline-black/5 lg:rounded-l-4xl" />
-              </div>
+              </motion.div>
 
               {/* Design & Consulting */}
-              <div id="design-consulting" className="relative max-lg:row-start-1">
+              <motion.div id="design-consulting" className="relative max-lg:row-start-1" variants={item}>
                 <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-t-4xl" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                   <div className="px-8 pt-8 sm:px-10 sm:pt-10">
@@ -138,14 +162,14 @@ export default function Products() {
                     </p>
                   </div>
                   <div className="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
-                    <img alt="Wireframe example" src={design} className="w-full max-lg:max-w-xs my-4" />
+                    <img alt="Wireframe example" src={design} className="object-center object-contain mx-auto my-4" />
                   </div>
                 </div>
                 <div className="pointer-events-none absolute inset-px rounded-lg shadow-lg outline outline-black/5 max-lg:rounded-t-4xl" />
-              </div>
+              </motion.div>
 
               {/* SEO & Marketing */}
-              <div id="seo-marketing" className="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
+              <motion.div id="seo-marketing" className="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2" variants={item}>
                 <div className="absolute inset-px rounded-lg bg-white" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
                   <div className="px-8 pt-8 sm:px-10 sm:pt-10">
@@ -154,15 +178,15 @@ export default function Products() {
                       Rank for the terms your customers actually search. We configure analytics, research keywords, optimize content and structure, and add structured data so search engines understand—and reward—your pages.
                     </p>
                   </div>
-                  <div className="@container flex flex-1 items-center max-lg:py-6 lg:pb-2">
-                    <img alt="SEO analytics mockup" src={seoimg} className="object-cover" />
+                  <div className="items-center max-lg:py-6 lg:pb-2">
+                    <img alt="SEO analytics mockup" src={seoimg} className="object-center object-contain mx-auto my-4" />
                   </div>
                 </div>
                 <div className="pointer-events-none absolute inset-px rounded-lg shadow-lg outline outline-black/5" />
-              </div>
+              </motion.div>
 
               {/* Ongoing Support */}
-              <div id="ongoing-support" className="relative lg:row-span-2">
+              <motion.div id="ongoing-support" className="relative lg:row-span-2" variants={item}>
                 <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-b-4xl lg:rounded-r-4xl" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
                   <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
@@ -174,16 +198,16 @@ export default function Products() {
                     </p>
                   </div>
                   <div className="relative min-h-150 w-full grow">
-                    <div className="absolute top-10 right-10 bottom-0 left-10 rounded-tl-xl">
+                    <div className="absolute top-10 right-10 bottom-30 left-10 rounded-tl-xl">
                       <div className="flex outline outline-white/5">
-                        <img alt="Chat support mockup" src={chat} className="object-fill" />
+                        <img alt="Chat support mockup" src={chat} className="object-contain object-center mt-10" />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="pointer-events-none absolute inset-px rounded-lg shadow-lg outline outline-black/5 max-lg:rounded-b-4xl lg:rounded-r-4xl" />
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
 
