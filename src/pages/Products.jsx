@@ -10,7 +10,7 @@ import Slider from "../components/Slider";
 import SiteHero from "../components/SiteHero";
 import chat from "../assets/IMG_1036.PNG";
 import web from "../assets/smb-2.png";
-import seoimg from "../assets/IMG_1037.PNG";
+import seoimg from "../assets/IMG_1037.png";
 import design from "../assets/IMG_1033.PNG";
 import SEO from "../components/SEO";
 
