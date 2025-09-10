@@ -52,6 +52,14 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
   {
+    slug: "content-strategy-made-simple-pages-posts-pillars",
+    title: "Content Strategy Made Simple: Pages, Posts, and Pillars",
+    date: "September 9, 2025",
+    excerpt:
+      "Learn how to simplify content strategy for your small business website by organizing around pages, blog posts, and pillar content that drive SEO and conversions.",
+    image: "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg",
+  },
+  {
     slug: "custom-build-vs-cms",
     title: "Custom Build vs. CMS: How to Choose for Your Next Website",
     date: "August 25, 2025",

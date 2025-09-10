@@ -177,7 +177,7 @@ export default function Contact() {
     "url": "https://bsquaredsolutions.io",
     "contactPoint": [{
       "@type": "ContactPoint",
-      "telephone": "+1-720-254-5354",
+      "telephone": "+1-720-816-2657",
       "contactType": "customer support",
       "areaServed": "US",
       "availableLanguage": ["English"]
@@ -252,8 +252,8 @@ export default function Contact() {
                   <FiPhone className="mt-1 text-white/90" />
                   <div>
                     <div className="text-white/80 text-sm">Phone</div>
-                    <a href="tel:+17202545354" className="text-white font-semibold hover:underline">
-                      (720) 254-5354
+                    <a href="tel:+17208162657" className="text-white font-semibold hover:underline">
+                      (720) 816-2657
                     </a>
                   </div>
                 </li>

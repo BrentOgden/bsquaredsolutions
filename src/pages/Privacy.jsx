@@ -106,8 +106,8 @@ export default function Privacy() {
               <br />
               <span>
                 Phone:{" "}
-                <a href="tel:17202545354" className="text-white hover:text-primary">
-                  720.254.5354
+                <a href="tel:17208162657" className="text-white hover:text-primary">
+                  720.816.2657
                 </a>
               </span>
 
