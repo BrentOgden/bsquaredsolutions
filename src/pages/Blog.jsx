@@ -52,6 +52,22 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
   {
+    slug: "12-analytics-events-every-small-business-should-track",
+    title: "12 Analytics Events Every Small Business Should Track",
+    date: "October 23, 2025",
+    excerpt:
+      "Discover the must-track analytics events that reveal how visitors use your website — so you can make smarter marketing and conversion decisions.",
+    image: "https://images.pexels.com/photos/5716032/pexels-photo-5716032.jpeg",
+  },
+  {
+    slug: "how-to-write-case-studies-that-actually-convert",
+    title: "How to Write Case Studies That Actually Convert",
+    date: "October 9, 2025",
+    excerpt:
+      "Learn how to craft compelling website case studies that build trust, highlight measurable results, and turn curious visitors into qualified leads.",
+    image: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg",
+  },
+  {
     slug: "content-strategy-made-simple-pages-posts-pillars",
     title: "Content Strategy Made Simple: Pages, Posts, and Pillars",
     date: "September 9, 2025",
