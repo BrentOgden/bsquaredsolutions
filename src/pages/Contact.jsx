@@ -253,7 +253,7 @@ export default function Contact() {
                   <div>
                     <div className="text-white/80 text-sm">Phone</div>
                     <a href="tel:+17208162657" className="text-white font-semibold hover:underline">
-                      (720) 816-2657
+                      (720) 549-4203
                     </a>
                   </div>
                 </li>

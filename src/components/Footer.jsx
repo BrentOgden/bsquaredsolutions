@@ -77,7 +77,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center">
                 <IoIosPhonePortrait className="mr-2 text-xl" />
-                <a href="tel:7208162657">720.816.2657</a>
+                <a href="tel:7208162657">720.549.4203</a>
               </div>
             </div>
           </div>
