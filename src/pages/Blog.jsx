@@ -52,6 +52,38 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
   {
+    slug: "schema-markup-basics-faq-howto-localbusiness",
+    title: "Schema Markup Basics: FAQ, HowTo, and LocalBusiness Explained",
+    date: "December 20, 2025",
+    excerpt:
+      "A beginner-friendly guide to schema markup, including FAQ, HowTo, and LocalBusiness schema, and how they improve SEO visibility.",
+    image: "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg",
+  },
+  {
+    slug: "image-optimization-workflow-avif-webp-srcset-lazy-loading",
+    title: "Image Optimization Workflow: AVIF, WebP, srcset, and Lazy Loading",
+    date: "December 7, 2025",
+    excerpt:
+      "A practical image optimization workflow using AVIF, WebP, srcset, and lazy loading to improve performance and Core Web Vitals.",
+    image: "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg",
+  },
+  {
+    slug: "hosting-domains-and-dns-plain-english-guide",
+    title: "Hosting, Domains, and DNS: A Plain-English Guide",
+    date: "November 23, 2025",
+    excerpt:
+      "A simple, plain-English explanation of hosting, domains, and DNS—and how small businesses should set them up correctly.",
+    image: "https://images.pexels.com/photos/414659/pexels-photo-414659.jpeg",
+  },
+  {
+    slug: "website-redesign-timeline-from-discovery-to-launch",
+    title: "Website Redesign Timeline: From Discovery to Launch",
+    date: "November 5, 2025",
+    excerpt:
+      "Prevent traffic drops during a redesign. Map URLs, preserve on-page SEO, ship clean 301s, and monitor Core Web Vitals with this practical launch plan.",
+    image: "https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg",
+  },
+  {
     slug: "12-analytics-events-every-small-business-should-track",
     title: "12 Analytics Events Every Small Business Should Track",
     date: "October 23, 2025",
