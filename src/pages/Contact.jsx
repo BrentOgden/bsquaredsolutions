@@ -124,24 +124,26 @@ export default function Contact() {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (form.botField) return; // honeypot
+
     setSubmitting(true);
     setError("");
     setSent(false);
+
     try {
       const payload = {
+        firstName: form.firstName,
+        lastName: form.lastName,
         email: form.email,
-        fname: form.firstName,
-        lname: form.lastName,
         phone: form.phone,
         company: form.company,
         website: form.website,
-        ptype: form.projectType,
+        projectType: form.projectType,
         budget: form.budget,
         timeline: form.timeline,
         message: form.message,
       };
 
-      const res = await fetch("/.netlify/functions/subscribe", {
+      const res = await fetch("/.netlify/functions/hubspot-contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -149,7 +151,7 @@ export default function Contact() {
 
       if (!res.ok) {
         const text = await res.text();
-        throw new Error(text || "Subscribe failed");
+        throw new Error(text || "HubSpot submit failed");
       }
 
       setSent(true);
@@ -212,15 +214,11 @@ export default function Contact() {
           <>
             Share a few details and we’ll get back to you with next steps.
           </>
-
         }
         size="short"
-        // or force an exact height:
-        // height="70vh"
         align="center"
         parallax
       />
-
 
       {/* CONTENT */}
       <section className="relative bg-[linear-gradient(120deg,_#0B3E73_0%,_#145DA0_50%,_#3D86CA_100%)]">
@@ -252,7 +250,7 @@ export default function Contact() {
                   <FiPhone className="mt-1 text-white/90" />
                   <div>
                     <div className="text-white/80 text-sm">Phone</div>
-                    <a href="tel:+17208162657" className="text-white font-semibold hover:underline">
+                    <a href="tel:+17205494203" className="text-white font-semibold hover:underline">
                       (720) 549-4203
                     </a>
                   </div>
