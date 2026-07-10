@@ -52,6 +52,22 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
   {
+    slug: "why-website-maintenance-is-non-negotiable",
+    title: "Why Website Maintenance Is Non-Negotiable for Small Businesses",
+    date: "July 13, 2026",
+    excerpt:
+      "A practical guide explaining why regular website maintenance is crucial for security, user experience, and search engine rankings.",
+    image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg",
+  },
+  {
+    slug: "custom-web-design-vs-templates",
+    title: "Custom Web Design vs. Templates: Why Your Business Needs More Than a Theme",
+    date: "July 6, 2026",
+    excerpt:
+      "An honest comparison between custom web design and pre-made templates, highlighting performance, SEO, and scalability for growing businesses.",
+    image: "https://images.pexels.com/photos/3182763/pexels-photo-3182763.jpeg",
+  },
+  {
     slug: "schema-markup-basics-faq-howto-localbusiness",
     title: "Schema Markup Basics: FAQ, HowTo, and LocalBusiness Explained",
     date: "December 20, 2025",
