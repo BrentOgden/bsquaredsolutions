@@ -51,10 +51,26 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
+  // {
+  //   slug: "seo-for-modern-javascript-react-nextjs",
+  //   title: "SEO for Modern JavaScript: How to Rank React and Next.js Sites",
+  //   date: "July 20, 2026",
+  //   excerpt:
+  //     "A practical guide to optimizing JavaScript-heavy websites for search engines, ensuring your custom React builds get crawled and ranked.",
+  //   image: "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg",
+  // },
+  {
+    slug: "custom-react-tailwind-vs-page-builders",
+    title: "Custom React & Tailwind vs. Page Builders: The Real Cost of Web Bloat",
+    date: "July 13, 2026",
+    excerpt:
+      "Why custom-built React and Tailwind CSS websites outperform heavy page builders in speed, user experience, and long-term SEO.",
+    image: "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg",
+  },
   {
     slug: "why-website-maintenance-is-non-negotiable",
     title: "Why Website Maintenance Is Non-Negotiable for Small Businesses",
-    date: "July 13, 2026",
+    date: "July 6, 2026",
     excerpt:
       "A practical guide explaining why regular website maintenance is crucial for security, user experience, and search engine rankings.",
     image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg",
@@ -62,7 +78,7 @@ const posts = [
   {
     slug: "custom-web-design-vs-templates",
     title: "Custom Web Design vs. Templates: Why Your Business Needs More Than a Theme",
-    date: "July 6, 2026",
+    date: "June 30, 2026",
     excerpt:
       "An honest comparison between custom web design and pre-made templates, highlighting performance, SEO, and scalability for growing businesses.",
     image: "https://images.pexels.com/photos/3182763/pexels-photo-3182763.jpeg",
