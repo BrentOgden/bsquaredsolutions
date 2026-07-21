@@ -51,14 +51,22 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
-  // {
-  //   slug: "seo-for-modern-javascript-react-nextjs",
-  //   title: "SEO for Modern JavaScript: How to Rank React and Next.js Sites",
-  //   date: "July 20, 2026",
-  //   excerpt:
-  //     "A practical guide to optimizing JavaScript-heavy websites for search engines, ensuring your custom React builds get crawled and ranked.",
-  //   image: "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg",
-  // },
+  {
+    slug: "web-accessibility-basics-small-business-guide",
+    title: "Web Accessibility Basics: A Practical Guide for Small Businesses",
+    date: "July 20, 2026",
+    excerpt:
+      "Learn the essential web accessibility practices that help small business websites reach more customers and create better user experiences.",
+    image: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg",
+  },
+  {
+    slug: "seo-for-modern-javascript-react-nextjs",
+    title: "SEO for Modern JavaScript: How to Rank React and Next.js Sites",
+    date: "July 17, 2026",
+    excerpt:
+      "A practical guide to optimizing JavaScript-heavy websites for search engines, ensuring your custom React builds get crawled and ranked.",
+    image: "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg",
+  },
   {
     slug: "custom-react-tailwind-vs-page-builders",
     title: "Custom React & Tailwind vs. Page Builders: The Real Cost of Web Bloat",
