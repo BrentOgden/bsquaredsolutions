@@ -1,7 +1,6 @@
 // src/pages/BlogPost.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
-import { Helmet } from "@dr.pogodin/react-helmet";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -306,6 +305,7 @@ export default function BlogPost() {
   const heroSrc = data.hero || data.image || data.cover;
   const title = data.title;
   const description = data.description;
+  const seoDescription = data.seoDescription || data.seodescription || description;
   const date = data.date;
   const heroAlt = data.heroAlt || data.heroalt || "Blog post backdrop";
   const heroPosition = data.heroPosition || data.heroposition || "50% 35%";
@@ -313,6 +313,7 @@ export default function BlogPost() {
 
   // Author (optional in front-matter)
   const authorName = data.author || data.authorname || "";
+  const schemaAuthorName = authorName || "B Squared Solutions";
   const authorTitle = data.authortitle || "";
   const authorAvatar = data.authoravatar || "";
 
@@ -365,10 +366,16 @@ export default function BlogPost() {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": title,
-    "description": description,
+    "description": seoDescription,
     "image": heroUrl,
     "datePublished": publishedISO,
-    "author": authorName ? { "@type": "Person", "name": authorName } : undefined,
+    "author": authorName
+      ? { "@type": "Person", "name": authorName }
+      : {
+          "@type": "Organization",
+          "@id": "https://bsquaredsolutions.io/#organization",
+          "name": "B Squared Solutions"
+        },
     "mainEntityOfPage": `https://bsquaredsolutions.io${canonicalPath}`,
     "publisher": {
       "@type": "Organization",
@@ -381,26 +388,16 @@ export default function BlogPost() {
     <>
       {/* ✅ New SEO block */}
       <SEO
-        title={`${title} | B Squared Solutions Blog`}
-        description={description}
+        title={title}
+        description={seoDescription}
         path={canonicalPath}
         image={heroUrl}
+        imageAlt={heroAlt || title}
         type="article"
         publishedTime={publishedISO}
+        author={schemaAuthorName}
         schema={[breadcrumbSchema, articleSchema]}
       />
-
-      <Helmet>
-        <title>{title} | B Squared Solutions Blog</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href={`https://bsquaredsolutions.io/blog/${slug}`} />
-        <meta property="og:title" content={`${title} | B Squared Solutions Blog`} />
-        <meta property="og:description" content={description} />
-        <meta property="og:url" content={`https://bsquaredsolutions.io/blog/${slug}`} />
-        <meta property="og:image" content={heroUrl} />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Helmet>
-
       {/* Top reading progress bar */}
       <div
         className="fixed left-0 top-0 h-1 z-40"

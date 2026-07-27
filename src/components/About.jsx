@@ -5,7 +5,6 @@ import { BiCommentDetail, BiSupport } from "react-icons/bi";
 import { RiFocus3Line } from "react-icons/ri";
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { Parallax } from "react-parallax";
-import SEO from "../components/SEO"; // ✅ added
 
 const features = [
   {
@@ -37,36 +36,6 @@ const features = [
 export default function About() {
   return (
     <>
-      {/* ✅ Head-only SEO injection; no visual/layout changes */}
-      <SEO
-        /* omit title/canonical to avoid overriding the home page head */
-        schema={[
-          {
-            "@context": "https://schema.org",
-            "@type": "AboutPage",
-            "name": "About B Squared Solutions",
-            "isPartOf": {
-              "@type": "WebSite",
-              "name": "B Squared Solutions",
-              "url": "https://bsquaredsolutions.io"
-            },
-            "primaryImageOfPage": {
-              "@type": "ImageObject",
-              "url": aboutHero
-            },
-            "about": features.map(f => ({
-              "@type": "Thing",
-              "name": f.title,
-              "description": f.desc
-            })),
-            "publisher": {
-              "@type": "Organization",
-              "name": "B Squared Solutions"
-            }
-          }
-        ]}
-      />
-
       <section id="about" className="relative scroll-mt-20">
         <Parallax
           bgImage={aboutHero}

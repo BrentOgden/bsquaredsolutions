@@ -1,6 +1,7 @@
 ---
 title: "GA4 Setup for Small Businesses: Conversion Tracking with Google Tag Manager"
 description: "A practical guide to setting up Google Analytics 4, configuring events with Google Tag Manager, and tracking real conversions like form submissions, phone clicks, and email leads."
+seoDescription: "Set up GA4 and Google Tag Manager for a small business, then track form submissions, phone clicks, email leads, downloads, and bookings."
 date: "April 30, 2025"
 hero: "https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg"
 heroSource: "https://www.pexels.com/photo/person-using-macbook-pro-590016/"

@@ -1,12 +1,12 @@
 // src/pages/Blog.jsx
 import React, { useEffect, useRef, useMemo } from "react";
-import { Helmet } from "@dr.pogodin/react-helmet";
 import { useSearchParams } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
 import hero from "../assets/aboutHero.png";
 import SiteHero from "../components/SiteHero";
 /* ✅ SEO (added; head-only, no visual changes) */
 import SEO from "../components/SEO";
+import { ROUTE_SEO } from "../data/seoData";
 
 /* ── Minimal parallax util ──────────────────────────────────────────── */
 function useParallax({ speed = 0.7, axis = "y", respectPRM = true } = {}) {
@@ -197,7 +197,7 @@ const posts = [
   },
   {
     slug: "website-maintenance",
-    title: "What’s Typically Included in a Website Maintenance Plan (and What’s Not",
+    title: "What’s Typically Included in a Website Maintenance Plan (and What’s Not)",
     date: "June 2, 2025",
     excerpt:
       "A clear breakdown of what a professional website maintenance plan covers—security updates, backups, uptime monitoring, performance, SEO basics—and what typically requires a separate scope.",
@@ -359,37 +359,10 @@ export default function Blog() {
     <>
       {/* ✅ SEO component (added) */}
       <SEO
-        title="Blog | B Squared Solutions"
-        description="Insights on web development, performance, UX, SEO, and growing your business online."
-        path="/blog"
+        {...ROUTE_SEO["/blog"]}
         image={ogImage}
         schema={[breadcrumbSchema, blogSchema]}
       />
-
-      <Helmet>
-        <title>Blog | B Squared Solutions</title>
-        <meta
-          name="description"
-          content="Insights on web development, performance, UX, SEO, and growing your business online."
-        />
-        <link rel="canonical" href={canonical} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Blog | B Squared Solutions" />
-        <meta
-          property="og:description"
-          content="Insights on web development, performance, UX, SEO, and growing your business online."
-        />
-        <meta property="og:url" content={canonical} />
-        <meta property="og:image" content={ogImage} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Blog | B Squared Solutions" />
-        <meta
-          name="twitter:description"
-          content="Insights on web development, performance, UX, SEO, and growing your business online."
-        />
-        <meta name="twitter:image" content={ogImage} />
-      </Helmet>
-
       {/* HERO */}
    
         <SiteHero

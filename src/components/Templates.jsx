@@ -9,6 +9,7 @@ import SiteHero from './SiteHero'
 
 /* ✅ SEO (added; head-only, no style changes) */
 import SEO from './SEO'
+import { ROUTE_SEO } from '../data/seoData'
 
 /* ── Minimal parallax util (no deps) ─────────────────────────────────── */
 function useParallax({ speed = 0.7, axis = 'y', respectPRM = true } = {}) {
@@ -70,7 +71,7 @@ export default function TemplatesPage() {
     "hasPart": templatesData.map((t) => ({
       "@type": "CreativeWork",
       "name": t.title || t.name || `Template ${t.id}`,
-      "url": `https://bsquaredsolutions.io/templates#${t.id}`
+      "url": `https://bsquaredsolutions.io${t.detailUrl}`
     }))
   }
 
@@ -78,10 +79,7 @@ export default function TemplatesPage() {
     <div>
       {/* ✅ SEO */}
       <SEO
-        title="React Website Templates | B Squared Solutions"
-        description="Ready-made React + Tailwind templates with clean structure, SEO basics, and quick setup so you can launch fast."
-        path="/templates"
-        image="https://bsquaredsolutions.io/og-default.svg"
+        {...ROUTE_SEO["/templates"]}
         schema={[breadcrumbSchema, collectionSchema]}
       />
 

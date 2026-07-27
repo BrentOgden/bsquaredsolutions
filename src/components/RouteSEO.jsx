@@ -1,92 +1,168 @@
+// src/components/RouteSEO.jsx
 import React from "react";
 import { useLocation } from "react-router-dom";
 import SEO from "./SEO";
+import {
+  ORGANIZATION_ID,
+  ROUTE_SEO,
+  SITE_URL,
+  WEBSITE_ID,
+} from "../data/seoData";
 
-const META = {
-  "/": {
-    title: "B Squared Solutions | Custom Websites, Templates & Maintenance",
-    description:
-      "Denver-based web studio building fast, SEO-friendly React & CMS sites. Custom builds, ready-made templates, and ongoing maintenance to keep you speedy and secure.",
-    type: "website",
-    image: "https://bsquaredsolutions.io/bsquaredlogo2.png",
-    schema: [
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "@id": "https://bsquaredsolutions.io/#website",
-        url: "https://bsquaredsolutions.io/",
-        name: "B Squared Solutions",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: {
-            "@type": "EntryPoint",
-            urlTemplate:
-              "https://bsquaredsolutions.io/blog?query={search_term_string}",
-          },
-          "query-input": "required name=search_term_string",
+const HOME_TITLE = ROUTE_SEO["/"].title;
+const HOME_DESCRIPTION = ROUTE_SEO["/"].description;
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": ORGANIZATION_ID,
+  name: "B Squared Solutions",
+  legalName: "B Squared Solutions, LLC",
+  url: `${SITE_URL}/`,
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/bsquaredlogo2.png`,
+    contentUrl: `${SITE_URL}/bsquaredlogo2.png`,
+  },
+  image: `${SITE_URL}/og-default.png`,
+  description: HOME_DESCRIPTION,
+  email: "info@bsquaredsolutions.io",
+  telephone: "+1-720-549-4203",
+  areaServed: {
+    "@type": "Country",
+    name: "United States",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer service",
+    email: "info@bsquaredsolutions.io",
+    telephone: "+1-720-549-4203",
+    areaServed: "US",
+    availableLanguage: ["English"],
+  },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": WEBSITE_ID,
+  url: `${SITE_URL}/`,
+  name: "B Squared Solutions",
+  alternateName: "B Squared",
+  description: HOME_DESCRIPTION,
+  publisher: {
+    "@id": ORGANIZATION_ID,
+  },
+  inLanguage: "en-US",
+};
+
+const homePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/#webpage`,
+  url: `${SITE_URL}/`,
+  name: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+  isPartOf: {
+    "@id": WEBSITE_ID,
+  },
+  about: {
+    "@id": ORGANIZATION_ID,
+  },
+  primaryImageOfPage: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/og-default.png`,
+  },
+  inLanguage: "en-US",
+};
+
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "B Squared Solutions Web Services",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      item: {
+        "@type": "Service",
+        name: "Custom Web Development",
+        description:
+          "Responsive React, Tailwind CSS, CMS, and eCommerce website development.",
+        url: `${SITE_URL}/products#web-development`,
+        areaServed: "US",
+        provider: {
+          "@id": ORGANIZATION_ID,
         },
       },
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "@id": "https://bsquaredsolutions.io/#organization",
-        name: "B Squared Solutions",
-        url: "https://bsquaredsolutions.io/",
-        logo: "https://bsquaredsolutions.io/bsquaredlogo2.png",
-        sameAs: ["https://www.linkedin.com/company/b-squared-solutions"],
-        contactPoint: [
-          {
-            "@type": "ContactPoint",
-            telephone: "+1-720-254-5354",
-            contactType: "customer service",
-            areaServed: "US",
-          },
-        ],
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "Service",
+        name: "UX Design and Technical Consulting",
+        description:
+          "UX and UI design, architecture reviews, performance tuning, and implementation planning.",
+        url: `${SITE_URL}/products#design-consulting`,
+        areaServed: "US",
+        provider: {
+          "@id": ORGANIZATION_ID,
+        },
       },
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      item: {
+        "@type": "Service",
+        name: "SEO and Analytics",
+        description:
+          "Technical SEO, on-page optimization, structured data, and analytics configuration.",
+        url: `${SITE_URL}/products#seo-marketing`,
+        areaServed: "US",
+        provider: {
+          "@id": ORGANIZATION_ID,
+        },
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      item: {
+        "@type": "Service",
+        name: "Website Maintenance and Support",
+        description:
+          "Website updates, troubleshooting, performance improvements, and ongoing technical support.",
+        url: `${SITE_URL}/products#ongoing-support`,
+        areaServed: "US",
+        provider: {
+          "@id": ORGANIZATION_ID,
+        },
+      },
+    },
+  ],
+};
+
+const ROUTE_META = {
+  "/": {
+    ...ROUTE_SEO["/"],
+    schema: [
+      organizationSchema,
+      websiteSchema,
+      homePageSchema,
+      servicesSchema,
     ],
   },
-
-  // Real pages only below — give each a unique title/description
-  "/contact": {
-    title: "Contact B Squared Solutions",
-    description:
-      "Have a project or question? Reach out to B Squared Solutions.",
-  },
-  "/portfolio": {
-    title: "Portfolio | B Squared Solutions",
-    description:
-      "Recent websites, templates, and custom builds delivered by B Squared Solutions.",
-  },
-  "/packages": {
-    title: "Website Packages | B Squared Solutions",
-    description:
-      "Choose the website package that fits your business—Starter, Growth, or Custom.",
-  },
-  "/templates": {
-    title: "Website Templates | B Squared Solutions",
-    description:
-      "Ready-made website templates you can launch fast and customize to your brand.",
-  },
-  "/faq": {
-    title: "FAQ | B Squared Solutions",
-    description:
-      "Answers to common questions about websites, templates, and maintenance.",
-  },
-  "/blog": {
-    title: "Blog | B Squared Solutions",
-    description:
-      "Tips on web design, SEO, performance, and maintenance for small businesses.",
-  },
-  "/terms": { title: "Terms of Service | B Squared Solutions", description: "" },
-  "/privacy": { title: "Privacy Policy | B Squared Solutions", description: "" },
+  "/checkout": ROUTE_SEO["/checkout"],
+  "/checkoutvenmo": ROUTE_SEO["/checkoutvenmo"],
 };
 
 export default function RouteSEO() {
   const { pathname } = useLocation();
+  const meta = ROUTE_META[pathname];
 
-  // Let individual posts handle their own SEO
-  if (pathname.startsWith("/blog/")) return null;
+  if (!meta) return null;
 
-  const meta = META[pathname] || META["/"];
-  return <SEO {...meta} path={pathname} />;
+  return <SEO {...meta} />;
 }

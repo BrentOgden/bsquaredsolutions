@@ -1,7 +1,7 @@
 ---
 title: "Website Redesign Without Losing SEO: A Step-by-Step Migration Checklist"
 description: "Prevent traffic drops during a redesign. Map URLs, preserve on-page SEO, ship clean 301s, and monitor Core Web Vitals with this practical launch plan."
-date: "August 17, 2025"
+date: "May 17, 2025"
 hero: "https://images.pexels.com/photos/3912976/pexels-photo-3912976.jpeg"
 heroSource: "https://www.pexels.com/photo/graph-on-laptop-screen-3912976/"
 heroAlt: "Laptop showing analytics graphs"

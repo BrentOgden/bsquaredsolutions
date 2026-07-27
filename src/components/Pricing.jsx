@@ -4,7 +4,6 @@ import { IoShieldCheckmarkOutline, IoClose } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
 import pricingHero from '../assets/pricingHero2.jpg';
-import SEO from '../components/SEO'; // ✅ SEO
 
 /* ── Helper: smart link (internal vs external) ─────────────────────── */
 function SmartLink({ to, className = '', children, onClick }) {
@@ -322,32 +321,6 @@ export default function Pricing() {
 
   return (
     <>
-      {/* ✅ SEO (head-only; no UI changes) */}
-      <SEO
-        title="Pricing | B Squared Solutions"
-        description="Transparent pricing for CMS sites, custom React builds, maintenance, and logo design. No monthly fees on builds, SEO included, and flexible support plans."
-        path="/pricing"
-        type="website"
-        image={pricingHero}
-        schema={[
-          {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "Pricing",
-            "url": "https://bsquaredsolutions.io/pricing",
-            "description": "Transparent pricing for CMS sites, custom React builds, maintenance, and logo design.",
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bsquaredsolutions.io/" },
-              { "@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://bsquaredsolutions.io/pricing" }
-            ]
-          }
-        ]}
-      />
-
       <section id="pricing" className="relative scroll-mt-20">
         <Parallax
           bgImage={pricingHero}

@@ -11,6 +11,7 @@ import hero from "../assets/packageHero.jpg";
 
 /* ✅ SEO (no style changes) */
 import SEO from "./SEO";
+import { ROUTE_SEO } from "../data/seoData";
 
 /* ── Minimal parallax util (same as other pages) ─────────────────────── */
 function useParallax({ speed = 0.7, axis = "y", respectPRM = true } = {}) {
@@ -133,6 +134,9 @@ const faqs = [
 ];
 
 /* JSON-LD built from your existing data (no style changes) */
+const stripMarkdownLinks = (text) =>
+  text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -141,9 +145,28 @@ const faqSchema = {
     "name": f.question,
     "acceptedAnswer": {
       "@type": "Answer",
-      "text": f.answer
+      "text": stripMarkdownLinks(f.answer)
     }
   }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://bsquaredsolutions.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "FAQ",
+      "item": "https://bsquaredsolutions.io/faq"
+    }
+  ]
 };
 
 /* ── Item ────────────────────────────────────────────────────────────── */
@@ -223,11 +246,8 @@ export default function FAQ({ contentBgImage, overlayOpacity = 0.15 }) {
     <>
       {/* SEO only; no style changes anywhere */}
       <SEO
-        title="Website FAQs | B Squared Solutions"
-        description="Answers to common questions about timelines, pricing, tech stack, maintenance plans, and support for your new website."
-        path="/faq"
-        image="https://bsquaredsolutions.io/og-default.svg"
-        schema={faqSchema}
+        {...ROUTE_SEO["/faq"]}
+        schema={[breadcrumbSchema, faqSchema]}
       />
       <SiteHero
         id="faq-hero"

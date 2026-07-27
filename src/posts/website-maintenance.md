@@ -1,6 +1,7 @@
 ---
 title: "What’s Typically Included in a Website Maintenance Plan (and What’s Not)"
 description: "A clear breakdown of what a professional website maintenance plan covers—security updates, backups, uptime monitoring, performance, SEO basics—and what typically requires a separate scope."
+seoDescription: "See what a professional website maintenance plan typically covers, including security, backups, uptime, performance, SEO, and support boundaries."
 date: "June 2, 2025"
 hero: "https://images.pexels.com/photos/3912976/pexels-photo-3912976.jpeg"
 heroAlt: "Website maintenance dashboard showing uptime and performance metrics"

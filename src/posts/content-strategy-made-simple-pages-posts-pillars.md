@@ -1,6 +1,7 @@
 ---
 title: "Content Strategy Made Simple: Pages, Posts, and Pillars"
 description: "Learn how to simplify content strategy for your small business website by organizing around pages, blog posts, and pillar content that drive SEO and conversions."
+seoDescription: "Organize your small business website around core pages, blog posts, and pillar content that supports SEO, conversions, and easier content planning."
 date: "September 9, 2025"
 hero: "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg"
 heroAlt: "Notebook and pen for content planning"
@@ -103,7 +104,7 @@ Need help creating a content roadmap? At **B Squared Solutions**, we build websi
     "name": "B Squared Solutions",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://bsquaredsolutions.io/og-default.svg"
+      "url": "https://bsquaredsolutions.io/og-default.png"
     }
   },
   "image": [

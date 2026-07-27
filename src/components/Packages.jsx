@@ -9,6 +9,7 @@ const CONTACT_FORM_URL = 'https://myformflow.io/b-squared-solutions/w';
 
 /* ✅ SEO (added; no style changes) */
 import SEO from './SEO'
+import { ROUTE_SEO } from '../data/seoData'
 
 /* ── Minimal parallax util (no deps) ─────────────────────────────────── */
 function useParallax({ speed = 0.7, axis = 'y', respectPRM = true } = {}) {
@@ -591,14 +592,18 @@ export default function Packages({ packages = packagesData }) {
     "@type": "OfferCatalog",
     "name": "B Squared Solutions Packages",
     "url": "https://bsquaredsolutions.io/packages",
-    "itemListElement": packages.map((pkg, i) => ({
+    "itemListElement": packages.map((pkg) => ({
       "@type": "Offer",
-      "name": pkg.title,
-      "description": pkg.blurb,
-      "position": i + 1,
       "url": `https://bsquaredsolutions.io/packages#${pkg.id}`,
       "priceCurrency": "USD",
-      ...(parsePriceToNumber(pkg.price) ? { "price": parsePriceToNumber(pkg.price) } : {})
+      "availability": "https://schema.org/InStock",
+      ...(parsePriceToNumber(pkg.price) ? { "price": parsePriceToNumber(pkg.price) } : {}),
+      "itemOffered": {
+        "@type": pkg.id.startsWith("diy") ? "Product" : "Service",
+        "name": pkg.title,
+        "description": pkg.blurb,
+        "provider": { "@id": "https://bsquaredsolutions.io/#organization" }
+      }
     }))
   }
 
@@ -606,10 +611,7 @@ export default function Packages({ packages = packagesData }) {
     <>
       {/* ✅ SEO (head-only; does not affect layout) */}
       <SEO
-        title="Website Packages & Pricing | B Squared Solutions"
-        description="Transparent pricing with clear deliverables: custom builds, professional templates, and ongoing maintenance plans tailored to your goals."
-        path="/packages"
-        image="https://bsquaredsolutions.io/og-default.svg"
+        {...ROUTE_SEO["/packages"]}
         schema={[breadcrumbSchema, collectionPageSchema, offerCatalogSchema]}
       />
       <SiteHero

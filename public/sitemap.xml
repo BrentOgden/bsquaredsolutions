@@ -1,34 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://bsquaredsolutions.io/</loc>
-    <lastmod>2026-07-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://bsquaredsolutions.io/services</loc>
-    <lastmod>2026-07-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bsquaredsolutions.io/portfolio</loc>
-    <lastmod>2026-07-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsquaredsolutions.io/about</loc>
-    <lastmod>2026-07-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://bsquaredsolutions.io/packages</loc>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/products</loc>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/templates</loc>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/basictemplate</loc>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/simpletemplate</loc>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/smallbusinesstemplate</loc>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/faq</loc>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog</loc>
   </url>
   <url>
     <loc>https://bsquaredsolutions.io/contact</loc>
-    <lastmod>2026-07-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/terms</loc>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/privacy</loc>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/12-analytics-events-every-small-business-should-track</loc>
+    <lastmod>2025-10-23</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/content-strategy-made-simple-pages-posts-pillars</loc>
+    <lastmod>2025-09-09</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/custom-build-vs-cms</loc>
+    <lastmod>2025-08-25</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/custom-react-tailwind-vs-page-builders</loc>
+    <lastmod>2026-07-13</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/custom-web-design-vs-templates</loc>
+    <lastmod>2026-06-30</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/diy-vs-custom-sites</loc>
+    <lastmod>2025-06-17</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/ga4-setup-small-business-conversion-tracking</loc>
+    <lastmod>2025-04-30</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/hosting-domains-and-dns-plain-english-guide</loc>
+    <lastmod>2025-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/how-to-scope-a-website</loc>
+    <lastmod>2025-08-17</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/how-to-write-case-studies-that-actually-convert</loc>
+    <lastmod>2025-10-09</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/image-optimization-workflow-avif-webp-srcset-lazy-loading</loc>
+    <lastmod>2025-12-07</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/schema-markup-basics-faq-howto-localbusiness</loc>
+    <lastmod>2025-12-20</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/seo-basics</loc>
+    <lastmod>2025-07-17</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/seo-for-modern-javascript-react-nextjs</loc>
+    <lastmod>2026-07-17</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/small-business-website-pricing</loc>
+    <lastmod>2025-07-27</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/web-accessibility-basics-small-business-guide</loc>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/web-accessibility-wcag-22-small-business</loc>
+    <lastmod>2025-05-24</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/website-maintenance</loc>
+    <lastmod>2025-06-02</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/website-redesign-timeline-from-discovery-to-launch</loc>
+    <lastmod>2025-11-05</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/website-redesign-without-losing-seo</loc>
+    <lastmod>2025-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/website-speed-core-vitals</loc>
+    <lastmod>2025-06-24</lastmod>
+  </url>
+  <url>
+    <loc>https://bsquaredsolutions.io/blog/why-website-maintenance-is-non-negotiable</loc>
+    <lastmod>2026-07-06</lastmod>
   </url>
 </urlset>

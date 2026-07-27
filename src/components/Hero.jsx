@@ -111,7 +111,7 @@ export default function Hero({
   const inView = useAutoPan(panelRef, imgRef)
 
   return (
-    <section className="relative isolate overflow-hidden mt-10 bg-gray-900">
+    <section id="hero" aria-labelledby="home-hero-title" className="relative isolate overflow-hidden mt-10 bg-gray-900">
       {/* CSS for auto-pan */}
       <style>{`
         @keyframes bs-panY {
@@ -161,7 +161,7 @@ export default function Hero({
               </div>
             )}
             <h2 className="mt-6 text-2xl font-bold text-primary">{eyebrow}</h2>
-            <h1 className="mt-2 text-5xl font-semibold text-shadow-lg/50 tracking-tight text-pretty text-white sm:text-6xl">{title}</h1>
+            <h1 id="home-hero-title" className="mt-2 text-5xl font-semibold text-shadow-lg/50 tracking-tight text-pretty text-white sm:text-6xl">{title}</h1>
             <p className="mt-6 text-lg/8 text-white text-shadow-lg/50 sm:text-xl/8">{subtitle}</p>
             <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
               <a href={primaryCta.href} className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#3d86ca]/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">

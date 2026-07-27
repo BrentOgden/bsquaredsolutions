@@ -2,7 +2,7 @@
 title: "Custom React & Tailwind vs. Page Builders: The Real Cost of Web Bloat"
 slug: "custom-react-tailwind-vs-page-builders"
 description: "Why custom-built React and Tailwind CSS websites outperform heavy page builders in speed, user experience, and long-term SEO."
-date: "July 17, 2026"
+date: "July 13, 2026"
 hero: https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg
 heroAlt: "A clean, modern workspace with a laptop displaying clean code and design layouts"
 heroPosition: "center"

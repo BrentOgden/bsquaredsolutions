@@ -3,7 +3,6 @@ import React from "react";
 import { CgWebsite } from "react-icons/cg";
 import { IoShieldCheckmarkOutline, IoAnalyticsOutline, IoHeadsetOutline } from "react-icons/io5";
 import { HiPaintBrush } from "react-icons/hi2";
-import SEO from "../components/SEO"; // ✅ add
 
 const items = [
   {
@@ -31,52 +30,6 @@ const items = [
 export default function Services() {
   return (
     <>
-      {/* ✅ Head-only SEO injection; no visual changes */}
-      <SEO
-        /* omit title/canonical to avoid overriding the home page <head> */
-        schema={[
-          {
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "name": "B Squared Solutions Services",
-            "itemListElement": [
-              {
-                "@type": "Service",
-                "name": "Web Development",
-                "description":
-                  "Blazing-fast responsive sites with React & TailwindCSS, CMS integration, and expert UI design.",
-                "areaServed": "US",
-                "provider": { "@type": "Organization", "name": "B Squared Solutions" }
-              },
-              {
-                "@type": "Service",
-                "name": "Design & Consulting",
-                "description":
-                  "Architecture audits, performance tuning, and roadmaps from concept to scale.",
-                "areaServed": "US",
-                "provider": { "@type": "Organization", "name": "B Squared Solutions" }
-              },
-              {
-                "@type": "Service",
-                "name": "SEO & Marketing",
-                "description":
-                  "On-page SEO, analytics setup, and data-driven content strategy to grow traffic and conversions.",
-                "areaServed": "US",
-                "provider": { "@type": "Organization", "name": "B Squared Solutions" }
-              },
-              {
-                "@type": "Service",
-                "name": "Ongoing Support",
-                "description":
-                  "Proactive maintenance, monitoring, and rapid feature roll-outs.",
-                "areaServed": "US",
-                "provider": { "@type": "Organization", "name": "B Squared Solutions" }
-              }
-            ]
-          }
-        ]}
-      />
-
       <section id="services" className="container relative scroll-mt-20 mx-auto px-6 py-10 md:py-30">
         <h2 className="text-3xl font-bold text-center mb-12"> Comprehensive Web Development & Technical Consulting Services
 </h2>

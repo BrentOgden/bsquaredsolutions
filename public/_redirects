@@ -1,10 +1,13 @@
-/*    /index.html   200
-# Force HTTPS & apex → canonical (keep if not already)
+# Force HTTPS and the apex hostname.
 http://bsquaredsolutions.io/*      https://bsquaredsolutions.io/:splat   301!
 http://www.bsquaredsolutions.io/*  https://bsquaredsolutions.io/:splat   301!
+https://www.bsquaredsolutions.io/* https://bsquaredsolutions.io/:splat   301!
 
-# Section URLs (not real pages) → homepage
-/pricing           /                         301!
-/services          /                         301!
-/about             /                         301!
-/quotes            /                         301!
+# Preserve older section URLs with the closest current destination.
+/services  /products  301!
+/pricing   /packages  301!
+/about     /#about    301!
+/quotes    /          301!
+
+# SPA fallback. Prerendered route files are served before this rule.
+/*  /index.html  200

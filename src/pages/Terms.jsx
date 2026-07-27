@@ -1,25 +1,48 @@
 // src/components/Terms.jsx
 import React from "react";
 import SEO from "../components/SEO";
+import { ROUTE_SEO } from "../data/seoData";
 import SiteHero from "../components/SiteHero";
 import hero from "../assets/termsHero.jpg";
 
 export default function Terms() {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://bsquaredsolutions.io/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Terms & Conditions",
+        item: "https://bsquaredsolutions.io/terms",
+      },
+    ],
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://bsquaredsolutions.io/terms#webpage",
+    name: "Terms & Conditions",
+    url: "https://bsquaredsolutions.io/terms",
+    description: ROUTE_SEO["/terms"].description,
+    isPartOf: {
+      "@id": "https://bsquaredsolutions.io/#website",
+    },
+    inLanguage: "en-US",
+  };
+
   return (
     <>
       <SEO
-        title="Terms & Conditions | B Squared Solutions"
-        description="Clear guidelines on using B Squared Solutions’ website, services, and deliverables—your rights, responsibilities, and what you can expect from us."
-        path="/terms"
-        image="https://bsquaredsolutions.io/og-default.svg"
-        schema={[
-          {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: "Terms & Conditions",
-            url: "https://bsquaredsolutions.io/terms",
-          },
-        ]}
+        {...ROUTE_SEO["/terms"]}
+        schema={[breadcrumbSchema, webPageSchema]}
       />
 
       <SiteHero
@@ -119,8 +142,8 @@ export default function Terms() {
               <br />
               <span>
                 Phone:{" "}
-                <a href="tel:17208162657" className="text-white hover:text-primary">
-                  720.816.2657
+                <a href="tel:+17205494203" className="text-white hover:text-primary">
+                  720.549.4203
                 </a>
               </span>
             </p>

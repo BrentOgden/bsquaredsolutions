@@ -6,6 +6,7 @@ import hero from "../assets/contactHero.jpg";
 import SiteHero from "../components/SiteHero";
 /* ✅ SEO (added; head-only, no visual changes) */
 import SEO from "../components/SEO";
+import { ROUTE_SEO } from "../data/seoData";
 
 /* ── Minimal parallax util (same as other pages) ─────────────────────── */
 function useParallax({ speed = 0.7, axis = "y", respectPRM = true } = {}) {
@@ -172,35 +173,21 @@ export default function Contact() {
       { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://bsquaredsolutions.io/contact" }
     ]
   };
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "B Squared Solutions",
-    "url": "https://bsquaredsolutions.io",
-    "contactPoint": [{
-      "@type": "ContactPoint",
-      "telephone": "+1-720-816-2657",
-      "contactType": "customer support",
-      "areaServed": "US",
-      "availableLanguage": ["English"]
-    }]
-  };
   const contactPageSchema = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "name": "Contact B Squared Solutions",
+    "@id": "https://bsquaredsolutions.io/contact#webpage",
     "url": "https://bsquaredsolutions.io/contact",
-    "mainEntity": organizationSchema
+    "description": "Contact B Squared Solutions about custom websites, CMS builds, templates, or website maintenance.",
+    "mainEntity": { "@id": "https://bsquaredsolutions.io/#organization" }
   };
 
   return (
     <>
       {/* ✅ SEO (added) */}
       <SEO
-        title="Contact Us | B Squared Solutions"
-        description="Get in touch about custom websites, CMS builds, templates, or maintenance. We’ll reply with next steps."
-        path="/contact"
-        image="https://bsquaredsolutions.io/og-default.svg"
+        {...ROUTE_SEO["/contact"]}
         schema={[breadcrumbSchema, contactPageSchema]}
       />
 
@@ -241,8 +228,8 @@ export default function Contact() {
                   <FiMail className="mt-1 text-white/90" />
                   <div>
                     <div className="text-white/80 text-sm">Email</div>
-                    <a href="mailto:support@bsquaredsolutions.com" className="text-white font-semibold hover:underline">
-                      info@bsquaredsolutions.com
+                    <a href="mailto:info@bsquaredsolutions.io" className="text-white font-semibold hover:underline">
+                      info@bsquaredsolutions.io
                     </a>
                   </div>
                 </li>

@@ -1,26 +1,49 @@
 // src/components/Privacy.jsx
 import React from "react";
 import SEO from "../components/SEO";
+import { ROUTE_SEO } from "../data/seoData";
 import SiteHero from "../components/SiteHero";
 import hero from "../assets/privacyHero.jpg";
 
 
 export default function Privacy() {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://bsquaredsolutions.io/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Privacy Policy",
+        item: "https://bsquaredsolutions.io/privacy",
+      },
+    ],
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://bsquaredsolutions.io/privacy#webpage",
+    name: "Privacy Policy",
+    url: "https://bsquaredsolutions.io/privacy",
+    description: ROUTE_SEO["/privacy"].description,
+    isPartOf: {
+      "@id": "https://bsquaredsolutions.io/#website",
+    },
+    inLanguage: "en-US",
+  };
+
   return (
     <>
       <SEO
-        title="Privacy Policy | B Squared Solutions"
-        description="How B Squared Solutions collects, uses, and protects your information—read our full Privacy Policy and your rights."
-        path="/privacy"
-        image="https://bsquaredsolutions.io/og-default.svg"
-        schema={[
-          {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: "Privacy Policy",
-            url: "https://bsquaredsolutions.io/privacy",
-          },
-        ]}
+        {...ROUTE_SEO["/privacy"]}
+        schema={[breadcrumbSchema, webPageSchema]}
       />
       <SiteHero
         id="privacy-hero"
@@ -106,8 +129,8 @@ export default function Privacy() {
               <br />
               <span>
                 Phone:{" "}
-                <a href="tel:17208162657" className="text-white hover:text-primary">
-                  720.816.2657
+                <a href="tel:+17205494203" className="text-white hover:text-primary">
+                  720.549.4203
                 </a>
               </span>
 
@@ -125,7 +148,7 @@ export default function Privacy() {
             .
           </p>
           <a
-            href="mailto:support@bsquaredsolutions.io"
+            href="mailto:info@bsquaredsolutions.io"
             className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold text-white bg-white/10 hover:bg-white/15 ring-1 ring-white/20 transition"
           >
             Contact Us

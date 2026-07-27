@@ -2,7 +2,7 @@
 title: "Why Website Maintenance Is Non-Negotiable for Small Businesses"
 slug: "why-website-maintenance-is-non-negotiable"
 description: "A practical guide explaining why regular website maintenance is crucial for security, user experience, and search engine rankings."
-date: "July 13, 2026"
+date: "July 6, 2026"
 hero: https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg
 heroAlt: "A developer analyzing website performance metrics and security logs on a monitor"
 heroPosition: "center"

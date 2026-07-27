@@ -8,6 +8,7 @@ import { GiShoppingCart } from 'react-icons/gi'
 
 // ✅ SEO (head-only; no visual changes)
 import SEO from '../components/SEO'
+import { ROUTE_SEO } from '../data/seoData'
 
 // Replace with your actual assets
 import hero from '../assets/Basic-Template-min.png'
@@ -253,7 +254,7 @@ export default function Example({
     "name": plan.name,
     "description": "A simple one-page React + Tailwind template with About, Events grid, Photo grid, and Subscribe section. Mobile-responsive and easy to customize.",
     "brand": { "@type": "Brand", "name": "B Squared Solutions" },
-    "image": ["https://bsquaredsolutions.io/og-default.svg"],
+    "image": [new URL(hero, "https://bsquaredsolutions.io").toString()],
     "url": "https://bsquaredsolutions.io/basictemplate",
     "offers": {
       "@type": "Offer",
@@ -268,11 +269,8 @@ export default function Example({
     <>
       {/* ✅ SEO */}
       <SEO
-        title="Basic Single Page React Template | B Squared Solutions"
-        description="Ready-made one-page React + Tailwind template with events and photo grids, subscribe form, and mobile-first design—launch fast."
-        path="/basictemplate"
-        image="https://bsquaredsolutions.io/og-basic-template.jpg"
-        type="product"
+        {...ROUTE_SEO["/basictemplate"]}
+        image={hero}
         schema={[breadcrumbSchema, productSchema]}
       />
 

@@ -13,6 +13,7 @@ import web from "../assets/smb-2.png";
 import seoimg from "../assets/IMG_1037.png";
 import design from "../assets/IMG_1033.PNG";
 import SEO from "../components/SEO";
+import { ROUTE_SEO } from "../data/seoData";
 
 const container = {
   hidden: {},
@@ -59,7 +60,7 @@ export default function Products() {
         "name": "Web Development",
         "description": "Custom React & Tailwind builds, CMS integration (WordPress, Shopify, headless), performance and accessibility focused.",
         "areaServed": "US",
-        "url": "https://bsquaredsolutions.io/services#web-development",
+        "url": "https://bsquaredsolutions.io/products#web-development",
         "provider": { "@type": "Organization", "name": "B Squared Solutions" }
       },
       {
@@ -67,7 +68,7 @@ export default function Products() {
         "name": "Design & Consulting",
         "description": "UX/UI design, audits, architecture, wireframes, and implementation roadmaps to de-risk delivery.",
         "areaServed": "US",
-        "url": "https://bsquaredsolutions.io/services#design-consulting",
+        "url": "https://bsquaredsolutions.io/products#design-consulting",
         "provider": { "@type": "Organization", "name": "B Squared Solutions" }
       },
       {
@@ -75,7 +76,7 @@ export default function Products() {
         "name": "SEO & Marketing",
         "description": "Keyword research, on-page SEO, structured data, analytics configuration, and content optimization.",
         "areaServed": "US",
-        "url": "https://bsquaredsolutions.io/services#seo-marketing",
+        "url": "https://bsquaredsolutions.io/products#seo-marketing",
         "provider": { "@type": "Organization", "name": "B Squared Solutions" }
       },
       {
@@ -83,7 +84,7 @@ export default function Products() {
         "name": "Ongoing Comprehensive Support",
         "description": "Updates, backups, uptime monitoring, bug fixes, and continuous improvements.",
         "areaServed": "US",
-        "url": "https://bsquaredsolutions.io/services#ongoing-support",
+        "url": "https://bsquaredsolutions.io/products#ongoing-support",
         "provider": { "@type": "Organization", "name": "B Squared Solutions" }
       }
     ]
@@ -93,10 +94,7 @@ export default function Products() {
     <>
       {/* ✅ SEO (head-only) */}
       <SEO
-        title="Web Development & Technical Consulting Services | B Squared Solutions"
-        description="Custom React/Tailwind builds, UX design, SEO & analytics, and ongoing support—fast, scalable, and easy to manage."
-        path="/products"
-        image="https://bsquaredsolutions.io/og-default.svg"
+        {...ROUTE_SEO["/products"]}
         schema={[breadcrumbSchema, webPageSchema, servicesItemListSchema]}
       />
 

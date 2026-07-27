@@ -2,7 +2,7 @@
 title: "SEO for Modern JavaScript: How to Rank React and Next.js Sites"
 slug: "seo-for-modern-javascript-react-nextjs"
 description: "A practical guide to optimizing JavaScript-heavy websites for search engines, ensuring your custom React builds get crawled and ranked."
-date: "July 31, 2026"
+date: "July 17, 2026"
 hero: https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg
 heroAlt: "A developer analyzing website performance metrics and code on dual monitors"
 heroPosition: "center"

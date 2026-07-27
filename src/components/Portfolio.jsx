@@ -16,6 +16,7 @@ import SiteHero from './SiteHero'
 
 /* ✅ SEO (added; no style changes) */
 import SEO from './SEO'
+import { ROUTE_SEO } from '../data/seoData'
 
 /* ── Minimal parallax util (no deps) ─────────────────────────────────── */
 function useParallax({ speed = 0.7, axis = 'y', respectPRM = true } = {}) {
@@ -95,10 +96,7 @@ export default function Portfolio() {
     <>
       {/* ✅ SEO */}
       <SEO
-        title="Recent Projects & Case Studies | B Squared Solutions"
-        description="Browse real client results—faster load times, higher conversions, and clean, maintainable code."
-        path="/portfolio"
-        image="https://bsquaredsolutions.io/og-default.svg"
+        {...ROUTE_SEO["/portfolio"]}
         schema={[breadcrumbSchema, collectionSchema]}
       />
 

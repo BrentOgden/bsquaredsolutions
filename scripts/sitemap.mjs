@@ -1,32 +1,46 @@
 // scripts/sitemap.mjs
 import { writeFileSync } from "node:fs";
+import {
+  STATIC_INDEXABLE_ROUTES,
+  getBlogEntries,
+} from "./site-routes.mjs";
 
-const SITE = "https://bsquaredsolutions.io";
+const SITE_URL = "https://bsquaredsolutions.io";
 
-// TODO: keep this list current (no trailing slashes if your live URLs don't use them)
-const routes = [
-  "/", 
-  "/services",
-  "/portfolio",
-  "/about",
-  "/contact",
-  // add blog/category/post URLs if you have them
-];
+function escapeXml(value) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
 
-const today = new Date().toISOString().split("T")[0];
+function urlEntry(route, lastmod) {
+  const location = route === "/" ? `${SITE_URL}/` : `${SITE_URL}${route}`;
 
-const urls = routes.map(p => `
-  <url>
-    <loc>${SITE}${p}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>${p === "/" ? "1.0" : "0.7"}</priority>
-  </url>`).join("");
+  return [
+    "  <url>",
+    `    <loc>${escapeXml(location)}</loc>`,
+    lastmod ? `    <lastmod>${lastmod}</lastmod>` : null,
+    "  </url>",
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+const staticEntries = STATIC_INDEXABLE_ROUTES.map((route) => urlEntry(route));
+const blogEntries = getBlogEntries().map(({ route, lastmod }) =>
+  urlEntry(route, lastmod)
+);
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
-</urlset>`;
+${[...staticEntries, ...blogEntries].join("\n")}
+</urlset>
+`;
 
 writeFileSync("./public/sitemap.xml", xml);
-console.log("✅ Wrote public/sitemap.xml");
+console.log(
+  `Wrote public/sitemap.xml with ${staticEntries.length + blogEntries.length} URLs.`
+);

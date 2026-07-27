@@ -2,7 +2,7 @@
 title: "Custom Web Design vs. Templates: Why Your Business Needs More Than a Theme"
 slug: "custom-web-design-vs-templates"
 description: "An honest comparison between custom web design and pre-made templates, highlighting performance, SEO, and scalability for growing businesses."
-date: "July 13, 2026"
+date: "June 30, 2026"
 hero: https://images.pexels.com/photos/3182763/pexels-photo-3182763.jpeg
 heroAlt: "A clean, modern workspace with a laptop showing code and design wireframes"
 heroPosition: "center"
