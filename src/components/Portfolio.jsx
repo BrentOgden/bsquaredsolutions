@@ -9,7 +9,7 @@ import adenver from '../assets/screenshots/www_a_denverroofing_com_residential_r
 import ranger from '../assets/screenshots/rangergoldenstud_com.png'
 import psp from '../assets/screenshots/www_pspcompass_com.png'
 import milehigh from '../assets/screenshots/www_milehighmashup_com.png'
-import fantasy from '../assets/screenshots/fantasycentral_co_home.png'
+import fantasy from '../assets/screenshots/fc2.png'
 import jb from '../assets/screenshots/www_jbsimplyclean_com.png'
 import hero from '../assets/portfolioHero.jpg'
 import SiteHero from './SiteHero'
