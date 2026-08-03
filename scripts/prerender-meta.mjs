@@ -147,7 +147,7 @@ async function main() {
         waitUntil: "domcontentloaded",
         timeout: 30000,
       });
-      await page.waitForSelector("#root > *", { timeout: 15000 });
+      await page.waitForSelector("main > *", { timeout: 30000 });
       await page.evaluate(() => document.fonts?.ready);
 
       const html = await page.content();
