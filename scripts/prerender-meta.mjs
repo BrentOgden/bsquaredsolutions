@@ -46,6 +46,55 @@ async function waitForPreview(timeoutMs = 30000) {
   throw new Error("Timed out while starting the Vite preview server.");
 }
 
+function signalPreviewProcess(previewProcess, signal) {
+  if (!previewProcess || previewProcess.exitCode !== null) return;
+
+  if (process.platform !== "win32" && previewProcess.pid) {
+    try {
+      process.kill(-previewProcess.pid, signal);
+      return;
+    } catch {
+      // Fall back to signaling the direct child process.
+    }
+  }
+
+  try {
+    previewProcess.kill(signal);
+  } catch {
+    // The process has already exited.
+  }
+}
+
+async function waitForProcessExit(previewProcess, timeoutMs) {
+  if (!previewProcess || previewProcess.exitCode !== null) return true;
+
+  return new Promise((resolve) => {
+    const timeout = setTimeout(() => {
+      previewProcess.removeListener("exit", handleExit);
+      resolve(false);
+    }, timeoutMs);
+
+    function handleExit() {
+      clearTimeout(timeout);
+      resolve(true);
+    }
+
+    previewProcess.once("exit", handleExit);
+  });
+}
+
+async function stopPreview(previewProcess) {
+  if (!previewProcess || previewProcess.exitCode !== null) return;
+
+  signalPreviewProcess(previewProcess, "SIGTERM");
+  const exitedGracefully = await waitForProcessExit(previewProcess, 5000);
+
+  if (!exitedGracefully && previewProcess.exitCode === null) {
+    signalPreviewProcess(previewProcess, "SIGKILL");
+    await waitForProcessExit(previewProcess, 2000);
+  }
+}
+
 async function main() {
   if (!existsSync(BASE_HTML_PATH)) {
     throw new Error("dist/index.html does not exist. Run vite build first.");
@@ -56,6 +105,7 @@ async function main() {
     ["vite", "preview", "--host", HOST, "--port", String(PORT)],
     {
       cwd: process.cwd(),
+      detached: process.platform !== "win32",
       stdio: ["ignore", "pipe", "pipe"],
     }
   );
@@ -70,6 +120,7 @@ async function main() {
 
     browser = await puppeteer.launch({
       headless: true,
+      timeout: 60000,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
@@ -92,7 +143,10 @@ async function main() {
 
     for (const route of getPrerenderRoutes()) {
       const url = `${PREVIEW_URL}${canonicalRoute(route)}`;
-      await page.goto(url, { waitUntil: "domcontentloaded" });
+      await page.goto(url, {
+        waitUntil: "domcontentloaded",
+        timeout: 30000,
+      });
       await page.waitForSelector("#root > *", { timeout: 15000 });
       await page.evaluate(() => document.fonts?.ready);
 
@@ -103,8 +157,11 @@ async function main() {
       console.log(`Prerendered complete HTML for ${canonicalRoute(route)}`);
     }
   } finally {
-    if (browser) await browser.close();
-    previewProcess.kill("SIGTERM");
+    try {
+      if (browser) await browser.close();
+    } finally {
+      await stopPreview(previewProcess);
+    }
   }
 }
 
