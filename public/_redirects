@@ -4,10 +4,15 @@ http://www.bsquaredsolutions.io/*  https://bsquaredsolutions.io/:splat   301!
 https://www.bsquaredsolutions.io/* https://bsquaredsolutions.io/:splat   301!
 
 # Preserve older section URLs with the closest current destination.
-/services  /products  301!
-/pricing   /packages  301!
-/about     /#about    301!
-/quotes    /          301!
+/services   /products/  301!
+/services/  /products/  301!
+/pricing    /packages/  301!
+/pricing/   /packages/  301!
+/about      /#about     301!
+/about/     /#about     301!
+/quotes     /           301!
+/quotes/    /           301!
 
-# SPA fallback. Prerendered route files are served before this rule.
-/*  /index.html  200
+# Valid routes are emitted as static HTML during the production build.
+# Anything else receives a genuine 404 response instead of a soft 404.
+/*  /404.html  404
