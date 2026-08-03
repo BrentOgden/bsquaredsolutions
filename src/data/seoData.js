@@ -132,4 +132,13 @@ export const ROUTE_SEO = {
     noindex: true,
     nofollow: true,
   },
+  "/404": {
+    title: "Page Not Found | B Squared Solutions",
+    description: "The requested page could not be found.",
+    path: "/404",
+    image: DEFAULT_OG_IMAGE,
+    imageAlt: "B Squared Solutions page not found",
+    noindex: true,
+    nofollow: true,
+  },
 };

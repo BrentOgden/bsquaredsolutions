@@ -14,7 +14,7 @@ const HOME_DESCRIPTION = ROUTE_SEO["/"].description;
 
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": ["Organization", "ProfessionalService"],
   "@id": ORGANIZATION_ID,
   name: "B Squared Solutions",
   legalName: "B Squared Solutions, LLC",
@@ -28,10 +28,26 @@ const organizationSchema = {
   description: HOME_DESCRIPTION,
   email: "info@bsquaredsolutions.io",
   telephone: "+1-720-549-4203",
-  areaServed: {
-    "@type": "Country",
-    name: "United States",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Denver",
+    addressRegion: "CO",
+    addressCountry: "US",
   },
+  areaServed: [
+    {
+      "@type": "City",
+      name: "Denver",
+    },
+    {
+      "@type": "State",
+      name: "Colorado",
+    },
+    {
+      "@type": "Country",
+      name: "United States",
+    },
+  ],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
@@ -89,7 +105,7 @@ const servicesSchema = {
         name: "Custom Web Development",
         description:
           "Responsive React, Tailwind CSS, CMS, and eCommerce website development.",
-        url: `${SITE_URL}/products#web-development`,
+        url: `${SITE_URL}/products/#web-development`,
         areaServed: "US",
         provider: {
           "@id": ORGANIZATION_ID,
@@ -104,7 +120,7 @@ const servicesSchema = {
         name: "UX Design and Technical Consulting",
         description:
           "UX and UI design, architecture reviews, performance tuning, and implementation planning.",
-        url: `${SITE_URL}/products#design-consulting`,
+        url: `${SITE_URL}/products/#design-consulting`,
         areaServed: "US",
         provider: {
           "@id": ORGANIZATION_ID,
@@ -119,7 +135,7 @@ const servicesSchema = {
         name: "SEO and Analytics",
         description:
           "Technical SEO, on-page optimization, structured data, and analytics configuration.",
-        url: `${SITE_URL}/products#seo-marketing`,
+        url: `${SITE_URL}/products/#seo-marketing`,
         areaServed: "US",
         provider: {
           "@id": ORGANIZATION_ID,
@@ -134,7 +150,7 @@ const servicesSchema = {
         name: "Website Maintenance and Support",
         description:
           "Website updates, troubleshooting, performance improvements, and ongoing technical support.",
-        url: `${SITE_URL}/products#ongoing-support`,
+        url: `${SITE_URL}/products/#ongoing-support`,
         areaServed: "US",
         provider: {
           "@id": ORGANIZATION_ID,
@@ -156,6 +172,7 @@ const ROUTE_META = {
   },
   "/checkout": ROUTE_SEO["/checkout"],
   "/checkoutvenmo": ROUTE_SEO["/checkoutvenmo"],
+  "/404": ROUTE_SEO["/404"],
 };
 
 export default function RouteSEO() {

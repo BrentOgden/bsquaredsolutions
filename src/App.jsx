@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "@dr.pogodin/react-helmet";
 
 import NavBar from "./components/NavBar";
@@ -28,7 +28,7 @@ import SimpleTemplate from "./pages/SimpleTemplate";
 import BasicTemplate from "./pages/BasicTemplate";
 import SmallBusinessTemplate from "./pages/SmallBusinessTemplate";
 import ContactPage from "./pages/Contact";
-import Slider from "./components/Slider";
+import NotFound from "./pages/NotFound";
 import RouteSEO from "./components/RouteSEO";
 import GA4Listener from "./analytics/GA4Listener";
 
@@ -37,7 +37,7 @@ export default function App() {
     <HelmetProvider>
       <Router>
         <GA4Listener />
-        <RouteSEO /> {/* 🔗 route-aware canonicals & JSON-LD */}
+        <RouteSEO />
         <div className="flex flex-col overflow-x-hidden min-h-screen">
           <NavBar />
           <ScrollManager />
@@ -55,12 +55,10 @@ export default function App() {
                     <QuoteScroller />
                     <About />
                     <ContactForm />
-                    
                   </>
                 }
               />
 
-              {/* Full-page routes */}
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/checkoutvenmo" element={<CheckoutVenmo />} />
               <Route path="/portfolio" element={<Portfolio />} />
@@ -76,9 +74,8 @@ export default function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
-
-              {/* Optional: client-side catch-all back to home */}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
 

@@ -17,6 +17,16 @@ function toAbsoluteUrl(value, siteUrl) {
   }
 }
 
+function normalizeCanonicalPath(path = "/") {
+  const [pathname, suffix = ""] = path.split(/(?=[?#])/);
+
+  if (!pathname || pathname === "/") {
+    return `/${suffix}`;
+  }
+
+  return `${pathname.replace(/\/+$/, "")}/${suffix}`;
+}
+
 export default function SEO({
   title,
   description,
@@ -38,7 +48,9 @@ export default function SEO({
   author,
 }) {
   const normalizedSiteUrl = siteUrl.replace(/\/$/, "");
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  const normalizedPath = normalizeCanonicalPath(
+    path.startsWith("/") ? path : `/${path}`
+  );
   const pageUrl = toAbsoluteUrl(
     canonical || `${normalizedSiteUrl}${normalizedPath}`,
     normalizedSiteUrl
