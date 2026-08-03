@@ -16,8 +16,13 @@ function escapeXml(value) {
     .replace(/'/g, "&apos;");
 }
 
+function canonicalRoute(route) {
+  if (route === "/") return "/";
+  return `${route.replace(/\/+$/, "")}/`;
+}
+
 function urlEntry(route, lastmod) {
-  const location = route === "/" ? `${SITE_URL}/` : `${SITE_URL}${route}`;
+  const location = `${SITE_URL}${canonicalRoute(route)}`;
 
   return [
     "  <url>",
