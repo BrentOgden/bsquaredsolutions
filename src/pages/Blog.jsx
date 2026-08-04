@@ -52,6 +52,14 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
   {
+    slug: "website-maintenance-for-small-businesses",
+    title: "Website Maintenance for Small Businesses: What You Actually Need",
+    date: "August 3, 2026",
+    excerpt:
+      "Learn what small business website maintenance should include, how often key tasks should be completed, and when ongoing support is worthwhile.",
+    image: "https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg",
+  },
+  {
     slug: "web-accessibility-basics-small-business-guide",
     title: "Web Accessibility Basics: A Practical Guide for Small Businesses",
     date: "July 20, 2026",
