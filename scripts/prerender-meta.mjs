@@ -7,6 +7,7 @@ import { dirname, join, normalize } from "node:path";
 import { spawn } from "node:child_process";
 import puppeteer from "puppeteer";
 import { getPrerenderRoutes } from "./site-routes.mjs";
+import { renderStaticFallback } from "./prerender-static.mjs";
 
 const DIST_DIRECTORY = normalize(join(process.cwd(), "dist"));
 const BASE_HTML_PATH = join(DIST_DIRECTORY, "index.html");
@@ -166,6 +167,13 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
+  console.warn("Browser prerender unavailable; generating static SEO fallback instead.");
+  console.warn(error?.message || error);
+
+  try {
+    renderStaticFallback();
+  } catch (fallbackError) {
+    console.error("Static SEO fallback failed:", fallbackError);
+    process.exitCode = 1;
+  }
 });
