@@ -110,7 +110,9 @@ export default async (request) => {
         store: false,
         instructions: SYSTEM_PROMPT,
         input: messages,
-        max_output_tokens: 250,
+        reasoning: { effort: "low" },
+        text: { verbosity: "low" },
+        max_output_tokens: 600,
       }),
     });
 
@@ -129,6 +131,8 @@ export default async (request) => {
       source: answer ? "ai" : "local",
       reason: answer ? "completed" : "empty_ai_output",
       model,
+      responseStatus: data?.status ?? null,
+      incompleteReason: data?.incomplete_details?.reason ?? null,
       inputTokens: usage.input_tokens ?? null,
       cachedInputTokens: usage.input_tokens_details?.cached_tokens ?? null,
       outputTokens: usage.output_tokens ?? null,
