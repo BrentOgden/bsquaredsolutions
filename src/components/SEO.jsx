@@ -27,6 +27,49 @@ function normalizeCanonicalPath(path = "/") {
   return `${pathname.replace(/\/+$/, "")}/${suffix}`;
 }
 
+function normalizeInternalSchemaUrl(value, siteUrl) {
+  if (typeof value !== "string" || !/^https?:\/\//i.test(value)) {
+    return value;
+  }
+
+  try {
+    const url = new URL(value);
+    const site = new URL(`${siteUrl.replace(/\/$/, "")}/`);
+
+    if (url.origin !== site.origin) return value;
+
+    const hasFileExtension = /\.[a-z0-9]{2,8}$/i.test(url.pathname);
+    if (
+      url.pathname !== "/" &&
+      !url.pathname.endsWith("/") &&
+      !hasFileExtension
+    ) {
+      url.pathname = `${url.pathname}/`;
+    }
+
+    return url.toString();
+  } catch {
+    return value;
+  }
+}
+
+function normalizeSchemaValue(value, siteUrl) {
+  if (Array.isArray(value)) {
+    return value.map((item) => normalizeSchemaValue(item, siteUrl));
+  }
+
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [
+        key,
+        normalizeSchemaValue(item, siteUrl),
+      ])
+    );
+  }
+
+  return normalizeInternalSchemaUrl(value, siteUrl);
+}
+
 export default function SEO({
   title,
   description,
@@ -60,7 +103,10 @@ export default function SEO({
   const robotsContent =
     robots ||
     `${noindex ? "noindex" : "index"}, ${nofollow ? "nofollow" : "follow"}`;
-  const schemaItems = Array.isArray(schema) ? schema : schema ? [schema] : [];
+  const rawSchemaItems = Array.isArray(schema) ? schema : schema ? [schema] : [];
+  const schemaItems = rawSchemaItems.map((item) =>
+    normalizeSchemaValue(item, normalizedSiteUrl)
+  );
   const usesDefaultImage = imageUrl === DEFAULT_OG_IMAGE;
 
   const children = [
