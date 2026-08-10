@@ -32,6 +32,16 @@ function extractOutputText(data) {
   return texts.join("\n").trim();
 }
 
+function logChatEvent(details) {
+  console.log(
+    JSON.stringify({
+      event: "chat_assistant",
+      timestamp: new Date().toISOString(),
+      ...details,
+    })
+  );
+}
+
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
@@ -68,11 +78,18 @@ export const handler = async (event) => {
 
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
+    logChatEvent({
+      source: "local",
+      reason: "missing_api_key",
+    });
+
     return json(200, {
       answer: getFallbackAnswer(latestUserMessage),
       source: "local",
     });
   }
+
+  const model = process.env.OPENAI_MODEL || "gpt-5-mini";
 
   try {
     const response = await fetch("https://api.openai.com/v1/responses", {
@@ -82,11 +99,11 @@ export const handler = async (event) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || "gpt-5-mini",
+        model,
         store: false,
         instructions: SYSTEM_PROMPT,
         input: messages,
-        max_output_tokens: 350,
+        max_output_tokens: 250,
       }),
     });
 
@@ -96,16 +113,50 @@ export const handler = async (event) => {
 
     const data = await response.json();
     const answer = extractOutputText(data);
+    const usage = data?.usage || {};
+
+    logChatEvent({
+      source: answer ? "ai" : "local",
+      reason: answer ? "completed" : "empty_ai_output",
+      model,
+      inputTokens: usage.input_tokens ?? null,
+      cachedInputTokens: usage.input_tokens_details?.cached_tokens ?? null,
+      outputTokens: usage.output_tokens ?? null,
+      reasoningTokens: usage.output_tokens_details?.reasoning_tokens ?? null,
+      totalTokens: usage.total_tokens ?? null,
+    });
 
     return json(200, {
       answer: answer || getFallbackAnswer(latestUserMessage),
       source: answer ? "ai" : "local",
     });
   } catch (error) {
-    console.error("Chat assistant error:", error);
+    console.error(
+      JSON.stringify({
+        event: "chat_assistant_error",
+        timestamp: new Date().toISOString(),
+        message: error instanceof Error ? error.message : "Unknown chat error",
+      })
+    );
+
+    logChatEvent({
+      source: "local",
+      reason: "ai_request_error",
+      model,
+    });
+
     return json(200, {
       answer: getFallbackAnswer(latestUserMessage),
       source: "local",
     });
   }
+};
+
+export const config = {
+  path: "/.netlify/functions/chat",
+  rateLimit: {
+    windowLimit: 30,
+    windowSize: 600,
+    aggregateBy: ["domain", "ip"],
+  },
 };
