@@ -12,7 +12,7 @@ FORMAT
 - Start with a short direct answer or recommendation.
 - Use short paragraphs and bullet lists when they improve readability.
 - Use bold labels sparingly for important recommendations or prices.
-- When a relevant B Squared page exists, include a short clickable Markdown link near the end.
+- When a relevant B Squared page exists, include a short clickable Markdown link near the end using the exact format [Link text](/approved-route/).
 - Only use these approved internal link destinations: /packages/, /products/, /templates/, /portfolio/, /faq/, /contact/, and /packages/#maintenance.
 - For phone contact, use [Call 720-549-4203](tel:+17205494203).
 - For email contact, use [Email info@bsquaredsolutions.io](mailto:info@bsquaredsolutions.io).
@@ -20,6 +20,52 @@ FORMAT
 - Do not repeat every available link. Include only the links that are useful for the visitor's question.
 
 ${BUSINESS_KNOWLEDGE}`;
+
+const RELATED_LINKS = [
+  {
+    label: "View Maintenance Options",
+    destination: "/packages/#maintenance",
+    terms: ["maintenance", "support", "update", "updates", "existing site"],
+  },
+  {
+    label: "View Templates",
+    destination: "/templates/",
+    terms: ["template", "templates", "diy"],
+  },
+  {
+    label: "See the Portfolio",
+    destination: "/portfolio/",
+    terms: ["portfolio", "example", "examples", "past work", "case study"],
+  },
+  {
+    label: "View Products",
+    destination: "/products/",
+    terms: ["product", "products"],
+  },
+  {
+    label: "View Packages",
+    destination: "/packages/",
+    terms: [
+      "package",
+      "packages",
+      "pricing",
+      "price",
+      "cost",
+      "starter",
+      "growth",
+      "professional",
+      "cms",
+      "website",
+      "site",
+      "build",
+    ],
+  },
+  {
+    label: "Read the FAQ",
+    destination: "/faq/",
+    terms: ["faq", "question", "questions", "policy", "policies"],
+  },
+];
 
 function json(body, init = {}) {
   return Response.json(body, {
@@ -41,6 +87,44 @@ function extractOutputText(data) {
     }
   }
   return texts.join("\n").trim();
+}
+
+function appendRelevantLinks(answer, userMessage) {
+  if (!answer) return answer;
+
+  const context = `${userMessage || ""} ${answer}`.toLowerCase();
+  const links = [];
+
+  for (const link of RELATED_LINKS) {
+    const isRelevant = link.terms.some((term) => context.includes(term));
+    const alreadyIncluded = answer.includes(`](${link.destination})`);
+
+    if (isRelevant && !alreadyIncluded) {
+      links.push(`[${link.label}](${link.destination})`);
+    }
+
+    if (links.length === 2) break;
+  }
+
+  const needsContact = [
+    "quote",
+    "custom",
+    "contact",
+    "call",
+    "email",
+    "schedule",
+    "consult",
+    "project",
+    "recommend",
+  ].some((term) => context.includes(term));
+
+  if (needsContact && !answer.includes("](/contact/)")) {
+    links.push("[Contact B Squared](/contact/)");
+  }
+
+  if (!links.length) return answer;
+
+  return `${answer.trim()}\n\n${[...new Set(links)].join(" · ")}`;
 }
 
 function logChatEvent(details) {
@@ -137,6 +221,7 @@ export default async (request) => {
 
     const data = await response.json();
     const answer = extractOutputText(data);
+    const formattedAnswer = appendRelevantLinks(answer, latestUserMessage);
     const usage = data?.usage || {};
 
     logChatEvent({
@@ -153,7 +238,7 @@ export default async (request) => {
     });
 
     return json({
-      answer: answer || getFallbackAnswer(latestUserMessage),
+      answer: formattedAnswer || getFallbackAnswer(latestUserMessage),
       source: answer ? "ai" : "local",
     });
   } catch (error) {
