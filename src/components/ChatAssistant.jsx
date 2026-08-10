@@ -14,7 +14,7 @@ import {
 } from "../data/chatKnowledge";
 
 const SESSION_AI_REQUEST_LIMIT = 20;
-const SESSION_AI_REQUESTS_KEY = "bsquared_chat_ai_requests";
+const SESSION_AI_REQUESTS_KEY = "bsquared_chat_ai_requests_v2";
 
 const INITIAL_MESSAGE = {
   role: "assistant",
@@ -106,7 +106,7 @@ export default function ChatAssistant() {
     }
 
     try {
-      const response = await fetch("/.netlify/functions/chat", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
