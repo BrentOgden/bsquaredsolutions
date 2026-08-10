@@ -14,7 +14,7 @@ const HOME_DESCRIPTION = ROUTE_SEO["/"].description;
 
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "ProfessionalService"],
+  "@type": "Organization",
   "@id": ORGANIZATION_ID,
   name: "B Squared Solutions",
   legalName: "B Squared Solutions, LLC",
@@ -34,20 +34,6 @@ const organizationSchema = {
     addressRegion: "CO",
     addressCountry: "US",
   },
-  areaServed: [
-    {
-      "@type": "City",
-      name: "Denver",
-    },
-    {
-      "@type": "State",
-      name: "Colorado",
-    },
-    {
-      "@type": "Country",
-      name: "United States",
-    },
-  ],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
