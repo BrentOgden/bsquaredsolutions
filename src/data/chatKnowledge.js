@@ -76,44 +76,66 @@ export function getFallbackAnswer(message = "") {
   }
 
   if (includesAny(text, ["price", "pricing", "cost", "how much", "package", "quote"])) {
-    return "Website packages currently start at $1,500 for a CMS Starter build, $2,000 for a custom React Starter build, $3,000 for Growth, and $6,000+ for Professional projects. Exact pricing depends on scope. You can review current packages at /packages/ or contact us for a custom quote.";
+    return `**Website packages currently start at:**
+
+- CMS Starter: **$1,500**
+- Custom React Starter: **$2,000**
+- Growth: **$3,000**
+- Professional: **$6,000+**
+
+Exact pricing depends on scope. [View Packages](/packages/) or [Contact B Squared](/contact/) for a custom quote.`;
   }
 
   if (includesAny(text, ["how long", "timeline", "timeframe", "weeks", "take to build"])) {
-    return "A typical 5-7 page website takes about 2-4 weeks, depending on complexity, content readiness, and feedback cycles. A project-specific timeline is provided with the proposal.";
+    return "A typical **5-7 page website takes about 2-4 weeks**, depending on complexity, content readiness, and feedback cycles. A project-specific timeline is provided with the proposal. [Contact B Squared](/contact/) to discuss your project.";
   }
 
   if (includesAny(text, ["maintenance", "support", "update my site", "updates", "existing site"])) {
-    return "Yes. B Squared Solutions supports both new and existing websites. On-demand maintenance is $50/hour, with ongoing plans currently available at $199/month and $399/month. See /packages/#maintenance for details.";
+    return `Yes. B Squared Solutions supports both new and existing websites.
+
+- On-demand maintenance: **$50/hour**
+- Ongoing Basic: **$199/month**
+- Ongoing Premium: **$399/month**
+
+[View Maintenance Options](/packages/#maintenance)`;
   }
 
   if (includesAny(text, ["seo", "google", "analytics", "rank", "ranking", "search engine"])) {
-    return "Yes. B Squared Solutions provides technical and on-page SEO, keyword research, structured data, analytics setup, performance optimization, and SEO audits for existing sites.";
+    return "Yes. B Squared Solutions provides technical and on-page SEO, keyword research, structured data, analytics setup, performance optimization, and SEO audits for existing sites. [Contact B Squared](/contact/) to discuss an SEO project.";
   }
 
   if (includesAny(text, ["wordpress", "shopify", "cms", "aem", "duda", "react", "tailwind", "technology", "tech stack"])) {
-    return "B Squared Solutions builds custom React/Tailwind sites and works with CMS platforms including WordPress, Shopify, AEM, Duda, and others by consultation.";
+    return "B Squared Solutions builds custom **React/Tailwind** sites and works with CMS platforms including **WordPress, Shopify, AEM, Duda**, and others by consultation. [View Packages](/packages/) for current options.";
   }
 
   if (includesAny(text, ["template", "diy"])) {
-    return "Yes. B Squared Solutions offers DIY website templates, including Starter, Professional, and Small Business options. Current pricing and previews are available at /templates/ and /packages/.";
+    return "Yes. B Squared Solutions offers DIY website templates, including Starter, Professional, and Small Business options. [View Templates](/templates/) or [View Packages](/packages/) for current pricing and details.";
   }
 
   if (includesAny(text, ["domain", "hosting", "dns"])) {
-    return "B Squared Solutions can help secure a domain, configure DNS, and connect hosting. Recurring domain and hosting fees remain the client's responsibility.";
+    return "B Squared Solutions can help secure a domain, configure DNS, and connect hosting. Recurring domain and hosting fees remain the client's responsibility. [Contact B Squared](/contact/) for help getting set up.";
   }
 
   if (includesAny(text, ["payment", "deposit", "venmo", "pay"])) {
-    return "New website builds generally require a 50% deposit to begin and the remaining 50% at final delivery. Hourly work has a two-hour minimum, and Venmo is the preferred payment method.";
+    return "New website builds generally require a **50% deposit** to begin and the remaining **50% at final delivery**. Hourly work has a two-hour minimum, and Venmo is the preferred payment method. For billing questions, [Contact B Squared](/contact/).";
   }
 
   if (includesAny(text, ["phone", "call", "email", "contact", "talk", "person", "human"])) {
-    return "You can call B Squared Solutions at 720-549-4203 or email info@bsquaredsolutions.io. You can also use the contact form at /contact/.";
+    return "You can [Call 720-549-4203](tel:+17205494203), [Email info@bsquaredsolutions.io](mailto:info@bsquaredsolutions.io), or use the [Contact Form](/contact/).";
   }
 
   if (includesAny(text, ["service", "what do you do", "what can you", "offer"])) {
-    return "B Squared Solutions offers custom web development, CMS builds, UX/UI design and consulting, SEO and analytics, website maintenance, technical support, and website templates.";
+    return `B Squared Solutions offers:
+
+- Custom web development
+- CMS website builds
+- UX/UI design and consulting
+- SEO and analytics
+- Website maintenance and technical support
+- Website templates
+
+[View Packages](/packages/) or [See the Portfolio](/portfolio/).`;
   }
 
-  return "I can help with B Squared Solutions services, packages, timelines, SEO, templates, and maintenance. For a custom question or quote, call 720-549-4203 or email info@bsquaredsolutions.io.";
+  return "I can help with B Squared Solutions services, packages, timelines, SEO, templates, and maintenance. For a custom question or quote, [Call 720-549-4203](tel:+17205494203), [Email info@bsquaredsolutions.io](mailto:info@bsquaredsolutions.io), or [Contact B Squared](/contact/).";
 }

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   IoCallOutline,
   IoChatbubbleEllipsesOutline,
@@ -15,6 +17,23 @@ import {
 
 const SESSION_AI_REQUEST_LIMIT = 20;
 const SESSION_AI_REQUESTS_KEY = "bsquared_chat_ai_requests_v3";
+
+const ALLOWED_INTERNAL_LINKS = new Set([
+  "/",
+  "/packages",
+  "/packages/",
+  "/packages/#maintenance",
+  "/products",
+  "/products/",
+  "/templates",
+  "/templates/",
+  "/portfolio",
+  "/portfolio/",
+  "/faq",
+  "/faq/",
+  "/contact",
+  "/contact/",
+]);
 
 const INITIAL_MESSAGE = {
   role: "assistant",
@@ -43,7 +62,39 @@ function storeAiRequestCount(count) {
   }
 }
 
-function MessageBubble({ message }) {
+function SafeMarkdownLink({ href, children, onNavigate }) {
+  const destination = String(href || "");
+
+  if (ALLOWED_INTERNAL_LINKS.has(destination)) {
+    return (
+      <Link
+        to={destination}
+        onClick={onNavigate}
+        className="font-semibold text-[#145DA0] underline decoration-[#3d86ca]/40 underline-offset-2 transition hover:text-[#0B3E73]"
+      >
+        {children}
+      </Link>
+    );
+  }
+
+  if (
+    destination === BUSINESS_CONTACT.phoneHref ||
+    destination === BUSINESS_CONTACT.emailHref
+  ) {
+    return (
+      <a
+        href={destination}
+        className="font-semibold text-[#145DA0] underline decoration-[#3d86ca]/40 underline-offset-2 transition hover:text-[#0B3E73]"
+      >
+        {children}
+      </a>
+    );
+  }
+
+  return <span>{children}</span>;
+}
+
+function MessageBubble({ message, onNavigate }) {
   const isUser = message.role === "user";
 
   return (
@@ -55,7 +106,42 @@ function MessageBubble({ message }) {
             : "bg-white text-slate-800 rounded-bl-md ring-1 ring-slate-200"
         }`}
       >
-        {message.content}
+        {isUser ? (
+          message.content
+        ) : (
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              a: ({ href, children }) => (
+                <SafeMarkdownLink href={href} onNavigate={onNavigate}>
+                  {children}
+                </SafeMarkdownLink>
+              ),
+              p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+              ul: ({ children }) => (
+                <ul className="my-2 list-disc space-y-1 pl-5 last:mb-0">{children}</ul>
+              ),
+              ol: ({ children }) => (
+                <ol className="my-2 list-decimal space-y-1 pl-5 last:mb-0">{children}</ol>
+              ),
+              li: ({ children }) => <li className="pl-0.5">{children}</li>,
+              strong: ({ children }) => (
+                <strong className="font-semibold text-slate-950">{children}</strong>
+              ),
+              h1: ({ children }) => (
+                <p className="mb-2 font-semibold text-slate-950">{children}</p>
+              ),
+              h2: ({ children }) => (
+                <p className="mb-2 font-semibold text-slate-950">{children}</p>
+              ),
+              h3: ({ children }) => (
+                <p className="mb-2 font-semibold text-slate-950">{children}</p>
+              ),
+            }}
+          >
+            {message.content}
+          </ReactMarkdown>
+        )}
       </div>
     </div>
   );
@@ -198,7 +284,11 @@ export default function ChatAssistant() {
             aria-live="polite"
           >
             {messages.map((message, index) => (
-              <MessageBubble key={`${message.role}-${index}`} message={message} />
+              <MessageBubble
+                key={`${message.role}-${index}`}
+                message={message}
+                onNavigate={() => setOpen(false)}
+              />
             ))}
 
             {messages.length === 1 ? (
