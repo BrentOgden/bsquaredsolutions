@@ -14,7 +14,7 @@ import {
 } from "../data/chatKnowledge";
 
 const SESSION_AI_REQUEST_LIMIT = 20;
-const SESSION_AI_REQUESTS_KEY = "bsquared_chat_ai_requests_v2";
+const SESSION_AI_REQUESTS_KEY = "bsquared_chat_ai_requests_v3";
 
 const INITIAL_MESSAGE = {
   role: "assistant",
@@ -67,6 +67,7 @@ export default function ChatAssistant() {
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [aiRequestCount, setAiRequestCount] = useState(getStoredAiRequestCount);
+  const [responseSource, setResponseSource] = useState(null);
   const messagesRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -81,7 +82,8 @@ export default function ChatAssistant() {
     el.scrollTop = el.scrollHeight;
   }, [messages, sending]);
 
-  const addLocalAnswer = (text) => {
+  const addLocalAnswer = (text, source = "local") => {
+    setResponseSource(source);
     setMessages((current) => [
       ...current,
       { role: "assistant", content: getFallbackAnswer(text) },
@@ -100,7 +102,7 @@ export default function ChatAssistant() {
     setSending(true);
 
     if (aiRequestCount >= SESSION_AI_REQUEST_LIMIT) {
-      addLocalAnswer(text);
+      addLocalAnswer(text, "session-limit");
       setSending(false);
       return;
     }
@@ -122,6 +124,8 @@ export default function ChatAssistant() {
       const answer = String(data?.answer || "").trim();
       if (!answer) throw new Error("Empty chat response");
 
+      setResponseSource(data?.source === "ai" ? "ai" : "local");
+
       if (data?.source === "ai") {
         setAiRequestCount((current) => {
           const nextCount = Math.min(current + 1, SESSION_AI_REQUEST_LIMIT);
@@ -135,7 +139,7 @@ export default function ChatAssistant() {
         { role: "assistant", content: answer },
       ]);
     } catch {
-      addLocalAnswer(text);
+      addLocalAnswer(text, "network-fallback");
     } finally {
       setSending(false);
     }
@@ -145,6 +149,17 @@ export default function ChatAssistant() {
     event.preventDefault();
     sendMessage(input);
   };
+
+  const modeLabel =
+    responseSource === "ai"
+      ? "AI response"
+      : responseSource === "session-limit"
+        ? "Local response · session AI limit reached"
+        : responseSource === "network-fallback"
+          ? "Local response · API request failed"
+          : responseSource === "local"
+            ? "Local response · server fallback"
+            : null;
 
   return (
     <div className="fixed bottom-5 right-5 z-[120] sm:bottom-6 sm:right-6">
@@ -162,6 +177,9 @@ export default function ChatAssistant() {
               <div>
                 <p className="font-semibold">B Squared Assistant</p>
                 <p className="text-xs text-white/80">Ask about services, pricing & support</p>
+                {modeLabel ? (
+                  <p className="mt-0.5 text-[10px] font-medium text-white/70">{modeLabel}</p>
+                ) : null}
               </div>
             </div>
             <button
