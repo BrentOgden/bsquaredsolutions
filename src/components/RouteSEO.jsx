@@ -34,6 +34,20 @@ const organizationSchema = {
     addressRegion: "CO",
     addressCountry: "US",
   },
+  areaServed: [
+    {
+      "@type": "City",
+      name: "Denver",
+    },
+    {
+      "@type": "State",
+      name: "Colorado",
+    },
+    {
+      "@type": "Country",
+      name: "United States",
+    },
+  ],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
