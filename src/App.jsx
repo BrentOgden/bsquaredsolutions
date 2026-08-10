@@ -51,7 +51,7 @@ export default function App() {
                   path="/"
                   element={
                     <>
-                      <Hero />
+                      <Hero title="Custom Web Design & Development for Denver Small Businesses" />
                       <Services />
                       <Pricing />
                       <QuoteScroller />
