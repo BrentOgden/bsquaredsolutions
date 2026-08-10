@@ -9,6 +9,10 @@ Use only the approved business information below. Be concise, friendly, and usef
 
 ${BUSINESS_KNOWLEDGE}`;
 
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 30;
+const ipRequestHistory = new Map();
+
 function json(statusCode, body) {
   return {
     statusCode,
@@ -30,6 +34,58 @@ function extractOutputText(data) {
     }
   }
   return texts.join("\n").trim();
+}
+
+function getClientIp(event) {
+  const headers = event?.headers || {};
+  const netlifyIp = headers["x-nf-client-connection-ip"];
+  if (netlifyIp) return netlifyIp;
+
+  const forwardedFor = headers["x-forwarded-for"];
+  if (forwardedFor) return forwardedFor.split(",")[0].trim();
+
+  return null;
+}
+
+function isRateLimited(ip) {
+  if (!ip) return false;
+
+  const now = Date.now();
+  const cutoff = now - RATE_LIMIT_WINDOW_MS;
+  const recentRequests = (ipRequestHistory.get(ip) || []).filter(
+    (timestamp) => timestamp > cutoff
+  );
+
+  if (recentRequests.length >= RATE_LIMIT_MAX_REQUESTS) {
+    ipRequestHistory.set(ip, recentRequests);
+    return true;
+  }
+
+  recentRequests.push(now);
+  ipRequestHistory.set(ip, recentRequests);
+
+  if (ipRequestHistory.size > 500) {
+    for (const [storedIp, timestamps] of ipRequestHistory.entries()) {
+      const active = timestamps.filter((timestamp) => timestamp > cutoff);
+      if (active.length) {
+        ipRequestHistory.set(storedIp, active);
+      } else {
+        ipRequestHistory.delete(storedIp);
+      }
+    }
+  }
+
+  return false;
+}
+
+function logChatEvent(details) {
+  console.log(
+    JSON.stringify({
+      event: "chat_assistant",
+      timestamp: new Date().toISOString(),
+      ...details,
+    })
+  );
 }
 
 export const handler = async (event) => {
@@ -66,13 +122,36 @@ export const handler = async (event) => {
     return json(400, { error: "A user message is required" });
   }
 
+  const clientIp = getClientIp(event);
+  if (isRateLimited(clientIp)) {
+    logChatEvent({
+      source: "local",
+      reason: "ip_rate_limit",
+      rateLimited: true,
+    });
+
+    return json(200, {
+      answer: getFallbackAnswer(latestUserMessage),
+      source: "local",
+      rateLimited: true,
+    });
+  }
+
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
+    logChatEvent({
+      source: "local",
+      reason: "missing_api_key",
+      rateLimited: false,
+    });
+
     return json(200, {
       answer: getFallbackAnswer(latestUserMessage),
       source: "local",
     });
   }
+
+  const model = process.env.OPENAI_MODEL || "gpt-5-mini";
 
   try {
     const response = await fetch("https://api.openai.com/v1/responses", {
@@ -82,11 +161,11 @@ export const handler = async (event) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || "gpt-5-mini",
+        model,
         store: false,
         instructions: SYSTEM_PROMPT,
         input: messages,
-        max_output_tokens: 350,
+        max_output_tokens: 250,
       }),
     });
 
@@ -96,13 +175,40 @@ export const handler = async (event) => {
 
     const data = await response.json();
     const answer = extractOutputText(data);
+    const usage = data?.usage || {};
+
+    logChatEvent({
+      source: answer ? "ai" : "local",
+      reason: answer ? "completed" : "empty_ai_output",
+      model,
+      rateLimited: false,
+      inputTokens: usage.input_tokens ?? null,
+      cachedInputTokens: usage.input_tokens_details?.cached_tokens ?? null,
+      outputTokens: usage.output_tokens ?? null,
+      reasoningTokens: usage.output_tokens_details?.reasoning_tokens ?? null,
+      totalTokens: usage.total_tokens ?? null,
+    });
 
     return json(200, {
       answer: answer || getFallbackAnswer(latestUserMessage),
       source: answer ? "ai" : "local",
     });
   } catch (error) {
-    console.error("Chat assistant error:", error);
+    console.error(
+      JSON.stringify({
+        event: "chat_assistant_error",
+        timestamp: new Date().toISOString(),
+        message: error instanceof Error ? error.message : "Unknown chat error",
+      })
+    );
+
+    logChatEvent({
+      source: "local",
+      reason: "ai_request_error",
+      model,
+      rateLimited: false,
+    });
+
     return json(200, {
       answer: getFallbackAnswer(latestUserMessage),
       source: "local",
