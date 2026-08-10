@@ -6,7 +6,7 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 
 export const ROUTE_SEO = {
   "/": {
-    title: "B Squared Solutions | Custom Web Design & Development",
+    title: "Denver Web Design & Development | B Squared Solutions",
     description:
       "Denver-based web design and development for small businesses, including custom React sites, CMS builds, SEO, templates, and ongoing support.",
     path: "/",
@@ -30,7 +30,7 @@ export const ROUTE_SEO = {
     imageAlt: "B Squared Solutions website packages and pricing",
   },
   "/products": {
-    title: "Web Development Services | B Squared Solutions",
+    title: "Web Development & SEO Services | B Squared Solutions",
     description:
       "Custom React/Tailwind builds, UX design, SEO & analytics, and ongoing support—fast, scalable, and easy to manage.",
     path: "/products",
