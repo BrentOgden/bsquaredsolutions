@@ -32,6 +32,7 @@ const BasicTemplate = lazy(() => import("./pages/BasicTemplate"));
 const SmallBusinessTemplate = lazy(() => import("./pages/SmallBusinessTemplate"));
 const ContactPage = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const ChatAssistant = lazy(() => import("./components/ChatAssistant"));
 
 export default function App() {
   return (
@@ -83,6 +84,9 @@ export default function App() {
           </main>
 
           <Footer />
+          <Suspense fallback={null}>
+            <ChatAssistant />
+          </Suspense>
         </div>
       </Router>
     </HelmetProvider>
