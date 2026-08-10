@@ -10,7 +10,9 @@ const app = (
   </React.StrictMode>
 );
 
-if (rootElement.hasChildNodes()) {
+if (rootElement.dataset.seoStatic === "true") {
+  createRoot(rootElement).render(app);
+} else if (rootElement.hasChildNodes()) {
   hydrateRoot(rootElement, app);
 } else {
   createRoot(rootElement).render(app);
