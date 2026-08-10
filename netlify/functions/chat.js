@@ -9,15 +9,14 @@ Use only the approved business information below. Be concise, friendly, and usef
 
 ${BUSINESS_KNOWLEDGE}`;
 
-function json(statusCode, body) {
-  return {
-    statusCode,
+function json(body, init = {}) {
+  return Response.json(body, {
+    ...init,
     headers: {
-      "Content-Type": "application/json",
       "Cache-Control": "no-store",
+      ...(init.headers || {}),
     },
-    body: JSON.stringify(body),
-  };
+  });
 }
 
 function extractOutputText(data) {
@@ -42,16 +41,27 @@ function logChatEvent(details) {
   );
 }
 
-export const handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return json(405, { error: "Method not allowed" });
+export default async (request) => {
+  const apiKey = process.env.OPENAI_API_KEY;
+  const model = process.env.OPENAI_MODEL || "gpt-5-mini";
+
+  if (request.method === "GET") {
+    return json({
+      status: "ok",
+      aiConfigured: Boolean(apiKey),
+      model,
+    });
+  }
+
+  if (request.method !== "POST") {
+    return json({ error: "Method not allowed" }, { status: 405 });
   }
 
   let body;
   try {
-    body = JSON.parse(event.body || "{}");
+    body = await request.json();
   } catch {
-    return json(400, { error: "Invalid JSON" });
+    return json({ error: "Invalid JSON" }, { status: 400 });
   }
 
   const messages = Array.isArray(body?.messages)
@@ -73,23 +83,20 @@ export const handler = async (event) => {
     .find((message) => message.role === "user")?.content;
 
   if (!latestUserMessage) {
-    return json(400, { error: "A user message is required" });
+    return json({ error: "A user message is required" }, { status: 400 });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     logChatEvent({
       source: "local",
       reason: "missing_api_key",
     });
 
-    return json(200, {
+    return json({
       answer: getFallbackAnswer(latestUserMessage),
       source: "local",
     });
   }
-
-  const model = process.env.OPENAI_MODEL || "gpt-5-mini";
 
   try {
     const response = await fetch("https://api.openai.com/v1/responses", {
@@ -108,7 +115,10 @@ export const handler = async (event) => {
     });
 
     if (!response.ok) {
-      throw new Error(`OpenAI request failed with ${response.status}`);
+      const errorBody = await response.text();
+      throw new Error(
+        `OpenAI request failed with ${response.status}: ${errorBody.slice(0, 300)}`
+      );
     }
 
     const data = await response.json();
@@ -126,7 +136,7 @@ export const handler = async (event) => {
       totalTokens: usage.total_tokens ?? null,
     });
 
-    return json(200, {
+    return json({
       answer: answer || getFallbackAnswer(latestUserMessage),
       source: answer ? "ai" : "local",
     });
@@ -145,7 +155,7 @@ export const handler = async (event) => {
       model,
     });
 
-    return json(200, {
+    return json({
       answer: getFallbackAnswer(latestUserMessage),
       source: "local",
     });
@@ -153,10 +163,10 @@ export const handler = async (event) => {
 };
 
 export const config = {
-  path: "/.netlify/functions/chat",
+  path: "/api/chat",
   rateLimit: {
     windowLimit: 30,
-    windowSize: 600,
+    windowSize: 180,
     aggregateBy: ["domain", "ip"],
   },
 };
