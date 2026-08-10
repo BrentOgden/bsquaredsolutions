@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "gen:sitemap": "node scripts/sitemap.mjs",
-    "prebuild": "puppeteer browsers install chrome",
+    "prebuild": "node scripts/install-prerender-browser.mjs",
     "build": "npm run gen:sitemap && vite build && node scripts/prerender-meta.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
