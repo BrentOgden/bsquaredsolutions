@@ -13,11 +13,35 @@ import {
   getFallbackAnswer,
 } from "../data/chatKnowledge";
 
+const SESSION_AI_REQUEST_LIMIT = 20;
+const SESSION_AI_REQUESTS_KEY = "bsquared_chat_ai_requests";
+
 const INITIAL_MESSAGE = {
   role: "assistant",
   content:
     "Hi! I can help with B Squared Solutions services, pricing, timelines, SEO, templates, and maintenance. What can I help you with?",
 };
+
+function getStoredAiRequestCount() {
+  if (typeof window === "undefined") return 0;
+
+  try {
+    const stored = Number(window.sessionStorage.getItem(SESSION_AI_REQUESTS_KEY));
+    return Number.isFinite(stored) && stored > 0 ? stored : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function storeAiRequestCount(count) {
+  if (typeof window === "undefined") return;
+
+  try {
+    window.sessionStorage.setItem(SESSION_AI_REQUESTS_KEY, String(count));
+  } catch {
+    // Chat remains usable even when sessionStorage is unavailable.
+  }
+}
 
 function MessageBubble({ message }) {
   const isUser = message.role === "user";
@@ -42,6 +66,7 @@ export default function ChatAssistant() {
   const [messages, setMessages] = useState([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
+  const [aiRequestCount, setAiRequestCount] = useState(getStoredAiRequestCount);
   const messagesRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -56,6 +81,13 @@ export default function ChatAssistant() {
     el.scrollTop = el.scrollHeight;
   }, [messages, sending]);
 
+  const addLocalAnswer = (text) => {
+    setMessages((current) => [
+      ...current,
+      { role: "assistant", content: getFallbackAnswer(text) },
+    ]);
+  };
+
   const sendMessage = async (value) => {
     const text = String(value || "").trim();
     if (!text || sending) return;
@@ -66,6 +98,12 @@ export default function ChatAssistant() {
     setMessages(nextMessages);
     setInput("");
     setSending(true);
+
+    if (aiRequestCount >= SESSION_AI_REQUEST_LIMIT) {
+      addLocalAnswer(text);
+      setSending(false);
+      return;
+    }
 
     try {
       const response = await fetch("/.netlify/functions/chat", {
@@ -84,15 +122,20 @@ export default function ChatAssistant() {
       const answer = String(data?.answer || "").trim();
       if (!answer) throw new Error("Empty chat response");
 
+      if (data?.source === "ai") {
+        setAiRequestCount((current) => {
+          const nextCount = Math.min(current + 1, SESSION_AI_REQUEST_LIMIT);
+          storeAiRequestCount(nextCount);
+          return nextCount;
+        });
+      }
+
       setMessages((current) => [
         ...current,
         { role: "assistant", content: answer },
       ]);
     } catch {
-      setMessages((current) => [
-        ...current,
-        { role: "assistant", content: getFallbackAnswer(text) },
-      ]);
+      addLocalAnswer(text);
     } finally {
       setSending(false);
     }
