@@ -52,6 +52,14 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
   {
+    slug: "react-vs-wordpress-small-business-websites",
+    title: "React vs. WordPress for Small Business Websites: Which Is Right?",
+    date: "August 17, 2026",
+    excerpt:
+      "Learn what small business website maintenance should include, how often key tasks should be completed, and when ongoing suppoCompare React and WordPress for small business websites, including cost, performance, editing, SEO, maintenance, and long-term scalability.",
+    image: "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg",
+  },
+  {
     slug: "website-maintenance-for-small-businesses",
     title: "Website Maintenance for Small Businesses: What You Actually Need",
     date: "August 3, 2026",
