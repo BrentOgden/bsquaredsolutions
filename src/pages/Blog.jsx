@@ -52,6 +52,14 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
   {
+    slug: "why-is-my-small-business-website-slow",
+    title: "Why Is My Small Business Website Slow?",
+    date: "August 31, 2026",
+    excerpt:
+      "Discover 10 common causes of a slow small business website and practical ways to improve page speed, user experience, SEO, and conversions.",
+    image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg",
+  },
+  {
     slug: "react-vs-wordpress-small-business-websites",
     title: "React vs. WordPress for Small Business Websites: Which Is Right?",
     date: "August 17, 2026",
