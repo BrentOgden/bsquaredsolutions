@@ -51,6 +51,14 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
+   {
+    slug: "small-business-website-redesign-timeline",
+    title: "How Long Does a Small Business Website Redesign Take?",
+    date: "September 14, 2026",
+    excerpt:
+      "Learn how long a small business website redesign takes, what affects the timeline, and how to prepare for a smoother, more efficient project.",
+    image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg",
+  },
   {
     slug: "why-is-my-small-business-website-slow",
     title: "Why Is My Small Business Website Slow?",
