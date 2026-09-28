@@ -1,6 +1,6 @@
 // netlify/functions/subscribe.js
 // Node 18+ (global fetch)
-require('dotenv').config();
+import 'dotenv/config';
 import { createHash } from 'crypto';
 
 const headers = {

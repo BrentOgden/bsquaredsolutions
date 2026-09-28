@@ -123,7 +123,7 @@ async function createNoteOnContact(contactId, noteBody, token) {
   return r.data?.id
 }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return json(405, { error: 'Method Not Allowed' })
   }

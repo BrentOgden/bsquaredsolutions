@@ -137,7 +137,7 @@ async function createNoteOnContact(contactId, noteHtml, token) {
   return r.data?.id
 }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   if (event.httpMethod !== 'POST') return resp(405, { error: 'Method Not Allowed' })
 
   const token = process.env.HUBSPOT_PRIVATE_APP_TOKEN
