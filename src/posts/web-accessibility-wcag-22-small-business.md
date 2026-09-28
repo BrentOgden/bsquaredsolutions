@@ -20,6 +20,8 @@ Accessibility follows the **POUR** principles: *Perceivable, Operable, Understan
 
 ## Quick WCAG 2.2 AA checklist (copy/paste)
 
+For explanations and implementation examples before you work through the checklist, read our [web accessibility basics for small businesses](/blog/web-accessibility-basics-small-business-guide/).
+
 ### Content & media
 - [ ] Every meaningful image has descriptive 'alt' text (decorative images use empty alt 'alt=""').
 - [ ] Videos include **captions**; important audio has **transcripts**.
@@ -95,3 +97,5 @@ Start with color contrast, keyboard access, and labels/captions. These deliver t
 ## Need help?
 
 We can run a quick audit, prioritize fixes, and ship improvements that help everyone—*and* your bottom line.
+
+[Discuss an accessibility review for your website](/contact/), and include repeat testing in your [website maintenance checklist](/blog/website-maintenance-for-small-businesses/).

@@ -1,6 +1,7 @@
 // src/components/Portfolio.jsx
 import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 // Screenshots
 import socials from '../assets/screenshots/denversocials_com_hero.png'
@@ -58,18 +59,28 @@ function Parallax({ speed, axis, respectPRM = true, className = '', children }) 
 
 /* ── Data ────────────────────────────────────────────────────────────── */
 const projects = [
-  { id: 1, title: 'Denver Socials', description: 'A community-first networking hub that curates and promotes local social gatherings to support Denver nonprofits and impact organizations. The homepage showcases upcoming mixers, volunteer events, and fundraisers—each with RSVP links and event highlights—making it easy for professionals and changemakers to connect, give back, and stay plugged into the city’s social good scene.', imageUrl: socials, url: 'https://denver-socials.netlify.app' },
-  { id: 2, title: 'Sustainable Geospatial', description: 'A Denver-based GIS consulting firm delivering end-to-end geospatial solutions for environmental and planning projects. The site highlights services like remote sensing & spectral analysis, LiDAR & photogrammetric 3D modeling, custom web mapping, and cartographic design—all underpinned by a commitment to sustainability, people, planet, and profit. Clients can explore case-study galleries, download spec sheets, and schedule consultations directly through the streamlined contact form.', imageUrl: geo, url: 'https://sustainable-geo.netlify.app' },
-  { id: 3, title: 'A-Denver Roofing', description: 'A lead-focused landing page for a full-service roofing contractor in Denver, optimized for conversions with sticky CTAs, testimonial sliders, and clear breakdowns of residential & commercial roofing, gutter, siding, and exterior painting services. Built on WordPress with SEO-friendly schema markup, fast load speeds, and mobile-first design, it drives free estimates via an above-the-fold contact form and highlights their Weather Stopper Guarantee and A+ BBB rating.', imageUrl: adenver, url: 'https://www.a-denverroofing.com/residential-roofing-lp/' },
-  { id: 4, title: 'Ranger Golden Stud', description: 'An AKC-registered Golden Retriever stud service site, showcasing “Ranger of the Rocky Mountains”—a health-tested, OFA-certified male with champion bloodlines. The simple brochure layout features a photo gallery, pedigree and health information, service details (including pricing and booking), and contact info for breeders seeking top-quality litters.', imageUrl: ranger, url: 'https://rangergoldenstud.com' },
-  { id: 5, title: 'PSP Compass Solutions', description: 'A Denver digital marketing agency that guides businesses through every step of the online landscape. The homepage (“Find True North”) presents their People+Service=Profit philosophy, and outlines core offerings—Google Ads, email campaigns, social media management, website design, and local SEO—alongside a free online presence scan tool. Each service section includes quick consultation CTAs, client success stories, and a clear process flow from research to support.', imageUrl: psp, url: 'https://www.pspcompass.com' },
-  { id: 6, title: 'Mile High Mashup', description: 'A custom-built, mobile-first sports hub for Denver fans, Mile High Mashup delivers non-stop coverage of the Broncos, Nuggets, Avalanche and Mammoth. The site opens with a bold hero and calls-to-action, then breaks content into clear, tabbed sections—News, Videos, Classic Moments and “Did You Know?” team-fact cards—each powered by high-res logos and imagery. An interactive scoreboard preview surfaces recent game results, while deep-dive team stat panels showcase division titles, playoff runs and championship histories. All wrapped in a vibrant, responsive layout that keeps Mile High City supporters connected to every headline, highlight and historic moments.', imageUrl: milehigh, url: 'https://milehighmashup.com' },
-  { id: 7, title: 'Fantasy Central', description: 'A custom-built React/Tailwind web app that serves as the central hub for two fantasy-football leagues, featuring real-time standings, league awards and statistics, and a live countdown to draft day. Integrated with MyFantasyLeague and CBS Sports for up-to-the-minute stats, it offers managers an intuitive dashboard of team records, weekly awards, and dynasty-league insights—all wrapped in a modern, responsive design optimized for both desktop and mobile.', imageUrl: fantasy, url: 'https://fantasycentral.co' },
-  { id: 8, title: 'J & B Simplyclean', description: 'J & B Simply Clean’s site is a polished, mobile-first build for a family-owned cleaning business in Berthoud, CO, showcasing their core offerings—carpet cleaning, air-duct cleaning, water extraction and more—in a clear, service-focused layout. A prominent “Request a Quote” form and click-to-call button drive lead capture, while dedicated pages dive into each service with SEO-optimized copy, pricing transparency (“soft quotes” followed by firm bids), and trust signals like competitive pricing, timely arrival windows, and honest estimates. The site also includes a secure client login portal, an about section that reinforces their family-run ethos, and a footer with full contact details and site navigation—all wrapped in a responsive, user-friendly design that performs seamlessly on desktop and mobile.', imageUrl: jb, url: 'https://jbsimplyclean.com' },
+  { id: 1, slug: 'denver-socials', title: 'Denver Socials', description: 'A community-first networking hub that curates and promotes local social gatherings to support Denver nonprofits and impact organizations. The homepage showcases upcoming mixers, volunteer events, and fundraisers—each with RSVP links and event highlights—making it easy for professionals and changemakers to connect, give back, and stay plugged into the city’s social good scene.', imageUrl: socials, url: 'https://denver-socials.netlify.app' },
+  { id: 2, slug: 'sustainable-geospatial', title: 'Sustainable Geospatial', description: 'A Denver-based GIS consulting firm delivering end-to-end geospatial solutions for environmental and planning projects. The site highlights services like remote sensing & spectral analysis, LiDAR & photogrammetric 3D modeling, custom web mapping, and cartographic design—all underpinned by a commitment to sustainability, people, planet, and profit. Clients can explore case-study galleries, download spec sheets, and schedule consultations directly through the streamlined contact form.', imageUrl: geo, url: 'https://sustainable-geo.netlify.app' },
+  { id: 3, slug: 'a-denver-roofing', title: 'A-Denver Roofing', description: 'A lead-focused landing page for a full-service roofing contractor in Denver, optimized for conversions with sticky CTAs, testimonial sliders, and clear breakdowns of residential & commercial roofing, gutter, siding, and exterior painting services. Built on WordPress with SEO-friendly schema markup, fast load speeds, and mobile-first design, it drives free estimates via an above-the-fold contact form and highlights their Weather Stopper Guarantee and A+ BBB rating.', imageUrl: adenver, url: 'https://www.a-denverroofing.com/residential-roofing-lp/' },
+  { id: 4, slug: 'ranger-golden-stud', title: 'Ranger Golden Stud', description: 'An AKC-registered Golden Retriever stud service site, showcasing “Ranger of the Rocky Mountains”—a health-tested, OFA-certified male with champion bloodlines. The simple brochure layout features a photo gallery, pedigree and health information, service details (including pricing and booking), and contact info for breeders seeking top-quality litters.', imageUrl: ranger, url: 'https://rangergoldenstud.com' },
+  { id: 5, slug: 'psp-compass-solutions', title: 'PSP Compass Solutions', description: 'A Denver digital marketing agency that guides businesses through every step of the online landscape. The homepage (“Find True North”) presents their People+Service=Profit philosophy, and outlines core offerings—Google Ads, email campaigns, social media management, website design, and local SEO—alongside a free online presence scan tool. Each service section includes quick consultation CTAs, client success stories, and a clear process flow from research to support.', imageUrl: psp, url: 'https://www.pspcompass.com' },
+  { id: 6, slug: 'mile-high-mashup', title: 'Mile High Mashup', description: 'A custom-built, mobile-first sports hub for Denver fans, Mile High Mashup delivers non-stop coverage of the Broncos, Nuggets, Avalanche and Mammoth. The site opens with a bold hero and calls-to-action, then breaks content into clear, tabbed sections—News, Videos, Classic Moments and “Did You Know?” team-fact cards—each powered by high-res logos and imagery. An interactive scoreboard preview surfaces recent game results, while deep-dive team stat panels showcase division titles, playoff runs and championship histories. All wrapped in a vibrant, responsive layout that keeps Mile High City supporters connected to every headline, highlight and historic moments.', imageUrl: milehigh, url: 'https://milehighmashup.com' },
+  { id: 7, slug: 'fantasy-central', title: 'Fantasy Central', description: 'A custom-built React/Tailwind web app that serves as the central hub for two fantasy-football leagues, featuring real-time standings, league awards and statistics, and a live countdown to draft day. Integrated with MyFantasyLeague and CBS Sports for up-to-the-minute stats, it offers managers an intuitive dashboard of team records, weekly awards, and dynasty-league insights—all wrapped in a modern, responsive design optimized for both desktop and mobile.', imageUrl: fantasy, url: 'https://fantasycentral.co' },
+  { id: 8, slug: 'j-b-simplyclean', title: 'J & B Simplyclean', description: 'J & B Simply Clean’s site is a polished, mobile-first build for a family-owned cleaning business in Berthoud, CO, showcasing their core offerings—carpet cleaning, air-duct cleaning, water extraction and more—in a clear, service-focused layout. A prominent “Request a Quote” form and click-to-call button drive lead capture, while dedicated pages dive into each service with SEO-optimized copy, pricing transparency (“soft quotes” followed by firm bids), and trust signals like competitive pricing, timely arrival windows, and honest estimates. The site also includes a secure client login portal, an about section that reinforces their family-run ethos, and a footer with full contact details and site navigation—all wrapped in a responsive, user-friendly design that performs seamlessly on desktop and mobile.', imageUrl: jb, url: 'https://jbsimplyclean.com' },
 ]
 
 /* ── Component ───────────────────────────────────────────────────────── */
 export default function Portfolio() {
+  // Resolve project deep links after this lazy-loaded grid has mounted.
+  useEffect(() => {
+    const slug = window.location.hash.slice(1)
+    if (!projects.some((project) => project.slug === slug)) return
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(slug)?.scrollIntoView({ block: 'start', behavior: 'instant' })
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [])
+
   /* Build JSON-LD from the projects (head-only, no visual changes) */
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -113,14 +124,29 @@ export default function Portfolio() {
       {/* GRID */}
       <section id="work" className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
+          <div className="mb-10 max-w-3xl text-gray-700">
+            <h2 className="mb-4 text-3xl font-semibold text-primary">Website projects for different business needs</h2>
+            <p>
+              Explore service-business websites, community platforms, and custom web apps.
+              A-Denver Roofing illustrates a WordPress landing page focused on estimate requests;
+              Ranger Golden Stud organizes service and health information for breeders;
+              Fantasy Central brings league standings and statistics into a React dashboard.
+              Each project summary below explains the audience, content, and features behind the work.
+            </p>
+            <p className="mt-4">
+              Compare our <Link to="/packages/" className="font-semibold text-primary underline underline-offset-4">website packages</Link> with the features you need,
+              then <Link to="/contact/" className="font-semibold text-primary underline underline-offset-4">discuss a website project for your business</Link>.
+            </p>
+          </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
               <motion.a
                 key={project.id}
+                id={project.slug}
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group block overflow-hidden rounded-2xl bg-white shadow-lg"
+                className="group block scroll-mt-28 overflow-hidden rounded-2xl bg-white shadow-lg"
                 whileHover={{ scale: 1.03 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >

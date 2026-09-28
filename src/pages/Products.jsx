@@ -118,6 +118,12 @@ export default function Products() {
               Build Faster. <span className="text-primary">Rank Higher.</span> Convert More.
             </h2>
 
+            <p className="mx-auto mt-6 max-w-3xl text-center text-gray-700">
+              Compare <Link to="/packages/" className="font-semibold text-primary underline underline-offset-4">website build and support packages</Link>,
+              explore <Link to="/portfolio/" className="font-semibold text-primary underline underline-offset-4">completed business websites and web apps</Link>,
+              or <Link to="/contact/" className="font-semibold text-primary underline underline-offset-4">discuss your website goals with B Squared Solutions</Link>.
+            </p>
+
             {/* Staggered reveal container */}
             <motion.div
               className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2"
@@ -135,7 +141,7 @@ export default function Products() {
                       Web Development
                     </p>
                     <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                      Launch a custom site that looks great, loads instantly, and scales with your business. We build modern front-ends in React and Tailwind CSS, can integrate the CMS you prefer, and ship production-ready code tuned for performance, accessibility, and SEO.
+                      Launch a custom site that looks great, loads instantly, and scales with your business. We build modern front-ends in React and Tailwind CSS, can integrate the CMS you prefer, and ship production-ready code tuned for performance, accessibility, and SEO. See our <a href="/portfolio/#fantasy-central" className="font-semibold text-primary underline underline-offset-4">Fantasy Central React dashboard project</a> for an example of a custom interface built around league data.
                     </p>
                   </div>
                   <div className="@container relative min-h-120 w-full grow max-lg:mx-auto max-lg:max-w-sm">
@@ -156,7 +162,7 @@ export default function Products() {
                       Design & Consulting
                     </p>
                     <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                      Whether you’re redesigning or planning a new build, get expert guidance on structure, usability, and tech choices. We turn goals into a clear architecture, wireframes, and an implementation plan that saves time and avoids rework.
+                      Whether you’re redesigning or planning a new build, get expert guidance on structure, usability, and tech choices. We turn goals into a clear architecture, wireframes, and an implementation plan that saves time and avoids rework. Start with our <Link to="/blog/small-business-website-redesign-timeline/" className="font-semibold text-primary underline underline-offset-4">small business redesign planning guide</Link> and <Link to="/blog/web-accessibility-basics-small-business-guide/" className="font-semibold text-primary underline underline-offset-4">practical website accessibility guide</Link>.
                     </p>
                   </div>
                   <div className="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
@@ -192,7 +198,7 @@ export default function Products() {
                       Ongoing Comprehensive Support
                     </p>
                     <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                      Keep your site secure, fast, and up-to-date. We handle plugin/theme updates, backups, uptime monitoring, bug fixes, and content updates & site enhancements—so you can focus on the business.
+                      Keep your site secure, fast, and up-to-date. We handle plugin/theme updates, backups, uptime monitoring, bug fixes, and content updates & site enhancements—so you can focus on the business. Our <Link to="/blog/website-maintenance-for-small-businesses/" className="font-semibold text-primary underline underline-offset-4">website maintenance checklist</Link> explains the ongoing checks to plan for.
                     </p>
                   </div>
                   <div className="relative min-h-150 w-full grow">

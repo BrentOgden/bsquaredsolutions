@@ -13,6 +13,8 @@ Redesigns are when good SEO dies—usually from broken URLs, missing metadata, o
 
 ## Phase 1 — Benchmark & audit (before any pixels move)
 
+Place these SEO tasks in your project schedule using our [small business redesign timeline guide](/blog/small-business-website-redesign-timeline/).
+
 - **Baseline KPIs**: organic sessions, impressions, clicks, rankings, conversions.  
 - **Full crawl** of the current site (Screaming Frog/Sitebulb) and export:  
   - URLs, titles, meta descriptions, canonicals  
@@ -58,6 +60,8 @@ Redesigns are when good SEO dies—usually from broken URLs, missing metadata, o
 - Spot-check top organic landing pages for parity.
 
 ## Phase 7 — Post-launch monitoring (first 2–4 weeks)
+
+After the launch window, use the [website maintenance checklist](/blog/website-maintenance-for-small-businesses/) to keep reviewing links, forms, performance, and indexing. [Discuss your redesign and SEO handoff requirements](/contact/) if you need help defining responsibilities.
 
 - **Daily**: 404s, server errors, unexpected 302s; fix quickly.  
 - **Weekly**: performance (LCP/CLS/INP), index coverage, sitemap status, ranking deltas.  

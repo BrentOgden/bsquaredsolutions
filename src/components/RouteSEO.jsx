@@ -177,7 +177,8 @@ const ROUTE_META = {
 
 export default function RouteSEO() {
   const { pathname } = useLocation();
-  const meta = ROUTE_META[pathname];
+  const normalizedPath = pathname.replace(/\/+$/, "") || "/";
+  const meta = ROUTE_META[normalizedPath];
 
   if (!meta) return null;
 

@@ -18,6 +18,8 @@ In reality, a website is a living digital asset. Without regular maintenance, pe
 
 Website maintenance is the ongoing process of checking your website for issues, keeping software updated, backing up data, and ensuring the user experience remains seamless.
 
+For a practical schedule, follow our [small business website maintenance checklist](/blog/website-maintenance-for-small-businesses/). When comparing providers, review [what a website maintenance plan typically includes](/blog/website-maintenance/).
+
 Think of it like changing the oil and rotating the tires on a car—neglect it long enough, and a breakdown is inevitable.
 
 ---

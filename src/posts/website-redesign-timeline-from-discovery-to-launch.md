@@ -11,6 +11,8 @@ Redesigning a website is rarely “just swapping out pages.” A successful rede
 
 Below is a **realistic website redesign timeline**, based on how modern small-business projects actually run.
 
+This phase overview focuses on deliverables. For scope differences and preparation steps, read [how long a small business website redesign takes](/blog/small-business-website-redesign-timeline/).
+
 ---
 
 ## Phase 1: Discovery & Strategy (1–2 weeks)
@@ -120,6 +122,8 @@ Launching isn’t the finish line.
 
 Smart teams plan a **30-day post-launch refinement window**.
 
+Build in the checks from our [redesign SEO preservation guide](/blog/website-redesign-without-losing-seo/) before launch, then establish an [ongoing maintenance routine](/blog/website-maintenance-for-small-businesses/).
+
 ---
 
 ## Typical Redesign Timeline (At a Glance)
@@ -148,3 +152,5 @@ Smart teams plan a **30-day post-launch refinement window**.
 A website redesign succeeds when expectations are realistic. Clear phases, defined responsibilities, and structured approvals keep projects moving—and protect your budget.
 
 If you want help scoping a redesign that stays on schedule, start with strategy before pixels.
+
+Review our [business website project portfolio](/portfolio/) for examples of different scopes, then [discuss your redesign requirements and target launch date](/contact/).

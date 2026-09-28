@@ -272,6 +272,8 @@ SEO planning and content migration may add several days or weeks, depending on t
 
 ## 7. Testing and Quality Assurance
 
+Use the [web accessibility basics guide](/blog/web-accessibility-basics-small-business-guide/) to plan manual usability checks and the [redesign SEO preservation checklist](/blog/website-redesign-without-losing-seo/) to review redirects, metadata, and indexing before launch.
+
 A website should be tested as a complete customer experience before launch.
 
 Testing should cover:
@@ -313,6 +315,8 @@ Quality assurance commonly takes several days to two weeks. Complex features req
 ---
 
 ## 8. Launch and Post-Launch Review
+
+Assign responsibility for the recurring checks in our [small business website maintenance guide](/blog/website-maintenance-for-small-businesses/) so launch support becomes an ongoing routine.
 
 Launching the website involves more than publishing new files.
 
@@ -557,6 +561,8 @@ If several items remain unresolved, the project may still begin with discovery, 
 ---
 
 ## Questions to Ask a Website Developer
+
+Compare the features in our [completed business websites and web apps](/portfolio/) with your own requirements. For a concise breakdown of deliverables at each stage, see [redesign phases from discovery to launch](/blog/website-redesign-timeline-from-discovery-to-launch/).
 
 Before approving a redesign schedule, ask:
 

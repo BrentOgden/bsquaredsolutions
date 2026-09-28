@@ -644,6 +644,12 @@ export default function Packages({ packages = packagesData }) {
             />
           </div>
 
+          <p className="mx-auto max-w-3xl text-center text-white/90">
+            See how different project needs translate into finished work: explore the <a href="/portfolio/#a-denver-roofing" className="font-semibold text-white underline underline-offset-4">A-Denver Roofing WordPress landing page</a> and
+            the <a href="/portfolio/#fantasy-central" className="font-semibold text-white underline underline-offset-4">Fantasy Central React web app</a> in our portfolio.
+            For help choosing a scope, <Link to="/contact/" className="font-semibold text-white underline underline-offset-4">discuss your website build or redesign</Link>.
+          </p>
+
           {/* SECTION 2: DIY Templates — standard responsive grid */}
           <div className="pt-10 pb-8">
             <SectionBlock
@@ -670,6 +676,10 @@ export default function Packages({ packages = packagesData }) {
               onCtaClick={handleCtaClick}
               marquee={false}
             />
+            <p className="mx-auto mt-6 max-w-3xl text-center text-white/90">
+              Before choosing ongoing support, review <Link to="/blog/website-maintenance/" className="font-semibold text-white underline underline-offset-4">what website maintenance plans typically include</Link>.
+              Then <Link to="/contact/" className="font-semibold text-white underline underline-offset-4">ask about maintenance for your existing website</Link> so we can confirm the scope your site needs.
+            </p>
           </div>
         </div>
       </section>

@@ -16,6 +16,8 @@ Accessibility is sometimes treated like a technical requirement to address after
 
 This guide covers the accessibility improvements that matter most for a small business website.
 
+For a review organized by testing categories, use the companion [WCAG 2.2 accessibility checklist](/blog/web-accessibility-wcag-22-small-business/). Keep these checks in your [ongoing website maintenance routine](/blog/website-maintenance-for-small-businesses/) as content and features change.
+
 ---
 
 ## Why Web Accessibility Matters
@@ -416,3 +418,5 @@ Web accessibility is not a separate feature reserved for certain visitors. It is
 Clear structure, readable content, keyboard support, accessible forms, and thoughtful responsive design make a website easier for everyone to use.
 
 For a small business, that means more people can understand its services, trust its website, and confidently take the next step.
+
+If you need help identifying barriers in your customer journey, [discuss a website accessibility review](/contact/) and the pages or forms you want to improve.

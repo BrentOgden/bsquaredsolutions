@@ -104,6 +104,8 @@ Even comprehensive plans have limits. These items usually require a **mini-proje
 
 ## Monthly checklist (copy/paste)
 
+For a task-by-task explanation and suggested review frequency, see our [website maintenance guide for small businesses](/blog/website-maintenance-for-small-businesses/). Use the [WCAG 2.2 accessibility checklist](/blog/web-accessibility-wcag-22-small-business/) for the accessibility portion of your review.
+
 - [ ] Core, theme, and plugin updates applied  
 - [ ] Security scan reviewed and issues resolved  
 - [ ] Backup integrity **verified**; one restore test passed  
@@ -137,3 +139,5 @@ Even comprehensive plans have limits. These items usually require a **mini-proje
 ---
 
 **Want a maintenance plan that protects performance, SEO, and revenue?** Pick the tier that fits your goals now—and scales as you grow.
+
+Review our [website maintenance packages](/packages/#maintenance) and [ask which support scope fits your website](/contact/).

@@ -299,6 +299,8 @@ Accessibility testing should combine automated tools with manual checks.
 
 At minimum, confirm that important pages can be navigated with a keyboard, focus indicators remain visible, forms have clear labels, and text stays readable when enlarged.
 
+Use our [practical accessibility guide](/blog/web-accessibility-basics-small-business-guide/) for examples and the [WCAG 2.2 checklist](/blog/web-accessibility-wcag-22-small-business/) for a repeatable review.
+
 ---
 
 ## SEO Maintenance
@@ -443,6 +445,8 @@ Useful questions include:
 - Will I receive a summary of completed work?
 
 A maintenance plan should define its scope clearly. “Website support” can mean anything from basic software updates to ongoing development, content management, and SEO improvements.
+
+Compare [typical maintenance inclusions and exclusions](/blog/website-maintenance/) with our [website maintenance packages](/packages/#maintenance), then [discuss support for your existing site](/contact/). If the work changes the site structure or platform, plan it separately with our [small business redesign timeline guide](/blog/small-business-website-redesign-timeline/).
 
 ---
 
