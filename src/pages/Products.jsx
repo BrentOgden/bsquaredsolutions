@@ -119,9 +119,9 @@ export default function Products() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-3xl text-center text-gray-700">
-              Compare <Link to="/packages/" className="font-semibold text-primary underline underline-offset-4">website build and support packages</Link>,
-              explore <Link to="/portfolio/" className="font-semibold text-primary underline underline-offset-4">completed business websites and web apps</Link>,
-              or <Link to="/contact/" className="font-semibold text-primary underline underline-offset-4">discuss your website goals with B Squared Solutions</Link>.
+              Compare <Link to="/packages/" className="font-semibold text-primary">website build and support packages</Link>,
+              explore <Link to="/portfolio/" className="font-semibold text-primary">completed business websites and web apps</Link>,
+              or <Link to="/contact/" className="font-semibold text-primary">discuss your website goals with B Squared Solutions</Link>.
             </p>
 
             {/* Staggered reveal container */}
