@@ -46,126 +46,34 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 }
 
 export default function Contact() {
-  const didInitRef = useRef(false);
-  const embedRef = useRef(null);
-
   useEffect(() => {
-    if (didInitRef.current) return;
-    didInitRef.current = true;
+    const scriptSrc = "https://myformflow.io/embed/widget.js";
+    let cancelled = false;
 
-    const SCRIPT_SRC = "https://myformflow.io/embed/widget.js";
-    const containerId = "formflow-embed";
-    const MAX_ATTEMPTS = 8;           // ~ up to ~3–4s total with backoff
-    const BASE_DELAY_MS = 250;
-
-    const getContainer = () => document.getElementById(containerId);
-
-    const isMounted = () => {
-      const el = getContainer();
-      if (!el) return false;
-      // Consider mounted if it injected anything (common case: iframe)
-      if (el.children.length > 0) return true;
-      if (el.innerHTML.trim().length > 0) return true;
-      return false;
+    const initialize = () => {
+      if (!cancelled) window.FormflowWidget?.init();
     };
 
-    const tryRender = () => {
-      try {
-        if (window.Formflow?.render) window.Formflow.render();
-        else if (window.Formflow?.init) window.Formflow.init();
-      } catch (e) {
-        // swallow and let the retry handle it
-      }
-    };
-
-    const initWithRetry = (attempt = 1) => {
-      const el = getContainer();
-      if (!el) {
-        // container not in DOM yet; wait a tick
-        setTimeout(() => initWithRetry(attempt), BASE_DELAY_MS);
-        return;
-      }
-      // If SDK loaded, try to render
-      if (window.Formflow) {
-        tryRender();
-        // If still not mounted, schedule a retry
-        if (!isMounted() && attempt < MAX_ATTEMPTS) {
-          const delay = BASE_DELAY_MS * Math.pow(1.5, attempt - 1);
-          setTimeout(() => initWithRetry(attempt + 1), delay);
-        }
-        return;
-      }
-
-      // SDK not loaded yet; load or wait for it
-      const existing = document.querySelector(`script[src="${SCRIPT_SRC}"]`);
-      if (existing) {
-        if (existing.getAttribute("data-loaded") === "true") {
-          initWithRetry(attempt);
-        } else {
-          existing.addEventListener("load", () => initWithRetry(attempt), { once: true });
-        }
-        return;
-      }
-
-      // Inject script
-      const s = document.createElement("script");
-      s.src = SCRIPT_SRC;
-      s.async = true;
-      s.defer = true;
-      s.onload = () => {
-        s.setAttribute("data-loaded", "true");
-        initWithRetry(attempt);
-      };
-      s.onerror = () => console.error("Failed to load Formflow script:", SCRIPT_SRC);
-      document.body.appendChild(s);
-    };
-
-    // Kick things off
-    initWithRetry();
-
-    // Watchdog: if container remains empty, poke the renderer periodically for a few seconds
-    const watchdogStart = Date.now();
-    const watchdog = setInterval(() => {
-      const elapsed = Date.now() - watchdogStart;
-      if (isMounted() || elapsed > 10000) {
-        clearInterval(watchdog);
-        return;
-      }
-      if (window.Formflow) tryRender();
-    }, 1200);
-
-    // Re-init when tab regains focus or becomes visible (avoids race conditions)
-    const onFocus = () => {
-      if (!isMounted() && window.Formflow) tryRender();
-    };
-    const onVisibility = () => {
-      if (document.visibilityState === "visible" && !isMounted() && window.Formflow) tryRender();
-    };
-    window.addEventListener("focus", onFocus);
-    document.addEventListener("visibilitychange", onVisibility);
-
-    // If container size was 0x0 at first paint (hidden in a tab/panel), re-init once it has size
-    let ro;
-    if (embedRef.current && "ResizeObserver" in window) {
-      ro = new ResizeObserver(() => {
-        // give it a moment to layout before checking
-        setTimeout(() => {
-          if (!isMounted() && window.Formflow) tryRender();
-        }, 50);
-      });
-      ro.observe(embedRef.current);
+    // The current widget observes dynamically mounted containers in multi-form
+    // mode and marks each one initialized, making repeated init calls safe.
+    if (window.FormflowWidget?.init) {
+      initialize();
+      return () => { cancelled = true; };
     }
 
+    let script = document.querySelector(`script[src="${scriptSrc}"]`);
+    const isNewScript = !script;
+    if (!script) {
+      script = document.createElement("script");
+      script.src = scriptSrc;
+      script.async = true;
+    }
+    script.addEventListener("load", initialize);
+    if (isNewScript) document.body.appendChild(script);
+
     return () => {
-      clearInterval(watchdog);
-      window.removeEventListener("focus", onFocus);
-      document.removeEventListener("visibilitychange", onVisibility);
-      if (ro) ro.disconnect();
-      try {
-        if (window.Formflow?.unmount && embedRef.current) {
-          window.Formflow.unmount(embedRef.current);
-        }
-      } catch {}
+      cancelled = true;
+      script.removeEventListener("load", initialize);
     };
   }, []);
 
@@ -216,8 +124,9 @@ export default function Contact() {
             >
               <div className="max-w-6xl ml-auto">
                 <div
-                  ref={embedRef}
                   id="formflow-embed"
+                  data-multiple-form="true"
+                  data-instance-id="homepage-contact"
                   data-form-id="13586481-0748-484e-9956-ca195467f084"
                   className="bg-white rounded-2xl p-4 sm:p-6"
                 />
