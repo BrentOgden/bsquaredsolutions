@@ -54,7 +54,7 @@ const posts = [
   {
     slug: "local-seo-denver-small-businesses",
     title: "Local SEO for Denver Small Businesses: A Practical Guide",
-    date: "September 29, 2026",
+    date: "September 28, 2026",
     excerpt:
       "Learn how Denver small businesses can improve local SEO through service pages, Google Business Profile optimization, reviews, content, and technical fixes.",
     image: "https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg",
