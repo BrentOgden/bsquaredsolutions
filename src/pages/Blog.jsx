@@ -67,6 +67,13 @@ const posts = [
     "image": "https://images.pexels.com/photos/1181346/pexels-photo-1181346.jpeg"
   },
   {
+    "slug": "small-business-website-traffic-no-leads",
+    "title": "Why Your Small Business Website Gets Traffic but No Leads",
+    "date": "October 12, 2026",
+    "excerpt": "Getting website traffic but no leads? Test your contact form, check which pages attract buyers, and find where potential customers stop before reaching out.",
+    "image": "https://images.pexels.com/photos/669613/pexels-photo-669613.jpeg"
+  },
+  {
     slug: "local-seo-denver-small-businesses",
     title: "Local SEO for Denver Small Businesses: A Practical Guide",
     date: "September 28, 2026",
