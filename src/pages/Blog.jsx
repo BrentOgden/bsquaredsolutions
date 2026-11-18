@@ -60,6 +60,13 @@ const posts = [
     image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg",
   },
   {
+    "slug": "website-technical-consulting-small-business",
+    "title": "Website Technical Consulting: When Does a Small Business Need It?",
+    "date": "October 26, 2026",
+    "excerpt": "Learn when website technical consulting can help a small business solve performance, platform, SEO, integration, accessibility, and growth problems.",
+    "image": "https://images.pexels.com/photos/1181346/pexels-photo-1181346.jpeg"
+  },
+  {
     slug: "local-seo-denver-small-businesses",
     title: "Local SEO for Denver Small Businesses: A Practical Guide",
     date: "September 28, 2026",
