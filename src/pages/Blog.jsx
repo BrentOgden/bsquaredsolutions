@@ -52,6 +52,14 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
   {
+    slug: "small-business-website-cost-guide",
+    title: "How Much Does a Small Business Website Cost? A Practical Guide",
+    date: "November 9, 2026",
+    excerpt:
+      "Learn what affects small business website cost, how custom builds compare with templates, and what to include in a realistic project budget.",
+    image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg",
+  },
+  {
     slug: "local-seo-denver-small-businesses",
     title: "Local SEO for Denver Small Businesses: A Practical Guide",
     date: "September 28, 2026",
