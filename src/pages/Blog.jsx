@@ -52,6 +52,13 @@ function Parallax({ speed, axis, respectPRM = true, className = "", children }) 
 /* ── Posts (sample) ─────────────────────────────────────────────────── */
 const posts = [
   {
+    "slug": "website-estimate-calculator",
+    "title": "Does Your Service Business Need a Website Estimate Calculator?",
+    "date": "November 23, 2026",
+    "excerpt": "Decide whether a website estimate calculator is worth building. Test your pricing rules, handle exceptions, and choose when to show a range instead.",
+    "image": "https://images.pexels.com/photos/669613/pexels-photo-669613.jpeg"
+  },
+  {
     slug: "small-business-website-cost-guide",
     title: "How Much Does a Small Business Website Cost? A Practical Guide",
     date: "November 9, 2026",
